@@ -1,0 +1,101 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  npm_cache: $(Build.SourcesDirectory)/node_modules
+  cypress_cache: $(Build.SourceDirectory)/cypress
+
+steps:
+  - task: Cache@2
+    displayName: Cache NPM packages
+    inputs:
+      key: npm | $(Agent.OS) | $(Build.SourcesDirectory)/package-lock.json
+      restoreKeys: npm | $(Agent.OS) | $(Build.SourcesDirectory)/package-lock.json
+      path: $(npm_cache)
+      cacheHitVar: CACHE_RESTORED
+
+  - script: npm install --quiet
+    displayName: 'Install NPM dependencies'
+    condition: ne(variables.CACHE_RESTORED, 'true')
+
+  - task: Npm@1
+    displayName: Run Lint
+    inputs:
+      command: custom
+      customCommand: 'run lint'
+
+  - task: Npm@1
+    displayName: Run Unit Tests
+    inputs:
+      command: custom
+      customCommand: 'run test:ci'
+
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+    displayName: 'Create .env.local'
+    inputs:
+      targetFiles: |
+        *.env => *.env.local
+      actionOnMissing: 'silently continue'
+
+  - script: npx cypress install
+    displayName: Install Cypress
+
+  - script: npm run cy:verify
+    displayName: Cypress verify
+
+  - script: |
+      npx print-env AGENT
+      npx print-env BUILD
+      npx print-env SYSTEM
+      npm run cy:ci
+    displayName: Run Cypress tests
+    env:
+      # avoid warnings about terminal
+      TERM: xterm
+
+  - task: DeleteFiles@1
+    displayName: 'Remove .env.local'
+    inputs:
+      contents: |
+        .env.local
+
+  - task: PublishTestResults@2
+    displayName: Publish test results
+    inputs:
+      testResultsFiles: 'coverage/jest-junit/junit.xml'
+      failTaskOnFailedTests: true
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage report'
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
+
+  - script: npm audit --json > audit.json & exit 0
+    displayName: 'Audit Packages'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: audit_results'
+    inputs:
+      PathtoPublish: 'audit.json'
+      ArtifactName: 'audit_results'
+
+  - task: Npm@1
+    displayName: Build App
+    inputs:
+      command: custom
+      customCommand: 'run build'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Artifact: build'
+    inputs:
+      targetPath: $(Build.SourcesDirectory)
+      artifactName: 'SpeakerMeet.UI'
