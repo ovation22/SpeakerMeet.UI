@@ -4,13 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography color="textSecondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://speakermeet.net/">
+        SpeakerMeet
       </Link>
       &nbsp;
       {new Date().getFullYear()}
@@ -21,36 +22,49 @@ function Copyright() {
 const useStyles = makeStyles(theme => ({
   footer: {
     backgroundColor: theme.palette.background.paper,
-    // marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0),
+    padding: theme.spacing(6, 20),
   },
 }));
 
 export default function Footer(props) {
   const classes = useStyles();
-  const { description, title } = props;
+  const { sections } = props;
 
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          {description}
-        </Typography>
-        <Copyright />
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6} align="left">
+            {sections.map((section, i) => {
+              return (
+                <React.Fragment key={section.title}>
+                  <Link
+                    color="inherit"
+                    noWrap
+                    variant="body2"
+                    href={section.url}
+                    className={classes.toolbarLink}
+                  >
+                    {section.title}
+                  </Link>
+                  {i < sections.length - 1 ? ' | ' : ''}
+                </React.Fragment>
+              );
+            })}
+          </Grid>
+          <Grid item xs={12} md={6} align="right">
+            <Copyright />
+          </Grid>
+        </Grid>
       </Container>
     </footer>
   );
 }
 
 Footer.defaultProps = {
-  description: null,
-  title: null,
+  sections: null,
 };
 
 Footer.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
+  sections: PropTypes.arrayOf(PropTypes.shape()),
 };
