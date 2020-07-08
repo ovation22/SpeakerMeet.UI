@@ -2,78 +2,108 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
+import Container from '@material-ui/core/Container';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
-  },
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0,
+    fontSize: '16px',
+    transition: '0.3s',
+    color: 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+    },
+  },
+  navSection: {
+    marginLeft: 'auto',
   },
 }));
 
-export default function Header(props) {
-  const classes = useStyles();
-  const { sections, title } = props;
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
 
   return (
-    <>
-      <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          {title}
-        </Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
-      </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        {sections.map(section => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
-          </Link>
-        ))}
-      </Toolbar>
-    </>
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.defaultProps = {
+  window: null,
+};
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+export default function Header(props) {
+  const classes = useStyles();
+  const { sections } = props;
+  const image = `${process.env.PUBLIC_URL}/images/speakermeet.png`;
+
+  return (
+    <HideOnScroll {...props}>
+      <AppBar position="fixed">
+        <Container maxWidth="lg">
+          <Toolbar className={classes.toolbar} id="back-to-top-anchor">
+            <Link to={routes.root.path}>
+              <img className="logo" src={image} alt="" />
+            </Link>
+
+            <Typography component="span" className={classes.navSection}>
+              {sections.map(section => (
+                <Link
+                  noWrap
+                  key={section.title}
+                  variant="inherit"
+                  href={section.url}
+                  className={classes.toolbarLink}
+                >
+                  {section.title}
+                </Link>
+              ))}
+
+              <Input
+                endAdornment={
+                  // eslint-disable-next-line react/jsx-wrap-multilines
+                  <InputAdornment position="end">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                }
+              />
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </HideOnScroll>
   );
 }
 
 Header.defaultProps = {
   sections: PropTypes.array,
-  title: PropTypes.string,
 };
 
 Header.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.shape()),
-  title: PropTypes.string,
 };
