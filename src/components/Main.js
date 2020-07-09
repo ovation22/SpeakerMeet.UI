@@ -9,6 +9,9 @@ import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
+  container: {
+    padding: 0,
+  },
 }));
 
 const sections = [
@@ -24,7 +27,7 @@ export default function Main() {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container maxWidth="false" className={classes.container}>
         <Header sections={sections} />
         <div className={classes.offset} />
         <main>

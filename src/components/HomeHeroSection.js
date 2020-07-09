@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Slide from '@material-ui/core/Slide';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {
@@ -28,11 +29,14 @@ const useStyles = makeStyles(theme => ({
   },
   mainFeaturedPostContent: {
     position: 'relative',
-    padding: theme.spacing(3),
+    paddingTop: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(6),
+      paddingTop: theme.spacing(10),
+      paddingLeft: theme.spacing(4),
       paddingRight: 0,
     },
+    width: 600,
+    textAlign: 'left',
   },
 }));
 
@@ -44,23 +48,30 @@ export default function HomeHeroSection(props) {
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
       <img style={{ display: 'none' }} src={post.image} alt={post.imageText} />
       <div className={classes.overlay} />
-      <Grid container>
-        <Grid item md={6}>
-          <Slide direction="right" in mountOnEnter timeout={1400}>
-            <div className={classes.mainFeaturedPostContent}>
-              <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                {post.title}
-              </Typography>
-              <Typography variant="h5" color="inherit" paragraph>
-                {post.description}
-              </Typography>
-              <Link variant="subtitle1" href="/#">
-                {post.linkText}
-              </Link>
-            </div>
-          </Slide>
+      <Container maxWidth="lg">
+        <Grid>
+          <Grid item md={6}>
+            <Slide direction="right" in mountOnEnter timeout={1400}>
+              <div className={classes.mainFeaturedPostContent}>
+                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                  {post.title}
+                </Typography>
+                <Typography variant="h4" color="inherit" paragraph>
+                  {post.description}
+                </Typography>
+                <Link variant="subtitle1" href="/#">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/FindAndBook.png`}
+                    alt=""
+                    width="212"
+                    height="60"
+                  />
+                </Link>
+              </div>
+            </Slide>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </Paper>
   );
 }
