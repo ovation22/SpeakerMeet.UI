@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import HomeHeroSection from './HomeHeroSection';
 import FeaturedPost from './FeaturedPost';
 
@@ -48,14 +49,16 @@ export default function Home() {
   return (
     <>
       <HomeHeroSection post={mainFeaturedPost} />
-      <Typography variant="h2" gutterBottom className={classes.howItWorks}>
-        How It Works
-      </Typography>
-      <Grid container spacing={4}>
-        {featuredPosts.map(post => (
-          <FeaturedPost key={post.title} post={post} />
-        ))}
-      </Grid>
+      <Container maxWidth="lg">
+        <Typography variant="h2" gutterBottom className={classes.howItWorks}>
+          How It Works
+        </Typography>
+        <Grid container spacing={4}>
+          {featuredPosts.map(post => (
+            <FeaturedPost key={post.title} post={post} />
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 }
