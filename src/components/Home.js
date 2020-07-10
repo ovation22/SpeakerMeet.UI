@@ -124,9 +124,7 @@ export default function Home() {
       </Container>
 
       <div className={classes.findASpeaker}>
-        <Typography variant="h4">
-          Find a Speaker
-        </Typography>
+        <Typography variant="h4">Find a Speaker</Typography>
       </div>
 
       <Container maxWidth="lg" style={{ padding: 24 }}>
