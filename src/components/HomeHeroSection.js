@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(4),
+      paddingLeft: theme.spacing(3),
       paddingRight: 0,
     },
     width: 600,
@@ -53,7 +53,7 @@ export default function HomeHeroSection(props) {
           <Grid item md={6}>
             <Slide direction="right" in mountOnEnter timeout={1400}>
               <div className={classes.mainFeaturedPostContent}>
-                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                <Typography component="h3" variant="h3" color="inherit" gutterBottom>
                   {post.title}
                 </Typography>
                 <Typography variant="h4" color="inherit" paragraph>

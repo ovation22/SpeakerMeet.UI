@@ -27,7 +27,7 @@ export default function Main() {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="false" className={classes.container}>
+      <Container maxWidth={false} className={classes.container}>
         <Header sections={sections} />
         <div className={classes.offset} />
         <main>

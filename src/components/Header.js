@@ -68,7 +68,7 @@ export default function Header(props) {
         <Container maxWidth="lg">
           <Toolbar className={classes.toolbar} id="back-to-top-anchor">
             <Link to={routes.root.path}>
-              <img className="logo" src={image} alt="" />
+              <img className="logo" src={image} alt="asdf" />
             </Link>
 
             <Typography component="span" className={classes.navSection}>

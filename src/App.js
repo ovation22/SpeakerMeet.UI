@@ -10,6 +10,39 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 12,
     fontFamily: `"Helvetica Neue", "Helvetica", "Arial", sans-serif`,
+    h1: {
+      fontSize: 60,
+    },
+    h2: {
+      fontSize: 50,
+      letterSpacing: 0,
+      fontWeight: 400,
+      fontStyle: 'normal',
+      textTransform: 'uppercase',
+    },
+    h3: {
+      fontSize: 40,
+      fontWeight: 700,
+      letterSpacing: 0,
+      fontStyle: 'normal',
+    },
+    h4: {
+      fontSize: 30,
+    },
+    h5: {
+      fontSize: 20,
+      fontWeight: 400,
+      letterSpacing: 0,
+      fontStyle: 'normal',
+      textTransform: 'uppercase',
+    },
+    h6: {
+      fontSize: 15,
+      fontWeight: 400,
+      letterSpacing: 0,
+      fontStyle: 'normal',
+      textTransform: 'uppercase',
+    },
   },
   palette: {
     // type: 'dark',
