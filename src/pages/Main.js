@@ -2,9 +2,9 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from './Header';
-import Footer from './Footer';
-import Router from './Router';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Router from '../components/Router';
 import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({

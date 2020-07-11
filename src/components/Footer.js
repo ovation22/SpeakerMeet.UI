@@ -5,10 +5,19 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import grey from '@material-ui/core/colors/grey';
 
 function Copyright() {
   return (
-    <Typography color="textSecondary">
+    <Typography>
+      <Link color="inherit" href="/Privacy">
+        Privacy
+      </Link>
+      &nbsp;|&nbsp;
+      <Link color="inherit" href="/Terms">
+        Terms of Service
+      </Link>
+      &nbsp;|&nbsp;
       {'Copyright © '}
       <Link color="inherit" href="https://speakermeet.net/">
         SpeakerMeet
@@ -21,8 +30,14 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    backgroundColor: theme.palette.background.paper,
+    color: grey[200],
+  },
+  footerMain: {
     padding: theme.spacing(6, 20),
+    backgroundColor: theme.palette.primary.main,
+  },
+  footerMenu: {
+    backgroundColor: theme.palette.secondary.main,
   },
 }));
 
@@ -32,31 +47,33 @@ export default function Footer(props) {
 
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6} align="left">
-            {sections.map((section, i) => {
-              return (
-                <React.Fragment key={section.title}>
-                  <Link
-                    color="inherit"
-                    noWrap
-                    variant="body2"
-                    href={section.url}
-                    className={classes.toolbarLink}
-                  >
-                    {section.title}
-                  </Link>
-                  {i < sections.length - 1 ? ' | ' : ''}
-                </React.Fragment>
-              );
-            })}
+      {/*
+      // todo: extract component
+      */}
+      <div className={classes.footerMain}>
+        <Typography variant="h4">Find a Speaker</Typography>
+      </div>
+      <div className={classes.footerMenu}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6} align="left">
+              {sections.map((section, i) => {
+                return (
+                  <Typography key={section.title} display="inline">
+                    <Link color="inherit" noWrap href={section.url} className={classes.toolbarLink}>
+                      {section.title}
+                    </Link>
+                    {i < sections.length - 1 ? ' | ' : ''}
+                  </Typography>
+                );
+              })}
+            </Grid>
+            <Grid item xs={12} md={6} align="right">
+              <Copyright />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6} align="right">
-            <Copyright />
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     </footer>
   );
 }
