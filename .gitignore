@@ -1,5 +1,10 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# images
+/public/images/communities
+/public/images/conferences
+/public/images/speakers
+
 # dependencies
 /node_modules
 
