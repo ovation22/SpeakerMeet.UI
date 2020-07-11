@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './Home';
+import Home from '../pages/Home';
 import routes from '../constants/routes';
-import Speakers from './Speakers';
-import Communities from './Communities';
-import Conferences from './Conferences';
+import Speakers from '../pages/Speakers';
+import Communities from '../pages/Communities';
+import Conferences from '../pages/Conferences';
 
 function Router() {
   return (

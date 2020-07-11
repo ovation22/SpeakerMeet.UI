@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     fontSize: '16px',
     transition: '0.3s',
-    color: 'inherit',
+    color: theme.palette.secondary.main,
     '&:hover': {
       color: theme.palette.primary.main,
       textDecoration: 'none',
@@ -67,8 +67,8 @@ export default function Header(props) {
       <AppBar position="fixed">
         <Container maxWidth="lg">
           <Toolbar className={classes.toolbar} id="back-to-top-anchor">
-            <Link to={routes.root.path}>
-              <img className="logo" src={image} alt="asdf" />
+            <Link href={routes.root.path}>
+              <img className="logo" src={image} alt="" />
             </Link>
 
             <Typography component="span" className={classes.navSection}>

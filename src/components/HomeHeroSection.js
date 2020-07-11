@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
+import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {
@@ -59,7 +60,7 @@ export default function HomeHeroSection(props) {
                 <Typography variant="h4" color="inherit" paragraph>
                   {post.description}
                 </Typography>
-                <Link variant="subtitle1" href="/#">
+                <Link variant="subtitle1" href={routes.speakers.path}>
                   <img
                     src={`${process.env.PUBLIC_URL}/images/FindAndBook.png`}
                     alt=""

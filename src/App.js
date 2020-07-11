@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
-import Main from './components/Main';
+import Main from './pages/Main';
 
 const theme = createMuiTheme({
   typography: {
@@ -47,10 +47,16 @@ const theme = createMuiTheme({
   palette: {
     // type: 'dark',
     primary: {
-      main: blue[400],
+      main: '#00abff',
+      light: '#33bbff',
+      dark: '#0077b2',
+      contrastText: '#fff',
     },
     secondary: {
-      main: blue[800],
+      main: '#3a414d',
+      light: '#616770',
+      dark: '#282d35',
+      contrastText: '#fff',
     },
     default: {
       main: blue[200],
@@ -78,8 +84,8 @@ function App() {
         <BrowserRouter>
           <Main />
         </BrowserRouter>
-        <div>Hooray!</div>
       </ThemeProvider>
+      <div>Hooray!</div>
     </div>
   );
 }
