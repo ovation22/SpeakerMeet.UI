@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
+import FindASpeaker from './FindASpeaker';
 
 function Copyright() {
   return (
@@ -47,12 +48,7 @@ export default function Footer(props) {
 
   return (
     <footer className={classes.footer}>
-      {/*
-      // todo: extract component
-      */}
-      <div className={classes.footerMain}>
-        <Typography variant="h4">Find a Speaker</Typography>
-      </div>
+      <FindASpeaker />
       <div className={classes.footerMenu}>
         <Container maxWidth="lg">
           <Grid container spacing={4}>

@@ -9,22 +9,37 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import LocationOn from '@material-ui/icons/LocationOn';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
     textAlign: 'left',
   },
-  cardDetails: {},
+  cardTitle: {
+    textAlign: 'center',
+  },
   cardMedia: {
     height: 140,
   },
-  description: {
-    height: 147,
+  cardLocation: {
+    height: 20,
+    verticalAlign: 'middle',
+    margin: theme.spacing(2, 0),
+  },
+  cardLocationIcon: {
+    height: 20,
+    verticalAlign: 'middle',
+  },
+  cardDetail: {
+    height: 145,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-});
+  cardViewProfile: {
+    marginLeft: 'auto',
+  },
+}));
 
 export default function FeaturedPost(props) {
   const classes = useStyles();
@@ -36,23 +51,21 @@ export default function FeaturedPost(props) {
         <CardActionArea>
           <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
           <CardContent>
-            <Typography component="h2" variant="h5">
+            <Typography component="h2" variant="h5" className={classes.cardTitle}>
               {post.title}
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography variant="subtitle1" className={classes.cardLocation}>
+              <LocationOn className={classes.cardLocationIcon} />
               {post.date}
             </Typography>
-            <Typography variant="subtitle1" paragraph className={classes.description}>
+            <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
               {post.description}
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
+        <CardActions disableSpacing>
+          <Button size="small" color="primary" className={classes.cardViewProfile} href={post.path}>
+            View Profile
           </Button>
         </CardActions>
       </Card>
