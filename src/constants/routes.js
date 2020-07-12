@@ -15,4 +15,12 @@ export default {
     path: '/conferences',
     name: 'Conferences',
   },
+  privacy: {
+    path: '/privacy',
+    name: 'Privacy',
+  },
+  terms: {
+    path: '/terms',
+    name: 'Terms',
+  },
 };
