@@ -4,3 +4,8 @@
 
 # SpeakerMeet.UI
 React front-end for SpeakerMeet.net
+
+## Contributing
+
+Any and all are welcome to contribute to this project.
+Please read our [Contributing Guidelines](/.github/CONTRIBUTING.md)
