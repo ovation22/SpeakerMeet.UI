@@ -1,6 +1,6 @@
 # How to contribute
 
-Please read these guidelines before contributing to ZendeskApi_v2:
+Please read these guidelines before contributing to SpeakerMeet.UI:
 
 - [Question or Problem?](#got-a-question-or-problem)
 - [Issues and Bugs](#found-an-issue)
