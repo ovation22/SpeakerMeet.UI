@@ -8,6 +8,9 @@ import Conferences from '../pages/Conferences';
 import SpeakerDetail from '../pages/SpeakerDetail';
 import Privacy from '../pages/Privacy';
 import Terms from '../pages/Terms';
+import CommunityDetail from '../pages/CommunityDetail';
+import ConferenceDetail from '../pages/ConferenceDetail';
+import Search from '../pages/Search';
 
 function Router() {
   return (
@@ -16,7 +19,10 @@ function Router() {
       <Route path={routes.speakers.path} exact component={Speakers} />
       <Route path={`${routes.speakers.path}/:slug?`} component={SpeakerDetail} />
       <Route path={routes.communities.path} exact component={Communities} />
+      <Route path={`${routes.communities.path}/:slug?`} component={CommunityDetail} />
       <Route path={routes.conferences.path} exact component={Conferences} />
+      <Route path={`${routes.conferences.path}/:slug?`} component={ConferenceDetail} />
+      <Route path={`${routes.search.path}/:term?`} component={Search} />
       <Route path={routes.privacy.path} exact component={Privacy} />
       <Route path={routes.terms.path} exact component={Terms} />
       {/* Render component given un-found route */}

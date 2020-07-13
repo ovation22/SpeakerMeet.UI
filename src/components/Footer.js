@@ -7,16 +7,17 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 import FindASpeaker from './FindASpeaker';
+import routes from '../constants/routes';
 
 function Copyright() {
   return (
     <Typography>
-      <Link color="inherit" href="/Privacy">
-        Privacy
+      <Link color="inherit" href={routes.privacy.path}>
+        {routes.privacy.name}
       </Link>
       &nbsp;|&nbsp;
-      <Link color="inherit" href="/Terms">
-        Terms of Service
+      <Link color="inherit" href={routes.terms.path}>
+        {routes.terms.name}
       </Link>
       &nbsp;|&nbsp;
       {'Copyright © '}

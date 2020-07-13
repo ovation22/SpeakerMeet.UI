@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
 import { useLocation } from 'react-router-dom';
 import FeaturedPost from '../components/FeaturedPost';
-import speakers from '../constants/speakers';
+import communities from '../constants/communities';
 import BreadCrumbs from '../components/BreadCrumbs';
 import FindASpeaker from '../components/FindASpeaker';
 import DetailTabs from '../components/DetailTabs';
@@ -22,15 +22,15 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function SpeakerDetail() {
+export default function CommunityDetail() {
   const location = useLocation();
-  const speaker = speakers.find(x => location.pathname.endsWith(x.slug));
+  const community = communities.find(x => location.pathname.endsWith(x.slug));
 
   const disqusShortname = process.env.REACT_APP_DISQUS_SHORT_NAME;
   const disqusConfig = {
     url: process.env.REACT_APP_URL,
-    identifier: speaker.slug,
-    title: speaker.title,
+    identifier: community.slug,
+    title: community.title,
   };
 
   return (
@@ -40,7 +40,7 @@ export default function SpeakerDetail() {
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <BreadCrumbs />
         <Grid container spacing={4}>
-          <FeaturedPost key={speaker.title} post={speaker} />
+          <FeaturedPost key={community.title} post={community} />
           <Chip size="small" label=".net" />
           <Chip size="small" label="tdd" />
           <Chip size="small" label="agile" />

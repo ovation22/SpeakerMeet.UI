@@ -2,9 +2,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import FeaturedPost from '../components/FeaturedPost';
-import conferences from '../constants/conferences';
 
 const useStyles = makeStyles(theme => ({
   findASpeaker: {
@@ -15,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Conferences() {
+export default function Search() {
   const classes = useStyles();
 
   return (
@@ -31,11 +28,7 @@ export default function Conferences() {
       // todo: extract component
       */}
       <Container maxWidth="lg" style={{ padding: 24 }}>
-        <Grid container spacing={4}>
-          {conferences.map(post => (
-            <FeaturedPost key={post.title} post={post} />
-          ))}
-        </Grid>
+        search results
       </Container>
     </>
   );
