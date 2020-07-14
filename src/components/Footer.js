@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
-import FindASpeaker from './FindASpeaker';
 import routes from '../constants/routes';
 
 function Copyright() {
@@ -35,8 +34,11 @@ const useStyles = makeStyles(theme => ({
     color: grey[200],
   },
   footerMain: {
-    padding: theme.spacing(6, 20),
+    width: '100%',
+    minHeight: 400,
     backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(4),
+    color: 'white',
   },
   footerMenu: {
     backgroundColor: theme.palette.secondary.main,
@@ -49,7 +51,8 @@ export default function Footer(props) {
 
   return (
     <footer className={classes.footer}>
-      <FindASpeaker />
+      <div className={classes.footerMain}>asdf</div>
+
       <div className={classes.footerMenu}>
         <Container maxWidth="lg">
           <Grid container spacing={4}>
