@@ -11,6 +11,7 @@ import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Hidden from '@material-ui/core/Hidden';
 import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({
@@ -69,26 +70,29 @@ export default function Header(props) {
             </Link>
 
             <Typography component="span" className={classes.navSection}>
-              {sections.map(section => (
-                <Link
-                  noWrap
-                  key={section.title}
-                  variant="inherit"
-                  href={section.url}
-                  className={classes.toolbarLink}
-                >
-                  {section.title}
-                </Link>
-              ))}
-
-              <Input
-                endAdornment={
-                  // eslint-disable-next-line react/jsx-wrap-multilines
-                  <InputAdornment position="end">
-                    <SearchIcon fontSize="small" />
-                  </InputAdornment>
-                }
-              />
+              <Hidden smDown>
+                {sections.map(section => (
+                  <Link
+                    noWrap
+                    key={section.title}
+                    variant="inherit"
+                    href={section.url}
+                    className={classes.toolbarLink}
+                  >
+                    {section.title}
+                  </Link>
+                ))}
+              </Hidden>
+              <Hidden xsDown>
+                <Input
+                  endAdornment={
+                    // eslint-disable-next-line react/jsx-wrap-multilines
+                    <InputAdornment position="end">
+                      <SearchIcon fontSize="small" />
+                    </InputAdornment>
+                  }
+                />
+              </Hidden>
             </Typography>
           </Toolbar>
         </Container>
