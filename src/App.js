@@ -12,9 +12,15 @@ const theme = createMuiTheme({
     fontFamily: `"Helvetica Neue", "Helvetica", "Arial", sans-serif`,
     h1: {
       fontSize: 60,
+      '@media (min-width:560px)': {
+        fontSize: 40,
+      },
     },
     h2: {
       fontSize: 50,
+      '@media (min-width:560px)': {
+        fontSize: 40,
+      },
       letterSpacing: 0,
       fontWeight: 400,
       fontStyle: 'normal',
@@ -22,6 +28,9 @@ const theme = createMuiTheme({
     },
     h3: {
       fontSize: 40,
+      '@media (min-width:560px)': {
+        fontSize: 20,
+      },
       fontWeight: 700,
       letterSpacing: 0,
       fontStyle: 'normal',
@@ -76,6 +85,18 @@ const theme = createMuiTheme({
     },
   },
 });
+
+theme.typography.h3 = {
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 28,
+  },
+};
+
+theme.typography.h4 = {
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 18,
+  },
+};
 
 function App() {
   return (

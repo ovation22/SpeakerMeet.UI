@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     height: 450,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center top',
+    backgroundPosition: 'right top',
   },
   overlay: {
     position: 'absolute',
@@ -30,13 +30,15 @@ const useStyles = makeStyles(theme => ({
   },
   mainFeaturedPostContent: {
     position: 'relative',
-    paddingTop: theme.spacing(3),
-    [theme.breakpoints.up('md')]: {
-      paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(3),
-      paddingRight: 0,
+    paddingTop: theme.spacing(10),
+    paddingLeft: theme.spacing(3),
+    paddingRight: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: 600,
     },
-    width: 600,
+    [theme.breakpoints.down('sm')]: {
+      width: 350,
+    },
     textAlign: 'left',
   },
 }));
