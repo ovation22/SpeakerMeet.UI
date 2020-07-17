@@ -5,6 +5,8 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 import Main from './Main';
+import TelemetryProvider from './utils/TelemetryProvider';
+import config from './constants/config';
 
 const theme = createMuiTheme({
   typography: {
@@ -81,7 +83,9 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Main />
+          <TelemetryProvider instrumentationKey={config.applicationInsightsTelemetryKey}>
+            <Main />
+          </TelemetryProvider>
         </BrowserRouter>
       </ThemeProvider>
       <div style={{ display: 'none' }}>Hooray!</div>
