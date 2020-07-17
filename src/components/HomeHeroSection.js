@@ -33,13 +33,13 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(10),
     paddingLeft: theme.spacing(3),
     paddingRight: 0,
+    textAlign: 'left',
     [theme.breakpoints.up('sm')]: {
       width: 600,
     },
     [theme.breakpoints.down('sm')]: {
-      width: 350,
+      width: 320,
     },
-    textAlign: 'left',
   },
 }));
 
@@ -56,10 +56,10 @@ export default function HomeHeroSection(props) {
           <Grid item md={6}>
             <Slide direction="right" in mountOnEnter timeout={1400}>
               <div className={classes.mainFeaturedPostContent}>
-                <Typography component="h3" variant="h3" color="inherit" gutterBottom>
+                <Typography component="h1" variant="h1" color="inherit" gutterBottom>
                   {post.title}
                 </Typography>
-                <Typography variant="h4" color="inherit" paragraph>
+                <Typography variant="h2" color="inherit" paragraph>
                   {post.description}
                 </Typography>
                 <Link variant="subtitle1" href={routes.speakers.path}>

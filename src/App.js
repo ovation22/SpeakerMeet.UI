@@ -11,29 +11,19 @@ const theme = createMuiTheme({
     fontSize: 12,
     fontFamily: `"Helvetica Neue", "Helvetica", "Arial", sans-serif`,
     h1: {
-      fontSize: 60,
-      '@media (min-width:560px)': {
-        fontSize: 40,
-      },
-    },
-    h2: {
-      fontSize: 50,
-      '@media (min-width:560px)': {
-        fontSize: 40,
-      },
-      letterSpacing: 0,
-      fontWeight: 400,
-      fontStyle: 'normal',
-      textTransform: 'uppercase',
-    },
-    h3: {
-      fontSize: 40,
-      '@media (min-width:560px)': {
-        fontSize: 20,
-      },
       fontWeight: 700,
       letterSpacing: 0,
       fontStyle: 'normal',
+      fontSize: 40,
+    },
+    h2: {
+      fontSize: 30,
+    },
+    h3: {
+      fontWeight: 700,
+      letterSpacing: 0,
+      fontStyle: 'normal',
+      fontSize: 30,
     },
     h4: {
       fontSize: 30,
@@ -86,18 +76,6 @@ const theme = createMuiTheme({
   },
 });
 
-theme.typography.h3 = {
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 28,
-  },
-};
-
-theme.typography.h4 = {
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 18,
-  },
-};
-
 function App() {
   return (
     <div className="App">
@@ -106,7 +84,7 @@ function App() {
           <Main />
         </BrowserRouter>
       </ThemeProvider>
-      <div>Hooray!</div>
+      <div style={{ display: 'none' }}>Hooray!</div>
     </div>
   );
 }
