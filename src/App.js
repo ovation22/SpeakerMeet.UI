@@ -78,12 +78,19 @@ const theme = createMuiTheme({
   },
 });
 
+const disableTelemetry =
+  config.nodeEnv !== config.nodeEnvironments.production ||
+  config.applicationInsightsTelemetryKey === '';
+
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <TelemetryProvider instrumentationKey={config.applicationInsightsTelemetryKey}>
+          <TelemetryProvider
+            disabled={disableTelemetry}
+            instrumentationKey={config.applicationInsightsTelemetryKey}
+          >
             <Main />
           </TelemetryProvider>
         </BrowserRouter>

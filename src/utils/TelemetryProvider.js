@@ -21,9 +21,9 @@ class TelemetryProvider extends Component {
 
   componentDidMount() {
     const { initialized } = this.state;
-    const { history, instrumentationKey } = this.props;
+    const { history, instrumentationKey, disabled } = this.props;
 
-    if (!initialized) {
+    if (!disabled && !initialized) {
       applicationInsights.initialize(instrumentationKey, history);
       this.setState({ initialized: true });
     }
@@ -39,6 +39,7 @@ TelemetryProvider.propTypes = {
   history: PropTypes.shape({}).isRequired,
   instrumentationKey: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default withRouter(withAITracking(applicationInsights.reactPlugin, TelemetryProvider));
