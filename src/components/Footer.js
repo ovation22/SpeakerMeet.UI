@@ -51,7 +51,7 @@ export default function Footer(props) {
 
   return (
     <footer className={classes.footer}>
-      <div className={classes.footerMain}>asdf</div>
+      <div className={classes.footerMain}>Footer</div>
 
       <div className={classes.footerMenu}>
         <Container maxWidth="lg">
