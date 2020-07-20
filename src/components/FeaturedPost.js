@@ -41,12 +41,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FeaturedPost(props) {
+export default function FeaturedPost({post, ...rest}) {
   const classes = useStyles();
-  const { post } = props;
 
   return (
-    <Grid item xs={12} md={3}>
+    <Grid item xs={12} md={3} {...rest}>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />

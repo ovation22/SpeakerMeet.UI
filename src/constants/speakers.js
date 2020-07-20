@@ -2,6 +2,7 @@ import routes from './routes';
 
 export default [
   {
+    id: 1,
     title: 'John Callaway',
     slug: 'john-callaway',
     date: 'Tampa, FL',
@@ -12,6 +13,7 @@ export default [
     path: `${routes.speakers.path}\\john-callaway`,
   },
   {
+    id: 2,
     title: 'Jon Ash',
     slug: 'jon-ash',
     date: 'Columbus, OH',
@@ -22,6 +24,7 @@ export default [
     path: `${routes.speakers.path}\\jon-ash`,
   },
   {
+    id: 3,
     title: 'Clayton Hunt',
     slug: 'clayton-hunt',
     date: 'Tampa, FL',
@@ -32,6 +35,7 @@ export default [
     path: `${routes.speakers.path}\\clayton-hunt`,
   },
   {
+    id: 4,
     title: 'Gaines Kergosien',
     slug: 'gaines-kergosien',
     date: 'Nashville, TN',
