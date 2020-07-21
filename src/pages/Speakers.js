@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import SpeakerList from '../components/SpeakerList';
+import ResultList from '../components/ResultList';
+import speakers from "../constants/speakers";
 
 const useStyles = makeStyles(theme => ({
   findASpeaker: {
@@ -25,11 +26,8 @@ export default function Speakers() {
         <Typography variant="h4">Find a Speaker</Typography>
       </div>
 
-      {/*
-      // todo: extract component
-      */}
       <Container maxWidth="lg" style={{ padding: 24 }}>
-        <SpeakerList />
+        <ResultList data={speakers} />
       </Container>
     </>
   );

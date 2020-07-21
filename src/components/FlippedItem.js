@@ -29,7 +29,7 @@ const onExit = type => (el, index, removeElement) => {
 
 const onGridExit = onExit("grid");
 
-class Card extends PureComponent {
+class FlippedItem extends PureComponent {
   shouldFlip = (prev, current) => {
     if (prev.type !== current.type) {
       return true;
@@ -56,7 +56,7 @@ class Card extends PureComponent {
               shouldFlip={this.shouldFlip}
               delayUntil={flipId}
             >
-              <FeaturedPost post={post} />
+              <FeaturedPost post={post} style={{width: 345, margin: 12}} />
             </Flipped>
           </Flipped>
         </Grid >
@@ -65,4 +65,4 @@ class Card extends PureComponent {
   }
 }
 
-export default Card;
+export default FlippedItem;

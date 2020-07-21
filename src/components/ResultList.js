@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 import { Flipper, Flipped } from "react-flip-toolkit";
-import data from "../constants/speakers";
-import Card from './Card';
 import Grid from '@material-ui/core/Grid';
+import FlippedItem from './FlippedItem';
 
-export default class SpeakerList extends Component {
-  state = {
-    type: "grid",
-    sort: "asc",
-    filteredIds: [],
-    stagger: "forward",
-    spring: "veryGentle"
-  };
+export default class ResultList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      type: "grid",
+      sort: "asc",
+      filteredIds: [],
+      stagger: "forward",
+      spring: "veryGentle"
+    };
+  }
 
   render() {
+    const { data } = this.props;
+
     return (
       <div className="fm-example">
         <Flipper
@@ -64,33 +69,31 @@ export default class SpeakerList extends Component {
           </div>
 
           <Flipped flipId="list">
-            <div className="grid">
-              <Flipped inverseFlipId="list">
-                <Grid className="list-contents" style={{listStyleType: 'none', display: 'inline'}}>
-                  {[...data]
-                    .filter(d => !this.state.filteredIds.includes(d.id))
-                    .sort((a, b) => {
-                      if (this.state.sort === "asc") {
-                        return a.id - b.id;
-                      } else {
-                        return b.id - a.id;
-                      }
-                    })
-                    .map(d => (
-                      <Card
-                        id={d.id}
-                        title={d.title}
-                        stagger={["forward", "reverse"].includes(
-                          this.state.stagger
-                        )}
-                        type={this.state.type}
-                        key={d.id}
-                        post={d}
-                      />
-                    ))}
-                </Grid>
-              </Flipped>
-            </div>
+            <Flipped inverseFlipId="list">
+              <Grid className="list-contents" style={{listStyleType: 'none', display: 'inline'}}>
+                {[...data]
+                  .filter(d => !this.state.filteredIds.includes(d.id))
+                  .sort((a, b) => {
+                    if (this.state.sort === "asc") {
+                      return a.id - b.id;
+                    } else {
+                      return b.id - a.id;
+                    }
+                  })
+                  .map(d => (
+                    <FlippedItem
+                      id={d.id}
+                      title={d.title}
+                      stagger={["forward", "reverse"].includes(
+                        this.state.stagger
+                      )}
+                      type={this.state.type}
+                      key={d.id}
+                      post={d}
+                    />
+                  ))}
+              </Grid>
+            </Flipped>
           </Flipped>
         </Flipper>
       </div>

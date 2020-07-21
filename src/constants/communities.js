@@ -2,6 +2,7 @@ import routes from './routes';
 
 export default [
   {
+    id: 1,
     title: 'Tampa Ruby Brigade',
     slug: 'tampa-ruby-brigade',
     date: 'Tampa, FL',
@@ -12,6 +13,7 @@ export default [
     path: `${routes.communities.path}\\tampa-ruby-brigade`,
   },
   {
+    id: 2,
     title: 'ReactJS Tampa Bay',
     slug: 'reactjs-tampa-bay',
     date: 'Tampa, FL',
@@ -24,6 +26,7 @@ export default [
     path: `${routes.communities.path}\\reactjs-tampa-bay`,
   },
   {
+    id: 3,
     title: 'Louisville .NET',
     slug: 'louisville-net',
     date: 'Louisville, KY',
@@ -36,6 +39,7 @@ export default [
     path: `${routes.communities.path}\\louisville-net`,
   },
   {
+    id: 4,
     title: 'St Pete .NET',
     slug: 'st-pete-net',
     date: 'St Petersburg, FL',
