@@ -139,8 +139,7 @@ export default function Terms() {
             except those that are specifically endorsed or approved by us.
           </Typography>
           <Typography paragraph>As a user of the Site, you agree not to:</Typography>
-          <Typography paragraph>
-            <ol>
+          <ol>
               <li>
                 Systematically retrieve data or other content from the Site to create or compile,
                 directly or indirectly, a collection, compilation, database, or directory without
@@ -231,7 +230,6 @@ export default function Terms() {
                 and/or the Content for any revenue-generating endeavor or commercial enterprise.
               </li>
             </ol>
-          </Typography>
           <Typography variant="subtitle2" paragraph>
             USER GENERATED CONTRIBUTIONS
           </Typography>

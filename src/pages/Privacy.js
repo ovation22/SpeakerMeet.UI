@@ -59,24 +59,24 @@ export default function Privacy() {
           </Typography>
           <Typography variant="subtitle2" paragraph>
             TABLE OF CONTENTS
-            <ol>
-              <li>WHAT INFORMATION DO WE COLLECT?</li>
-              <li>HOW DO WE USE YOUR INFORMATION?</li>
-              <li>WILL YOUR INFORMATION BE SHARED WITH ANYONE?</li>
-              <li>DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</li>
-              <li>DO WE USE GOOGLE MAPS?</li>
-              <li>HOW DO WE HANDLE YOUR SOCIAL LOGINS?</li>
-              <li>IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?</li>
-              <li>WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?</li>
-              <li>HOW LONG DO WE KEEP YOUR INFORMATION?</li>
-              <li>HOW DO WE KEEP YOUR INFORMATION SAFE?</li>
-              <li>WHAT ARE YOUR PRIVACY RIGHTS?</li>
-              <li>CONTROLS FOR DO-NOT-TRACK FEATURES</li>
-              <li>DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?</li>
-              <li>DO WE MAKE UPDATES TO THIS NOTICE?</li>
-              <li>HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</li>
-            </ol>
           </Typography>
+          <ol>
+            <li>WHAT INFORMATION DO WE COLLECT?</li>
+            <li>HOW DO WE USE YOUR INFORMATION?</li>
+            <li>WILL YOUR INFORMATION BE SHARED WITH ANYONE?</li>
+            <li>DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</li>
+            <li>DO WE USE GOOGLE MAPS?</li>
+            <li>HOW DO WE HANDLE YOUR SOCIAL LOGINS?</li>
+            <li>IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?</li>
+            <li>WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?</li>
+            <li>HOW LONG DO WE KEEP YOUR INFORMATION?</li>
+            <li>HOW DO WE KEEP YOUR INFORMATION SAFE?</li>
+            <li>WHAT ARE YOUR PRIVACY RIGHTS?</li>
+            <li>CONTROLS FOR DO-NOT-TRACK FEATURES</li>
+            <li>DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?</li>
+            <li>DO WE MAKE UPDATES TO THIS NOTICE?</li>
+            <li>HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</li>
+          </ol>
           <Typography variant="subtitle2" paragraph>
             1. WHAT INFORMATION DO WE COLLECT?
           </Typography>
