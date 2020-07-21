@@ -37,7 +37,7 @@ jobs:
         files: '[".env"]'
       env:
         URL: ${{ env.URL }}
-        DisqusShortName: ${{ env.DisqusShortName }}
+        DisqusShortName: ${{ env.DISQUSSHORTNAME }}
         ApplicationInsightsTelemetryKey: ${{ env.APPLICATION_INSIGHTS_TELEMETRY_KEY }}
 
     - name: Use Node.js ${{ env.NODE_VERSION }}
