@@ -67,6 +67,6 @@ FlippedItem.defaultProps = {
 
 FlippedItem.propTypes = {
   id: PropTypes.number.isRequired,
-  stagger: PropTypes.string.isRequired,
+  stagger: PropTypes.bool.isRequired,
   post: PropTypes.shape(),
 };

@@ -93,5 +93,5 @@ export default class ResultList extends Component {
 }
 
 ResultList.propTypes = {
-  data: PropTypes.shape().isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
