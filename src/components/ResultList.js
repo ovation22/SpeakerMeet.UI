@@ -3,23 +3,32 @@ import * as PropTypes from 'prop-types';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import Grid from '@material-ui/core/Grid';
 import FlippedItem from './FlippedItem';
+import { withStyles } from '@material-ui/core';
 
-export default class ResultList extends Component {
+const styles = theme => ({
+  fieldSet: {
+    borderColor: theme.palette.primary.light,
+    margin: theme.spacing(0, 0, 2, 0),
+  },
+});
+
+class ResultList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       type: 'grid',
-      sort: 'asc',
+      sort: 'random',
       filteredIds: [],
       stagger: 'forward',
       spring: 'veryGentle',
+      data: props.data,
     };
   }
 
   render() {
-    const { data } = this.props;
-    const { type, sort, stagger, filteredIds, spring } = this.state;
+    const { classes } = this.props;
+    const { data, type, sort, stagger, filteredIds, spring } = this.state;
 
     return (
       <Flipper
@@ -33,7 +42,7 @@ export default class ResultList extends Component {
         }}
         decisionData={this.state}
       >
-        <fieldset>
+        <fieldset className={classes.fieldSet}>
           <legend>Sort</legend>
           <label
             htmlFor="asc"
@@ -72,7 +81,10 @@ export default class ResultList extends Component {
                   if (sort === 'asc') {
                     return a.title.localeCompare(b.title);
                   }
-                  return b.title.localeCompare(a.title);
+                  if (sort === 'desc') {
+                    return b.title.localeCompare(a.title);
+                  }
+                  return 0.5 - Math.random();
                 })
                 .map(d => (
                   <FlippedItem
@@ -94,4 +106,7 @@ export default class ResultList extends Component {
 
 ResultList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+export default withStyles(styles)(ResultList);
