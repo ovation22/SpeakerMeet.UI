@@ -36,9 +36,9 @@ jobs:
       with:
         files: '[".env"]'
       env:
-        URL: ${{ env.URL }}
-        DisqusShortName: ${{ env.DISQUSSHORTNAME }}
-        ApplicationInsightsTelemetryKey: ${{ env.APPLICATION_INSIGHTS_TELEMETRY_KEY }}
+        URL: ${{ secrets.URL }}
+        DisqusShortName: ${{ secrets.DISQUSSHORTNAME }}
+        ApplicationInsightsTelemetryKey: ${{ secrets.APPLICATION_INSIGHTS_TELEMETRY_KEY }}
 
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
