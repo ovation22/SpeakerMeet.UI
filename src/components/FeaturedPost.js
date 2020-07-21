@@ -15,6 +15,8 @@ const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
     textAlign: 'left',
+    width: 345,
+    margin: 16,
   },
   cardTitle: {
     textAlign: 'center',
@@ -45,30 +47,28 @@ export default function FeaturedPost({post, ...rest}) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} md={3} {...rest}>
-      <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
-          <CardContent>
-            <Typography component="h2" variant="h5" className={classes.cardTitle}>
-              {post.title}
-            </Typography>
-            <Typography variant="subtitle1" className={classes.cardLocation}>
-              <LocationOn className={classes.cardLocationIcon} />
-              {post.date}
-            </Typography>
-            <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
-              {post.description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions disableSpacing>
-          <Button size="small" color="primary" className={classes.cardViewProfile} href={post.path}>
-            View Profile
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Card className={classes.card} {...rest}>
+      <CardActionArea>
+        <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
+        <CardContent>
+          <Typography component="h2" variant="h5" className={classes.cardTitle}>
+            {post.title}
+          </Typography>
+          <Typography variant="subtitle1" className={classes.cardLocation}>
+            <LocationOn className={classes.cardLocationIcon} />
+            {post.date}
+          </Typography>
+          <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
+            {post.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions disableSpacing>
+        <Button size="small" color="primary" className={classes.cardViewProfile} href={post.path}>
+          View Profile
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 

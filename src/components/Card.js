@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { Flipped, spring } from "react-flip-toolkit";
 import FeaturedPost from './FeaturedPost';
+import Grid from '@material-ui/core/Grid';
 
 const onElementAppear = (el, index) =>
   spring({
@@ -27,39 +28,38 @@ const onExit = type => (el, index, removeElement) => {
 };
 
 const onGridExit = onExit("grid");
-const onListExit = onExit("list");
 
 class Card extends PureComponent {
   shouldFlip = (prev, current) => {
-    return prev.type !== current.type;
-
+    if (prev.type !== current.type) {
+      return true;
+    }
+    return false;
   };
   render() {
-    const { id, title, type, stagger, addToFilteredIds } = this.props;
+    const { id, title, type, stagger, post } = this.props;
     const flipId = `item-${id}`;
     return (
       <Flipped
         flipId={flipId}
         onAppear={onElementAppear}
-        onExit={type === "grid" ? onGridExit : onListExit}
+        onExit={onGridExit}
         key={flipId}
         stagger={stagger}
         shouldInvert={this.shouldFlip}
       >
-        <li className="fm-item">
+        <Grid item style={{display: 'inline-flex'}} xs={12} md={3}>
           <Flipped inverseFlipId={flipId}>
-            <div>
-              <Flipped
-                flipId={`${flipId}-content`}
-                translate
-                shouldFlip={this.shouldFlip}
-                delayUntil={flipId}
-              >
-                <FeaturedPost post={this.props} />
-              </Flipped>
-            </div>
+            <Flipped
+              flipId={`${flipId}-content`}
+              translate
+              shouldFlip={this.shouldFlip}
+              delayUntil={flipId}
+            >
+              <FeaturedPost post={post} />
+            </Flipped>
           </Flipped>
-        </li>
+        </Grid >
       </Flipped>
     );
   }

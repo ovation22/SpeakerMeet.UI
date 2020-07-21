@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Flipper, Flipped } from "react-flip-toolkit";
 import data from "../constants/speakers";
 import Card from './Card';
+import Grid from '@material-ui/core/Grid';
 
 export default class SpeakerList extends Component {
   state = {
@@ -10,14 +11,6 @@ export default class SpeakerList extends Component {
     filteredIds: [],
     stagger: "forward",
     spring: "veryGentle"
-  };
-
-  addToFilteredIds = id => {
-    this.setState(prevState => {
-      return {
-        filteredIds: prevState.filteredIds.concat(id)
-      };
-    });
   };
 
   render() {
@@ -73,7 +66,7 @@ export default class SpeakerList extends Component {
           <Flipped flipId="list">
             <div className="grid">
               <Flipped inverseFlipId="list">
-                <ul className="list-contents" style={{listStyleType: 'none'}}>
+                <Grid className="list-contents" style={{listStyleType: 'none', display: 'inline'}}>
                   {[...data]
                     .filter(d => !this.state.filteredIds.includes(d.id))
                     .sort((a, b) => {
@@ -92,10 +85,10 @@ export default class SpeakerList extends Component {
                         )}
                         type={this.state.type}
                         key={d.id}
-                        addToFilteredIds={this.addToFilteredIds}
+                        post={d}
                       />
                     ))}
-                </ul>
+                </Grid>
               </Flipped>
             </div>
           </Flipped>
