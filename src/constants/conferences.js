@@ -2,6 +2,7 @@ import routes from './routes';
 
 export default [
   {
+    id: 1,
     title: 'Music City Tech',
     slug: 'music-city-tech',
     date: 'Nashville, TN',
@@ -12,6 +13,7 @@ export default [
     path: `${routes.conferences.path}\\music-city-tech`,
   },
   {
+    id: 2,
     title: 'Little Rock Tech Fest',
     slug: 'little-rock-tech-fest',
     date: 'Little Rock, AR',
@@ -26,6 +28,7 @@ export default [
     path: `${routes.conferences.path}\\little-rock-tech-fest`,
   },
   {
+    id: 3,
     title: 'Bar Camp Tampa',
     slug: 'bar-camp-tampa',
     date: 'Tapma, FL',
@@ -40,6 +43,7 @@ export default [
     path: `${routes.conferences.path}\\bar-camp-tampa`,
   },
   {
+    id: 4,
     title: 'Dev Space',
     slug: 'dev-space',
     date: 'Huntsville, AL',
