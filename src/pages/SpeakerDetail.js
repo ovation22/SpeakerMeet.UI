@@ -9,6 +9,7 @@ import speakers from '../constants/speakers';
 import BreadCrumbs from '../components/BreadCrumbs';
 import FindASpeaker from '../components/FindASpeaker';
 import DetailTabs from '../components/DetailTabs';
+import config from '../constants/config';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -26,9 +27,9 @@ export default function SpeakerDetail() {
   const location = useLocation();
   const speaker = speakers.find(x => location.pathname.endsWith(x.slug));
 
-  const disqusShortname = process.env.REACT_APP_DISQUS_SHORT_NAME;
+  const disqusShortname = config.disqusShortName;
   const disqusConfig = {
-    url: process.env.REACT_APP_URL,
+    url: config.url,
     identifier: speaker.slug,
     title: speaker.title,
   };
