@@ -10,7 +10,7 @@ import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles(theme => ({
   breadcrumbs: {
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(0, 0, 2, 0),
   },
 }));
 

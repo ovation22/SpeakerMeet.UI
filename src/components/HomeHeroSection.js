@@ -51,12 +51,12 @@ export default function HomeHeroSection(props) {
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
       <img style={{ display: 'none' }} src={post.image} alt={post.imageText} />
       <div className={classes.overlay} />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ color: 'white' }}>
         <Grid>
           <Grid item md={6}>
             <Slide direction="right" in mountOnEnter timeout={1400}>
               <div className={classes.mainFeaturedPostContent}>
-                <Typography component="h1" variant="h1" color="inherit" gutterBottom>
+                <Typography component="h1" variant="h1" gutterBottom>
                   {post.title}
                 </Typography>
                 <Typography variant="h2" color="inherit" paragraph>
