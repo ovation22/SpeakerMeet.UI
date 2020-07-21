@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import Paper from '@material-ui/core/Paper/Paper';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -10,7 +11,6 @@ import HomeHeroSection from '../components/HomeHeroSection';
 import FeaturedPost from '../components/FeaturedPost';
 import speakers from '../constants/speakers';
 import FindASpeaker from '../components/FindASpeaker';
-import Paper from '@material-ui/core/Paper/Paper';
 
 const useStyles = makeStyles(theme => ({
   sectionTitle: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center top',
-  }
+  },
 }));
 
 const mainFeaturedPost = {
@@ -137,7 +137,7 @@ export default function Home() {
 
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} align="left">
-            <img src={`${process.env.PUBLIC_URL}/images/crowd.png`} width="100%" />
+            <img src={`${process.env.PUBLIC_URL}/images/crowd.png`} width="100%" alt="" />
           </Grid>
           <Grid item xs={12} md={6} align="left">
             <Typography variant="h4" align="left">
@@ -174,11 +174,11 @@ export default function Home() {
           </Grid>
 
           <Grid item xs={12} md={6} align="left">
-            <img src={`${process.env.PUBLIC_URL}/images/crowd-close.png`} width="100%" />
+            <img src={`${process.env.PUBLIC_URL}/images/crowd-close.png`} width="100%" alt="" />
           </Grid>
 
           <Grid item xs={12} md={6} align="left">
-            <img src={`${process.env.PUBLIC_URL}/images/crowd.png`} width="100%" />
+            <img src={`${process.env.PUBLIC_URL}/images/crowd.png`} width="100%" alt="" />
           </Grid>
 
           <Grid item xs={12} md={6} align="left">
@@ -200,8 +200,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      <Paper className={classes.micSection}>
-      </Paper>
+      <Paper className={classes.micSection} />
 
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <Grid container spacing={4}>
@@ -257,7 +256,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
-
     </>
   );
 }

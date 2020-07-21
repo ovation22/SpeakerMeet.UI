@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { Flipper, Flipped } from 'react-flip-toolkit';
+import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import FlippedItem from './FlippedItem';
-import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   fieldSet: {
@@ -106,7 +106,7 @@ class ResultList extends Component {
 
 ResultList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
 export default withStyles(styles)(ResultList);
