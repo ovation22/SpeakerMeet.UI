@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FeaturedPost({post, ...rest}) {
+export default function FeaturedPost({ post, ...rest }) {
   const classes = useStyles();
 
   return (

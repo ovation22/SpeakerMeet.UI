@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ResultList from '../components/ResultList';
-import speakers from "../constants/speakers";
+import speakers from '../constants/speakers';
 
 const useStyles = makeStyles(theme => ({
   findASpeaker: {
