@@ -1,5 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
   navSection: {
     marginLeft: 'auto',
   },
+  search: {
+    display: 'inline',
+  },
 }));
 
 function HideOnScroll(props) {
@@ -55,10 +59,19 @@ HideOnScroll.propTypes = {
   window: PropTypes.func,
 };
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 export default function Header(props) {
   const classes = useStyles();
+  const history = useHistory();
+  const query = useQuery();
   const { sections } = props;
   const image = `${process.env.PUBLIC_URL}/images/speakermeet.png`;
+  const handleSubmit = e => {
+    history.push(`${routes.search.path}?terms=${e.target.terms.value}`);
+  };
 
   return (
     <HideOnScroll {...props}>
@@ -84,14 +97,18 @@ export default function Header(props) {
                 ))}
               </Hidden>
               <Hidden xsDown>
-                <Input
-                  endAdornment={
-                    // eslint-disable-next-line react/jsx-wrap-multilines
-                    <InputAdornment position="end">
-                      <SearchIcon fontSize="small" />
-                    </InputAdornment>
-                  }
-                />
+                <form className={classes.search} onSubmit={handleSubmit}>
+                  <Input
+                    name="terms"
+                    defaultValue={query.get('terms')}
+                    endAdornment={
+                      // eslint-disable-next-line react/jsx-wrap-multilines
+                      <InputAdornment position="end">
+                        <SearchIcon fontSize="small" />
+                      </InputAdornment>
+                    }
+                  />
+                </form>
               </Hidden>
             </Typography>
           </Toolbar>

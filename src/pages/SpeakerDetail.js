@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FeaturedPost from '../components/FeaturedPost';
 import speakers from '../constants/speakers';
 import BreadCrumbs from '../components/BreadCrumbs';
@@ -24,8 +24,8 @@ const rows = [
 ];
 
 export default function SpeakerDetail() {
-  const location = useLocation();
-  const speaker = speakers.find(x => location.pathname.endsWith(x.slug));
+  const { slug } = useParams();
+  const speaker = speakers.find(x => x.slug === slug);
 
   const disqusShortname = config.disqusShortName;
   const disqusConfig = {
