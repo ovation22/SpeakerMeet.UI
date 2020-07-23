@@ -53,6 +53,7 @@ export default function CommunityDetail() {
   }, [slug]);
 
   if (error) {
+    // eslint-disable-next-line react/jsx-one-expression-per-line
     return <div>Error:{error.message}</div>;
   }
   if (!isLoaded) {
