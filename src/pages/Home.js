@@ -124,7 +124,7 @@ export default function Home() {
         */}
         <Grid container spacing={4}>
           {speakers.map(post => (
-            <Grid item key={post.title} xs={12} md={3}>
+            <Grid item key={post.name} xs={12} md={3}>
               <FeaturedPost post={post} />
             </Grid>
           ))}

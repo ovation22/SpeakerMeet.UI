@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
 import { useParams } from 'react-router-dom';
 import FeaturedPost from '../components/FeaturedPost';
-import speakers from '../constants/speakers';
 import BreadCrumbs from '../components/BreadCrumbs';
 import FindASpeaker from '../components/FindASpeaker';
 import DetailTabs from '../components/DetailTabs';
 import config from '../constants/config';
+import endpoints from '../constants/endpoints';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -25,15 +25,40 @@ const rows = [
 
 export default function SpeakerDetail() {
   const { slug } = useParams();
-  const speaker = speakers.find(x => x.slug === slug);
-
+  const [error, setError] = useState(null);
+  const [isLoaded, setLoaded] = useState(false);
+  const [speaker, setSpeaker] = useState(null);
   const disqusShortname = config.disqusShortName;
   const disqusConfig = {
     url: config.url,
-    identifier: speaker.slug,
-    title: speaker.title,
+    identifier: slug,
+    title: slug,
   };
 
+  useEffect(() => {
+    (async () => {
+      fetch(`${endpoints.speakerDetail}/${slug}`)
+        .then(res => res.json())
+        .then(
+          result => {
+            setSpeaker(result);
+            setLoaded(true);
+          },
+          e => {
+            setError(e);
+            setLoaded(true);
+          },
+        );
+    })();
+  }, [slug]);
+
+  if (error) {
+    // eslint-disable-next-line react/jsx-one-expression-per-line
+    return <div>Error:{error.message}</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <FindASpeaker />
@@ -41,7 +66,7 @@ export default function SpeakerDetail() {
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <BreadCrumbs />
         <Grid container spacing={4}>
-          <FeaturedPost key={speaker.title} post={speaker} />
+          <FeaturedPost key={speaker.name} post={speaker} />
           <Chip size="small" label=".net" />
           <Chip size="small" label="tdd" />
           <Chip size="small" label="agile" />

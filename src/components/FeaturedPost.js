@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import LocationOn from '@material-ui/icons/LocationOn';
+import config from '../constants/config';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -46,14 +47,18 @@ export default function FeaturedPost({ post, ...rest }) {
   return (
     <Card className={classes.card} {...rest}>
       <CardActionArea>
-        <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
+        <CardMedia
+          className={classes.cardMedia}
+          image={`${config.images}/${post.slug}.png`}
+          title={post.name}
+        />
         <CardContent>
           <Typography component="h2" variant="h5" className={classes.cardTitle}>
-            {post.title}
+            {post.name}
           </Typography>
           <Typography variant="subtitle1" className={classes.cardLocation}>
             <LocationOn className={classes.cardLocationIcon} />
-            {post.date}
+            {post.location}
           </Typography>
           <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
             {post.description}

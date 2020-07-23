@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ResultList from '../components/ResultList';
-import speakers from '../constants/speakers';
+import routes from '../constants/routes';
+import endpoints from '../constants/endpoints';
 
 const useStyles = makeStyles(theme => ({
   findASpeaker: {
@@ -16,7 +17,38 @@ const useStyles = makeStyles(theme => ({
 
 export default function Speakers() {
   const classes = useStyles();
+  const [error, setError] = useState(null);
+  const [isLoaded, setLoaded] = useState(false);
+  const [speakers, setSpeakers] = useState([]);
 
+  useEffect(() => {
+    (async () => {
+      fetch(endpoints.speakers)
+        .then(res => res.json())
+        .then(
+          result => {
+            const s = result.map(x => ({
+              ...x,
+              path: `${routes.speakers.path}/${x.slug}`,
+            }));
+            setSpeakers(s);
+            setLoaded(true);
+          },
+          e => {
+            setError(e);
+            setLoaded(true);
+          },
+        );
+    })();
+  }, []);
+
+  if (error) {
+    // eslint-disable-next-line react/jsx-one-expression-per-line
+    return <div>Error:{error.message}</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       {/*
