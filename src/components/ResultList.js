@@ -22,13 +22,12 @@ class ResultList extends Component {
       filteredIds: [],
       stagger: 'forward',
       spring: 'veryGentle',
-      data: props.data,
     };
   }
 
   render() {
-    const { classes } = this.props;
-    const { data, type, sort, stagger, filteredIds, spring } = this.state;
+    const { classes, data } = this.props;
+    const { type, sort, stagger, filteredIds, spring } = this.state;
 
     return (
       <Flipper
@@ -79,17 +78,17 @@ class ResultList extends Component {
                 .filter(d => !filteredIds.includes(d.id))
                 .sort((a, b) => {
                   if (sort === 'asc') {
-                    return a.title.localeCompare(b.title);
+                    return a.name.localeCompare(b.name);
                   }
                   if (sort === 'desc') {
-                    return b.title.localeCompare(a.title);
+                    return b.name.localeCompare(a.name);
                   }
                   return 0.5 - Math.random();
                 })
                 .map(d => (
                   <FlippedItem
                     id={d.id}
-                    title={d.title}
+                    name={d.name}
                     stagger={['forward', 'reverse'].includes(stagger)}
                     type={type}
                     key={d.id}
