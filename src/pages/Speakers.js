@@ -67,7 +67,7 @@ export default function Speakers() {
         <Typography variant="h4">Find a Speaker</Typography>
       </div>
 
-      <Container maxWidth="lg" style={{ padding: 24, height: '100vh' }}>
+      <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={speakers} />}
       </Container>
     </>

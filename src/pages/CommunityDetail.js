@@ -68,7 +68,7 @@ export default function CommunityDetail() {
     <>
       <FindASpeaker />
 
-      <Container maxWidth="lg" style={{ padding: 24, height: '100vh' }}>
+      <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? (
           <CircularProgress />
         ) : (
