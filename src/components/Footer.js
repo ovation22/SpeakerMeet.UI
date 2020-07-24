@@ -3,31 +3,11 @@ import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 import routes from '../constants/routes';
-
-function Copyright() {
-  return (
-    <Typography>
-      <Link color="inherit" href={routes.privacy.path}>
-        {routes.privacy.name}
-      </Link>
-      &nbsp;|&nbsp;
-      <Link color="inherit" href={routes.terms.path}>
-        {routes.terms.name}
-      </Link>
-      &nbsp;|&nbsp;
-      {'Copyright © '}
-      <Link color="inherit" href="https://speakermeet.net/">
-        SpeakerMeet
-      </Link>
-      &nbsp;
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -42,6 +22,15 @@ const useStyles = makeStyles(theme => ({
   },
   footerMenu: {
     backgroundColor: theme.palette.secondary.main,
+  },
+  footerLink: {
+    transition: '0.3s',
+    textDecoration: 'none',
+    color: 'white',
+    '&:hover': {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+    },
   },
 }));
 
@@ -60,7 +49,12 @@ export default function Footer(props) {
               {sections.map((section, i) => {
                 return (
                   <Typography key={section.title} display="inline">
-                    <Link color="inherit" noWrap href={section.url} className={classes.toolbarLink}>
+                    <Link
+                      color="inherit"
+                      to={section.url}
+                      className={classes.footerLink}
+                      component={RouterLink}
+                    >
                       {section.title}
                     </Link>
                     {i < sections.length - 1 ? ' | ' : ''}
@@ -69,7 +63,37 @@ export default function Footer(props) {
               })}
             </Grid>
             <Grid item xs={12} md={6} align="right">
-              <Copyright />
+              <Typography>
+                <Link
+                  color="inherit"
+                  to={routes.privacy.path}
+                  className={classes.footerLink}
+                  component={RouterLink}
+                >
+                  {routes.privacy.name}
+                </Link>
+                &nbsp;|&nbsp;
+                <Link
+                  color="inherit"
+                  to={routes.terms.path}
+                  className={classes.footerLink}
+                  component={RouterLink}
+                >
+                  {routes.terms.name}
+                </Link>
+                &nbsp;|&nbsp;
+                {'Copyright © '}
+                <Link
+                  color="inherit"
+                  to="https://speakermeet.net/"
+                  className={classes.footerLink}
+                  component={RouterLink}
+                >
+                  SpeakerMeet
+                </Link>
+                &nbsp;
+                {new Date().getFullYear()}
+              </Typography>
             </Grid>
           </Grid>
         </Container>
