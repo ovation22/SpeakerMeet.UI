@@ -7,11 +7,9 @@
 React front-end for SpeakerMeet.net
 
 ## Contributing
-
 Any and all are welcome to contribute to this project.
 Please read our [Contributing Guidelines](/.github/CONTRIBUTING.md)
 
 ## Code of Conduct
-CONTRIBUTING
 Any and all are welcome to contribute to this project.
 Please read our [Code of Conduct](/.github/CODE_OF_CONDUCT.md)
