@@ -27,7 +27,7 @@ export default function Search() {
       {/*
       // todo: extract component
       */}
-      <Container maxWidth="lg" style={{ padding: 24 }}>
+      <Container maxWidth="lg" style={{ padding: 24, height: '100vh' }}>
         search results
       </Container>
     </>

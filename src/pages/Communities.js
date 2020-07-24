@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { CircularProgress, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import ResultList from '../components/ResultList';
 import routes from '../constants/routes';
 import endpoints from '../constants/endpoints';
@@ -43,11 +45,14 @@ export default function Communities() {
   }, []);
 
   if (error) {
-    // eslint-disable-next-line react/jsx-one-expression-per-line
-    return <div>Error:{error.message}</div>;
-  }
-  if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <Snackbar open autoHideDuration={6000}>
+        <Alert severity="error">
+          Error:
+          {error.message}
+        </Alert>
+      </Snackbar>
+    );
   }
   return (
     <>
@@ -58,8 +63,8 @@ export default function Communities() {
         <Typography variant="h4">Find a Community</Typography>
       </div>
 
-      <Container maxWidth="lg" style={{ padding: 24 }}>
-        <ResultList data={communities} />
+      <Container maxWidth="lg" style={{ padding: 24, height: '100vh' }}>
+        {!isLoaded ? <CircularProgress /> : <ResultList data={communities} />}
       </Container>
     </>
   );

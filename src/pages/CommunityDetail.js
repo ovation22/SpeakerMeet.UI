@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
 import { useParams } from 'react-router-dom';
+import { CircularProgress, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import FeaturedPost from '../components/FeaturedPost';
 import BreadCrumbs from '../components/BreadCrumbs';
 import FindASpeaker from '../components/FindASpeaker';
@@ -53,28 +55,37 @@ export default function CommunityDetail() {
   }, [slug]);
 
   if (error) {
-    // eslint-disable-next-line react/jsx-one-expression-per-line
-    return <div>Error:{error.message}</div>;
-  }
-  if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <Snackbar open autoHideDuration={6000}>
+        <Alert severity="error">
+          Error:
+          {error.message}
+        </Alert>
+      </Snackbar>
+    );
   }
   return (
     <>
       <FindASpeaker />
 
-      <Container maxWidth="lg" style={{ padding: 24 }}>
-        <BreadCrumbs />
-        <Grid container spacing={4}>
-          <FeaturedPost key={community.name} post={community} />
-          <Chip size="small" label=".net" />
-          <Chip size="small" label="tdd" />
-          <Chip size="small" label="agile" />
-        </Grid>
+      <Container maxWidth="lg" style={{ padding: 24, height: '100vh' }}>
+        {!isLoaded ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <BreadCrumbs />
+            <Grid container spacing={4}>
+              <FeaturedPost key={community.name} post={community} />
+              <Chip size="small" label=".net" />
+              <Chip size="small" label="tdd" />
+              <Chip size="small" label="agile" />
+            </Grid>
 
-        <DetailTabs rows={rows} />
+            <DetailTabs rows={rows} />
 
-        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+          </>
+        )}
       </Container>
     </>
   );
