@@ -1,5 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -66,7 +67,13 @@ export default function FeaturedPost({ post, ...rest }) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <Button size="small" color="primary" className={classes.cardViewProfile} href={post.path}>
+        <Button
+          component={RouterLink}
+          size="small"
+          color="primary"
+          className={classes.cardViewProfile}
+          to={post.path}
+        >
           View Profile
         </Button>
       </CardActions>

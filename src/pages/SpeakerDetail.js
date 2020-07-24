@@ -12,6 +12,7 @@ import FindASpeaker from '../components/FindASpeaker';
 import DetailTabs from '../components/DetailTabs';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
+import routes from '../constants/routes';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -75,7 +76,13 @@ export default function SpeakerDetail() {
           <>
             <BreadCrumbs />
             <Grid container spacing={4}>
-              <FeaturedPost key={speaker.name} post={speaker} />
+              <FeaturedPost
+                key={speaker.name}
+                post={{
+                  ...speaker,
+                  path: `${routes.speakers.path}/${speaker.slug}`,
+                }}
+              />
               <Chip size="small" label=".net" />
               <Chip size="small" label="tdd" />
               <Chip size="small" label="agile" />

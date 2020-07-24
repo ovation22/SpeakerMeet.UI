@@ -1,12 +1,12 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     fontSize: '16px',
     transition: '0.3s',
+    textDecoration: 'none',
     color: theme.palette.secondary.main,
     '&:hover': {
       color: theme.palette.primary.main,
@@ -78,7 +79,7 @@ export default function Header(props) {
       <AppBar position="fixed">
         <Container maxWidth="lg">
           <Toolbar className={classes.toolbar} id="back-to-top-anchor">
-            <Link href={routes.root.path}>
+            <Link to={routes.root.path} component={RouterLink}>
               <img className="logo" src={image} alt="" />
             </Link>
 
@@ -86,11 +87,11 @@ export default function Header(props) {
               <Hidden smDown>
                 {sections.map(section => (
                   <Link
-                    noWrap
                     key={section.title}
                     variant="inherit"
-                    href={section.url}
+                    to={section.url}
                     className={classes.toolbarLink}
+                    component={RouterLink}
                   >
                     {section.title}
                   </Link>

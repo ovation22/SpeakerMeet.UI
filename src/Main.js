@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Router from './components/Router';
 import routes from './constants/routes';
+import ScrollToTop from './components/ScrollToTop';
 
 const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
@@ -26,6 +27,7 @@ export default function Main() {
 
   return (
     <>
+      <ScrollToTop />
       <CssBaseline />
       <Container maxWidth={false} className={classes.container}>
         <Header sections={sections} />

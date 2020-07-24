@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Slide from '@material-ui/core/Slide';
 import Container from '@material-ui/core/Container';
@@ -62,7 +63,7 @@ export default function HomeHeroSection(props) {
                 <Typography variant="h2" color="inherit" paragraph>
                   {post.description}
                 </Typography>
-                <Link variant="subtitle1" href={routes.speakers.path}>
+                <Link variant="subtitle1" to={routes.speakers.path} component={RouterLink}>
                   <img
                     src={`${process.env.PUBLIC_URL}/images/FindAndBook.png`}
                     alt=""
