@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import { Link as RouterLink, NavLink, useHistory, useLocation } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
   },
   search: {
     display: 'inline',
+  },
+  active: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -85,13 +88,15 @@ export default function Header(props) {
 
             <Typography component="span" className={classes.navSection}>
               <Hidden smDown>
-                {sections.map(section => (
+                {sections.map((section, i) => (
                   <Link
                     key={section.title}
                     variant="inherit"
                     to={section.url}
                     className={classes.toolbarLink}
-                    component={RouterLink}
+                    component={NavLink}
+                    activeClassName={classes.active}
+                    exact={i === 0}
                   >
                     {section.title}
                   </Link>
