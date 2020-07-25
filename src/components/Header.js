@@ -28,6 +28,16 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'none',
     },
   },
+  logo: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
+  },
+  speaker: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
   navSection: {
     marginLeft: 'auto',
   },
@@ -73,6 +83,7 @@ export default function Header(props) {
   const query = useQuery();
   const { sections } = props;
   const image = `${process.env.PUBLIC_URL}/images/speakermeet.png`;
+  const speakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
   const handleSubmit = e => {
     history.push(`${routes.search.path}?terms=${e.target.terms.value}`);
   };
@@ -83,7 +94,8 @@ export default function Header(props) {
         <Container maxWidth="lg">
           <Toolbar className={classes.toolbar} id="back-to-top-anchor">
             <Link to={routes.root.path} component={RouterLink}>
-              <img className="logo" src={image} alt="" />
+              <img className={classes.logo} src={image} alt="" />
+              <img className={classes.speaker} src={speakerImage} alt="" />
             </Link>
 
             <Typography component="span" className={classes.navSection}>
@@ -102,20 +114,18 @@ export default function Header(props) {
                   </Link>
                 ))}
               </Hidden>
-              <Hidden xsDown>
-                <form className={classes.search} onSubmit={handleSubmit}>
-                  <Input
-                    name="terms"
-                    defaultValue={query.get('terms')}
-                    endAdornment={
-                      // eslint-disable-next-line react/jsx-wrap-multilines
-                      <InputAdornment position="end">
-                        <SearchIcon fontSize="small" />
-                      </InputAdornment>
-                    }
-                  />
-                </form>
-              </Hidden>
+              <form className={classes.search} onSubmit={handleSubmit}>
+                <Input
+                  name="terms"
+                  defaultValue={query.get('terms')}
+                  endAdornment={
+                    // eslint-disable-next-line react/jsx-wrap-multilines
+                    <InputAdornment position="end">
+                      <SearchIcon fontSize="small" />
+                    </InputAdornment>
+                  }
+                />
+              </form>
             </Typography>
           </Toolbar>
         </Container>
