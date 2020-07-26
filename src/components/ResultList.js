@@ -18,7 +18,7 @@ class ResultList extends Component {
 
     this.state = {
       type: 'grid',
-      sort: 'random',
+      sort: props.orderBy,
       filteredIds: [],
       stagger: 'forward',
       spring: 'veryGentle',
@@ -77,6 +77,9 @@ class ResultList extends Component {
               {[...data]
                 .filter(d => !filteredIds.includes(d.id))
                 .sort((a, b) => {
+                  if (sort === 'score') {
+                    return a.score > b.score;
+                  }
                   if (sort === 'asc') {
                     return a.name.localeCompare(b.name);
                   }
@@ -103,9 +106,14 @@ class ResultList extends Component {
   }
 }
 
+ResultList.defaultProps = {
+  orderBy: 'random',
+};
+
 ResultList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   classes: PropTypes.shape().isRequired,
+  orderBy: PropTypes.string,
 };
 
 export default withStyles(styles)(ResultList);
