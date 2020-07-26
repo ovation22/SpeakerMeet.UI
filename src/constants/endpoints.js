@@ -5,6 +5,7 @@ const rootRoute = `${config.api}/api`;
 export default {
   speakers: `${rootRoute}/Speakers/`,
   speakerDetail: `${rootRoute}/Speakers/Slug`,
+  speakersFeatured: `${rootRoute}/Speakers/Featured`,
   communities: `${rootRoute}/Communities/`,
   communityDetail: `${rootRoute}/Communities/Slug`,
   conferences: `${rootRoute}/Conferences/`,

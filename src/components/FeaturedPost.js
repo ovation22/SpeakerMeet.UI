@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
   },
   cardMedia: {
-    height: 300,
+    height: 280,
   },
   cardLocation: {
     height: 20,
