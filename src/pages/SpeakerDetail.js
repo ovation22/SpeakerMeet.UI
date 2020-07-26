@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
+import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router-dom';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -10,6 +11,7 @@ import FeaturedPost from '../components/FeaturedPost';
 import BreadCrumbs from '../components/BreadCrumbs';
 import FindASpeaker from '../components/FindASpeaker';
 import DetailTabs from '../components/DetailTabs';
+import FeaturedSpeakers from '../components/FeaturedSpeakers';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
@@ -76,21 +78,33 @@ export default function SpeakerDetail() {
           <>
             <BreadCrumbs />
             <Grid container spacing={4}>
-              <FeaturedPost
-                key={speaker.name}
-                post={{
-                  ...speaker,
-                  path: `${routes.speakers.path}/${speaker.slug}`,
-                }}
-              />
-              <Chip size="small" label=".net" />
-              <Chip size="small" label="tdd" />
-              <Chip size="small" label="agile" />
+              <Grid item xs={12} style={{ marginBottom: 48 }}>
+                <FeaturedPost
+                  key={speaker.name}
+                  post={{
+                    ...speaker,
+                    path: `${routes.speakers.path}/${speaker.slug}`,
+                  }}
+                />
+                <Chip size="small" label=".net" />
+                <Chip size="small" label="tdd" />
+                <Chip size="small" label="agile" />
+              </Grid>
             </Grid>
 
-            <DetailTabs rows={rows} />
+            <Grid item xs={12} style={{ marginBottom: 48 }}>
+              <DetailTabs rows={rows} />
+            </Grid>
 
-            <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            <Grid item xs={12} style={{ marginBottom: 64 }}>
+              <Typography variant="h4" style={{ padding: 24 }}>
+                Comments
+              </Typography>
+
+              <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            </Grid>
+
+            <FeaturedSpeakers />
           </>
         )}
       </Container>

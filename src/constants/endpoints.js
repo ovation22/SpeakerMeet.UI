@@ -8,6 +8,8 @@ export default {
   speakersFeatured: `${rootRoute}/Speakers/Featured`,
   communities: `${rootRoute}/Communities/`,
   communityDetail: `${rootRoute}/Communities/Slug`,
+  communitiesFeatured: `${rootRoute}/Communities/Featured`,
   conferences: `${rootRoute}/Conferences/`,
   conferenceDetail: `${rootRoute}/Conferences/Slug`,
+  conferencesFeatured: `${rootRoute}/Conferences/Featured`,
 };

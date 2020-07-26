@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
@@ -6,14 +6,10 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import Paper from '@material-ui/core/Paper/Paper';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import Container from '@material-ui/core/Container';
 import HomeHeroSection from '../components/HomeHeroSection';
-import FeaturedPost from '../components/FeaturedPost';
+import FeaturedSpeakers from '../components/FeaturedSpeakers';
 import FindASpeaker from '../components/FindASpeaker';
-import routes from '../constants/routes';
-import endpoints from '../constants/endpoints';
 
 const useStyles = makeStyles(theme => ({
   sectionTitle: {
@@ -48,47 +44,13 @@ const mainFeaturedPost = {
   title: 'Speaker and Conference',
   description: "Find out why SpeakerMeet is the best speaker's resource on the web!",
   image: `${process.env.PUBLIC_URL}/images/hero-speaker.jpg`,
-  imgText: 'main image description',
-  linkText: 'Continue reading…',
 };
 
 export default function Home() {
   const classes = useStyles();
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [speakers, setSpeakers] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      fetch(endpoints.speakersFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.speakers.path}/${x.slug}`,
-            }));
-            setSpeakers(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-          },
-        );
-    })();
-  }, []);
 
   return (
     <>
-      {error && (
-        <Snackbar open autoHideDuration={6000}>
-          <Alert severity="error">
-            Error:
-            {error.message}
-          </Alert>
-        </Snackbar>
-      )}
       <HomeHeroSection post={mainFeaturedPost} />
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <Typography variant="h2" gutterBottom className={classes.sectionTitle}>
@@ -150,24 +112,7 @@ export default function Home() {
       </Container>
       <FindASpeaker />
       <Container maxWidth="lg" style={{ padding: 24 }}>
-        <Typography variant="h4" style={{ padding: 24 }}>
-          Featured Speakers
-        </Typography>
-
-        {/*
-          // todo: extract component
-        */}
-        <Grid container spacing={4}>
-          {!isLoaded ? (
-            <CircularProgress />
-          ) : (
-            speakers.map(post => (
-              <Grid item key={post.name} xs={12} md={3}>
-                <FeaturedPost post={post} />
-              </Grid>
-            ))
-          )}
-        </Grid>
+        <FeaturedSpeakers />
       </Container>
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <Typography variant="h2" gutterBottom className={classes.sectionTitle}>

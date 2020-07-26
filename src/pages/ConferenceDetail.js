@@ -3,15 +3,18 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Disqus from 'disqus-react';
+import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router-dom';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import FeaturedPost from '../components/FeaturedPost';
 import BreadCrumbs from '../components/BreadCrumbs';
-import FindASpeaker from '../components/FindASpeaker';
+import FindAConference from '../components/FindAConference';
 import DetailTabs from '../components/DetailTabs';
+import FeaturedConferences from '../components/FeaturedConferences';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
+import routes from '../constants/routes';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -66,7 +69,7 @@ export default function ConferenceDetail() {
   }
   return (
     <>
-      <FindASpeaker />
+      <FindAConference />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? (
@@ -75,15 +78,33 @@ export default function ConferenceDetail() {
           <>
             <BreadCrumbs />
             <Grid container spacing={4}>
-              <FeaturedPost key={conference.name} post={conference} />
-              <Chip size="small" label=".net" />
-              <Chip size="small" label="tdd" />
-              <Chip size="small" label="agile" />
+              <Grid item xs={12} style={{ marginBottom: 48 }}>
+                <FeaturedPost
+                  key={conference.name}
+                  post={{
+                    ...conference,
+                    path: `${routes.conferences.path}/${conference.slug}`,
+                  }}
+                />
+                <Chip size="small" label=".net" />
+                <Chip size="small" label="tdd" />
+                <Chip size="small" label="agile" />
+              </Grid>
             </Grid>
 
-            <DetailTabs rows={rows} />
+            <Grid item xs={12} style={{ marginBottom: 48 }}>
+              <DetailTabs rows={rows} />
+            </Grid>
 
-            <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            <Grid item xs={12} style={{ marginBottom: 64 }}>
+              <Typography variant="h4" style={{ padding: 24 }}>
+                Comments
+              </Typography>
+
+              <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+            </Grid>
+
+            <FeaturedConferences />
           </>
         )}
       </Container>
