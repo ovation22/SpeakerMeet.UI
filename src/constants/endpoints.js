@@ -12,4 +12,5 @@ export default {
   conferences: `${rootRoute}/Conferences/`,
   conferenceDetail: `${rootRoute}/Conferences/Slug`,
   conferencesFeatured: `${rootRoute}/Conferences/Featured`,
+  search: `${rootRoute}/Search`,
 };
