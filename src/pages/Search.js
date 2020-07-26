@@ -28,10 +28,11 @@ export default function Search() {
   const [isLoaded, setLoaded] = useState(false);
   const [results, setResults] = useState([]);
   const query = useQuery();
+  const terms = query.get('terms');
 
   useEffect(() => {
     (async () => {
-      fetch(`${endpoints.search}?terms=${query.get('terms')}`)
+      fetch(`${endpoints.search}?terms=${terms}`)
         .then(res => res.json())
         .then(
           result => {
@@ -56,7 +57,7 @@ export default function Search() {
           },
         );
     })();
-  }, []);
+  }, [terms]);
 
   if (error) {
     return (
