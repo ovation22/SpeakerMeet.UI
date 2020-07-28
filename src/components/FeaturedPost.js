@@ -44,14 +44,20 @@ const useStyles = makeStyles(theme => ({
 
 export default function FeaturedPost({ post, ...rest }) {
   const classes = useStyles();
+  const altImage = `${process.env.PUBLIC_URL}/images/placeholder.png`;
 
   return (
     <Card className={classes.card} {...rest}>
       <CardActionArea>
         <CardMedia
           className={classes.cardMedia}
-          image={`${config.images}/${post.slug}.png`}
+          src={`${config.images}/${post.slug}.png`}
+          component="img"
           title={post.name}
+          onError={e => {
+            e.target.onerror = null;
+            e.target.src = altImage;
+          }}
         />
         <CardContent>
           <Typography component="h2" variant="h5" className={classes.cardTitle}>
