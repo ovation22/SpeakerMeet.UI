@@ -103,13 +103,13 @@ export default function Header(props) {
                 className={classes.logo}
                 src={image}
                 alt=""
-                onError={`this.onerror=null; this.src=${altImage}`}
+                onError={() => `this.onerror=null; this.src=${altImage}`}
               />
               <img
                 className={classes.speaker}
                 src={speakerImage}
                 alt=""
-                onError={`this.onerror=null; this.src=${altSpeakerImage}`}
+                onError={() => `this.onerror=null; this.src=${altSpeakerImage}`}
               />
             </Link>
 
