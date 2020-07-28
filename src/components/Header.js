@@ -2,7 +2,6 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link as RouterLink, NavLink, useHistory, useLocation } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
-import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
@@ -86,7 +85,8 @@ export default function Header(props) {
   const { sections } = props;
   const image = `${process.env.PUBLIC_URL}/images/speakermeet.svg`;
   const altImage = `${process.env.PUBLIC_URL}/images/speakermeet.png`;
-  const speakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
+  const speakerImage = `${process.env.PUBLIC_URL}/images/speaker.svg`;
+  const altSpeakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
   const handleSubmit = e => {
     e.preventDefault();
     history.push({ pathname: routes.search.path, search: `?terms=${e.target.terms.value}` });
@@ -98,15 +98,18 @@ export default function Header(props) {
         <Container maxWidth="lg">
           <Toolbar className={classes.toolbar} id="back-to-top-anchor">
             <Link to={routes.root.path} component={RouterLink}>
-              <Icon>
-                <img
-                  className={classes.logo}
-                  src={image}
-                  alt=""
-                  onError={`this.onerror=null; this.src=${altImage}`}
-                />
-              </Icon>
-              <img className={classes.speaker} src={speakerImage} alt="" />
+              <img
+                className={classes.logo}
+                src={image}
+                alt=""
+                onError={`this.onerror=null; this.src=${altImage}`}
+              />
+              <img
+                className={classes.speaker}
+                src={speakerImage}
+                alt=""
+                onError={`this.onerror=null; this.src=${altSpeakerImage}`}
+              />
             </Link>
 
             <Typography component="span" className={classes.navSection}>
