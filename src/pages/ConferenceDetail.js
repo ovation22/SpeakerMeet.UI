@@ -9,7 +9,7 @@ import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import FeaturedPost from '../components/FeaturedPost';
 import BreadCrumbs from '../components/BreadCrumbs';
-import FindAConference from '../components/FindAConference';
+import FindA from '../components/FindA';
 import DetailTabs from '../components/DetailTabs';
 import FeaturedConferences from '../components/FeaturedConferences';
 import config from '../constants/config';
@@ -69,7 +69,7 @@ export default function ConferenceDetail() {
   }
   return (
     <>
-      <FindAConference />
+      <FindA text="Conference" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? (

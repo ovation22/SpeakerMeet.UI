@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import ResultList from '../components/ResultList';
 import routes from '../constants/routes';
 import endpoints from '../constants/endpoints';
-
-const useStyles = makeStyles(theme => ({
-  findAConference: {
-    width: '100%',
-    backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(4),
-    color: 'white',
-  },
-}));
+import FindA from '../components/FindA';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 export default function Search() {
-  const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
   const [results, setResults] = useState([]);
@@ -71,12 +60,7 @@ export default function Search() {
   }
   return (
     <>
-      {/*
-      // todo: extract component
-      */}
-      <div className={classes.findAConference}>
-        <Typography variant="h4">Find a Speaker, Conference, or Community</Typography>
-      </div>
+      <FindA text="Speaker, Conference, or Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={results} orderBy="score" />}

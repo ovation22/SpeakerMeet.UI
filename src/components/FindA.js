@@ -1,9 +1,10 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  findASpeaker: {
+  findA: {
     width: '100%',
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(4),
@@ -11,12 +12,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FindASpeaker() {
+export default function FindA(props) {
   const classes = useStyles();
+  const { text } = props;
 
   return (
-    <div className={classes.findASpeaker}>
-      <Typography variant="h4">Find a Speaker</Typography>
+    <div className={classes.findA}>
+      <Typography variant="h4">{`Find a ${text}`}</Typography>
     </div>
   );
 }
+
+FindA.propTypes = {
+  text: PropTypes.string.isRequired,
+};
