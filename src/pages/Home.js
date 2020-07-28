@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import HomeHeroSection from '../components/HomeHeroSection';
 import FeaturedSpeakers from '../components/FeaturedSpeakers';
-import FindASpeaker from '../components/FindASpeaker';
+import FindA from '../components/FindA';
 
 const useStyles = makeStyles(theme => ({
   sectionTitle: {
@@ -24,12 +24,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
     verticalAlign: 'bottom',
     marginRight: 6,
-  },
-  findASpeaker: {
-    width: '100%',
-    backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(4),
-    color: 'white',
   },
   micSection: {
     backgroundImage: `url(${process.env.PUBLIC_URL}/images/mic.png)`,
@@ -110,7 +104,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
-      <FindASpeaker />
+      <FindA text="Speaker" />
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <FeaturedSpeakers />
       </Container>

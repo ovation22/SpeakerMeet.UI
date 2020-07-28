@@ -85,7 +85,8 @@ export default function Header(props) {
   const image = `${process.env.PUBLIC_URL}/images/speakermeet.png`;
   const speakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
   const handleSubmit = e => {
-    history.push(`${routes.search.path}?terms=${e.target.terms.value}`);
+    e.preventDefault();
+    history.push({ pathname: routes.search.path, search: `?terms=${e.target.terms.value}` });
   };
 
   return (
