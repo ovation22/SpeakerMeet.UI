@@ -15,6 +15,7 @@ import FeaturedCommunities from '../components/FeaturedCommunities';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
+import { trackException } from '../services/telemetry.service';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -52,6 +53,7 @@ export default function CommunityDetail() {
           e => {
             setError(e);
             setLoaded(true);
+            trackException(e);
           },
         );
     })();

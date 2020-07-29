@@ -47,14 +47,6 @@ const createTelemetryService = () => {
 
 export const applicationInsights = createTelemetryService();
 export const getAppInsights = () => appInsights;
-// unable to test appInsights details unless its in use. Will need null-check
-// to kick out given we are mocking appInsights
-/* istanbul ignore next */
-export const setAppInsightsUser = (employeeId, companyCode) => {
-  if (!appInsights) return;
-  appInsights.context.user.id = employeeId;
-  appInsights.context.user.accountId = companyCode;
-};
 /* istanbul ignore next */
 export const trackException = exception => {
   if (!appInsights) return;
