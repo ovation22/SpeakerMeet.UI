@@ -5,6 +5,7 @@ import { Alert } from '@material-ui/lab';
 import ResultList from '../components/ResultList';
 import routes from '../constants/routes';
 import endpoints from '../constants/endpoints';
+import { trackException } from '../services/telemetry.service';
 import FindA from '../components/FindA';
 
 export default function Communities() {
@@ -28,6 +29,7 @@ export default function Communities() {
           e => {
             setError(e);
             setLoaded(true);
+            trackException(e);
           },
         );
     })();

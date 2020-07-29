@@ -6,6 +6,7 @@ import ResultList from '../components/ResultList';
 import routes from '../constants/routes';
 import endpoints from '../constants/endpoints';
 import FindA from '../components/FindA';
+import { trackException } from '../services/telemetry.service';
 
 export default function Conferences() {
   const [error, setError] = useState(null);
@@ -28,6 +29,7 @@ export default function Conferences() {
           e => {
             setError(e);
             setLoaded(true);
+            trackException(e);
           },
         );
     })();

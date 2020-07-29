@@ -13,6 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/styles';
 import * as PropTypes from 'prop-types';
+import { trackException } from '../services/telemetry.service';
 
 const useStyles = makeStyles({
   root: {

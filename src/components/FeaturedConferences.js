@@ -6,6 +6,7 @@ import { Alert } from '@material-ui/lab';
 import FeaturedPost from './FeaturedPost';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
+import { trackException } from '../services/telemetry.service';
 
 export default function FeaturedConferences() {
   const [error, setError] = useState(null);
@@ -28,6 +29,7 @@ export default function FeaturedConferences() {
           e => {
             setError(e);
             setLoaded(true);
+            trackException(e);
           },
         );
     })();
