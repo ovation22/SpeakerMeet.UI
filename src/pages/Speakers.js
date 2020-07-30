@@ -14,8 +14,8 @@ export default function Speakers() {
   const [speakers, setSpeakers] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      fetch(endpoints.speakers)
+    const fetchData = async () => {
+      await fetch(endpoints.speakers)
         .then(res => res.json())
         .then(
           result => {
@@ -32,7 +32,8 @@ export default function Speakers() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, []);
 
   if (error) {

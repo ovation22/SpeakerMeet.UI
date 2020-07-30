@@ -42,8 +42,8 @@ export default function ConferenceDetail() {
   };
 
   useEffect(() => {
-    (async () => {
-      fetch(`${endpoints.conferenceDetail}/${slug}`)
+    const fetchData = async () => {
+      await fetch(`${endpoints.conferenceDetail}/${slug}`)
         .then(res => res.json())
         .then(
           result => {
@@ -56,7 +56,8 @@ export default function ConferenceDetail() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, [slug]);
 
   if (error) {

@@ -21,8 +21,8 @@ export default function Search() {
   const terms = query.get('terms');
 
   useEffect(() => {
-    (async () => {
-      fetch(`${endpoints.search}?terms=${terms}`)
+    const fetchData = async () => {
+      await fetch(`${endpoints.search}?terms=${terms}`)
         .then(res => res.json())
         .then(
           result => {
@@ -47,7 +47,8 @@ export default function Search() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, [terms]);
 
   if (error) {

@@ -14,8 +14,8 @@ export default function FeaturedCommunities() {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      fetch(endpoints.communitiesFeatured)
+    const fetchData = async () => {
+      await fetch(endpoints.communitiesFeatured)
         .then(res => res.json())
         .then(
           result => {
@@ -32,7 +32,8 @@ export default function FeaturedCommunities() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, []);
 
   return (

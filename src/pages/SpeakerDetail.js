@@ -42,8 +42,8 @@ export default function SpeakerDetail() {
   };
 
   useEffect(() => {
-    (async () => {
-      fetch(`${endpoints.speakerDetail}/${slug}`)
+    const fetchData = async () => {
+      await fetch(`${endpoints.speakerDetail}/${slug}`)
         .then(res => res.json())
         .then(
           result => {
@@ -56,7 +56,8 @@ export default function SpeakerDetail() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, [slug]);
 
   if (error) {

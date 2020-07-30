@@ -42,8 +42,8 @@ export default function CommunityDetail() {
   };
 
   useEffect(() => {
-    (async () => {
-      fetch(`${endpoints.communityDetail}/${slug}`)
+    const fetchData = async () => {
+      await fetch(`${endpoints.communityDetail}/${slug}`)
         .then(res => res.json())
         .then(
           result => {
@@ -56,7 +56,8 @@ export default function CommunityDetail() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, [slug]);
 
   if (error) {

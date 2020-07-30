@@ -14,8 +14,8 @@ export default function Conferences() {
   const [conferences, setConferences] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      fetch(endpoints.conferences)
+    const fetchData = async () => {
+      await fetch(endpoints.conferences)
         .then(res => res.json())
         .then(
           result => {
@@ -32,7 +32,8 @@ export default function Conferences() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, []);
 
   if (error) {
