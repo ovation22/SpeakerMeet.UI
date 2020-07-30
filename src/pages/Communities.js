@@ -14,8 +14,8 @@ export default function Communities() {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      fetch(endpoints.communities)
+    const fetchData = async () => {
+      await fetch(endpoints.communities)
         .then(res => res.json())
         .then(
           result => {
@@ -32,7 +32,8 @@ export default function Communities() {
             trackException(e);
           },
         );
-    })();
+    };
+    fetchData();
   }, []);
 
   if (error) {
