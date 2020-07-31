@@ -23,6 +23,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "VirtuaBoza",
+      "name": "Andrew Boza",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/22282010?v=4",
+      "profile": "http://andrewboza.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
