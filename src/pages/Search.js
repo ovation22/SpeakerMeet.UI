@@ -1,12 +1,12 @@
+import { CircularProgress } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
-import { CircularProgress, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import ResultList from '../components/ResultList';
-import routes from '../constants/routes';
-import endpoints from '../constants/endpoints';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindA from '../components/FindA';
+import ResultList from '../components/ResultList';
+import endpoints from '../constants/endpoints';
+import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 
 function useQuery() {
@@ -51,16 +51,6 @@ export default function Search() {
     fetchData();
   }, [terms]);
 
-  if (error) {
-    return (
-      <Snackbar open autoHideDuration={6000}>
-        <Alert severity="error">
-          Error:
-          {error.message}
-        </Alert>
-      </Snackbar>
-    );
-  }
   return (
     <>
       <FindA text="Speaker, Conference, or Community" />
@@ -68,6 +58,8 @@ export default function Search() {
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={results} orderBy="score" />}
       </Container>
+
+      <ErrorSnackbar error={error} />
     </>
   );
 }

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { CircularProgress, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import FeaturedPost from './FeaturedPost';
+import React, { useEffect, useState } from 'react';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
+import ErrorSnackbar from './ErrorSnackbar';
+import FeaturedPost from './FeaturedPost';
 
 export default function FeaturedConferences() {
   const [error, setError] = useState(null);
@@ -42,14 +42,8 @@ export default function FeaturedConferences() {
         Featured Conferences
       </Typography>
 
-      {error && (
-        <Snackbar open autoHideDuration={6000}>
-          <Alert severity="error">
-            Error:
-            {error.message}
-          </Alert>
-        </Snackbar>
-      )}
+      <ErrorSnackbar error={error} />
+
       <Grid container spacing={4}>
         {!isLoaded ? (
           <Grid item xs={12} md={12}>
