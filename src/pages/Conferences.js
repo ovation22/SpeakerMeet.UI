@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import { CircularProgress, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import ResultList from '../components/ResultList';
-import routes from '../constants/routes';
-import endpoints from '../constants/endpoints';
+import React, { useEffect, useState } from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindA from '../components/FindA';
+import ResultList from '../components/ResultList';
+import endpoints from '../constants/endpoints';
+import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 
 export default function Conferences() {
@@ -36,16 +36,6 @@ export default function Conferences() {
     fetchData();
   }, []);
 
-  if (error) {
-    return (
-      <Snackbar open autoHideDuration={6000}>
-        <Alert severity="error">
-          Error:
-          {error.message}
-        </Alert>
-      </Snackbar>
-    );
-  }
   return (
     <>
       <FindA text="Conference" />
@@ -53,6 +43,8 @@ export default function Conferences() {
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={conferences} />}
       </Container>
+
+      <ErrorSnackbar error={error} />
     </>
   );
 }
