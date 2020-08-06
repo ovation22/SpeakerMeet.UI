@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ErrorSnackbar from '../components/ErrorSnackbar';
-import FindA from '../components/FindA';
+import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
@@ -53,7 +53,7 @@ export default function Search() {
 
   return (
     <>
-      <FindA text="Speaker, Conference, or Community" />
+      <FindABanner text="Speaker, Conference, or Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={results} orderBy="score" />}

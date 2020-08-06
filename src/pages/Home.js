@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import HomeHeroSection from '../components/HomeHeroSection';
 import FeaturedSpeakers from '../components/FeaturedSpeakers';
-import FindA from '../components/FindA';
+import FindABanner from '../components/FindABanner';
 
 const useStyles = makeStyles(theme => ({
   sectionTitle: {
@@ -104,7 +104,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
-      <FindA text="Speaker" />
+      <FindABanner text="Speaker" />
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <FeaturedSpeakers />
       </Container>

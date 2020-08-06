@@ -11,7 +11,7 @@ import DetailTabs from '../components/DetailTabs';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FeaturedCommunities from '../components/FeaturedCommunities';
 import FeaturedPost from '../components/FeaturedPost';
-import FindA from '../components/FindA';
+import FindABanner from '../components/FindABanner';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
@@ -62,7 +62,7 @@ export default function CommunityDetail() {
 
   return (
     <>
-      <FindA text="Community" />
+      <FindABanner text="Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? (

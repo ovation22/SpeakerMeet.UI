@@ -2,7 +2,7 @@ import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
-import FindA from '../components/FindA';
+import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
@@ -38,7 +38,7 @@ export default function Conferences() {
 
   return (
     <>
-      <FindA text="Conference" />
+      <FindABanner text="Conference" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={conferences} />}
