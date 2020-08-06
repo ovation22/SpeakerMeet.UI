@@ -95,7 +95,6 @@ function App() {
           </TelemetryProvider>
         </BrowserRouter>
       </ThemeProvider>
-      <div style={{ display: 'none' }}>Hooray!</div>
     </div>
   );
 }
