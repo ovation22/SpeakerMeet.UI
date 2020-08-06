@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import routes from '../constants/routes';
 
 const useStyles = makeStyles(theme => ({
@@ -80,6 +81,14 @@ export default function Footer(props) {
                 className={classes.footerLink}
               >
                 <FacebookIcon />
+              </Link>
+              &nbsp;
+              <Link
+                color="inherit"
+                href="https://github.com/ovation22/SpeakerMeet.UI"
+                className={classes.footerLink}
+              >
+                <GitHubIcon />
               </Link>
             </Grid>
             <Grid item xs={12} md={6} align="right">
