@@ -41,6 +41,15 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "JSRhodes15",
+      "name": "Jordan Rhodes",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13190339?v=4",
+      "profile": "http://jordansrhodes.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
