@@ -32,6 +32,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "seanw122",
+      "name": "Sean Whitesell",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2321911?v=4",
+      "profile": "http://www.meetup.com/TulsaDevelopers-net/",
+      "contributions": [
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
