@@ -12,6 +12,9 @@ assignees: ovation22
 - [ ] Community
 - [ ] Conference
 
+## I have included/attached an appropriate image
+- [ ] Image attached
+
 ## Description (text description for item)
 
 
