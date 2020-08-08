@@ -1,11 +1,19 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import ErrorSnackbar from '../ErrorSnackbar';
 
 describe('ErrorSnackbar', () => {
+  // eslint-disable-next-line react/prop-types
+  const TestHarness = ({ error }) => (
+    <>
+      body
+      <ErrorSnackbar error={error} />
+    </>
+  );
+
   it('should not render given null is passed', () => {
     // arrange
-    const tree = <ErrorSnackbar />;
+    const tree = <TestHarness />;
 
     // act
     const { queryByText } = render(tree);
@@ -14,15 +22,19 @@ describe('ErrorSnackbar', () => {
     expect(queryByText('Error')).toBeNull();
   });
 
-  it('should render expected give passed message', () => {
+  it('should render error message and allow for dismiss', async () => {
+    // arrange
     // arrange
     const error = new Error('errorMessageValue');
-    const tree = <ErrorSnackbar error={error} />;
+    const tree = <TestHarness error={error} />;
 
     // act
-    const { getByRole } = render(tree);
+    const { getByRole, getByText } = render(tree);
 
     // assert
-    expect(getByRole('alert')).toHaveTextContent(error.message);
+    const alert = getByRole('alert');
+    expect(alert).toHaveTextContent(error.message);
+    fireEvent.click(getByText('body'));
+    await waitForElementToBeRemoved(alert);
   });
 });
