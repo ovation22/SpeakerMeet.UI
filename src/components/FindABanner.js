@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FindA(props) {
+export default function FindABanner(props) {
   const classes = useStyles();
   const { text } = props;
 
@@ -23,6 +23,6 @@ export default function FindA(props) {
   );
 }
 
-FindA.propTypes = {
+FindABanner.propTypes = {
   text: PropTypes.string.isRequired,
 };

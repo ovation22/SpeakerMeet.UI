@@ -89,19 +89,21 @@ export default function Header(props) {
   const altSpeakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
   const handleSubmit = e => {
     e.preventDefault();
-    history.push({ pathname: routes.search.path, search: `?terms=${e.target.terms.value}` });
+    if (e.target.terms.value.length > 1) {
+      history.push({ pathname: routes.search.path, search: `?terms=${e.target.terms.value}` });
+    }
   };
 
   return (
     <HideOnScroll {...props}>
       <AppBar position="fixed">
         <Container maxWidth="lg">
-          <Toolbar className={classes.toolbar} id="back-to-top-anchor">
+          <Toolbar className={classes.toolbar} id="back-to-top-anchor" role="menu">
             <Link to={routes.root.path} component={RouterLink}>
               <img
                 className={classes.logo}
                 src={image}
-                alt=""
+                alt="logo-main"
                 onError={e => {
                   e.target.onerror = null;
                   e.target.src = altImage;
@@ -110,7 +112,7 @@ export default function Header(props) {
               <img
                 className={classes.speaker}
                 src={speakerImage}
-                alt=""
+                alt="logo-speaker"
                 onError={e => {
                   e.target.onerror = null;
                   e.target.src = altSpeakerImage;
@@ -134,10 +136,15 @@ export default function Header(props) {
                   </Link>
                 ))}
               </Hidden>
-              <form className={classes.search} onSubmit={handleSubmit}>
+              <form className={classes.search} onSubmit={handleSubmit} role="search">
                 <Input
                   name="terms"
+                  type="search"
+                  required
+                  spellCheck="false"
+                  aria-label="Sitewide"
                   defaultValue={query.get('terms')}
+                  placeholder=""
                   endAdornment={
                     // eslint-disable-next-line react/jsx-wrap-multilines
                     <InputAdornment position="end">

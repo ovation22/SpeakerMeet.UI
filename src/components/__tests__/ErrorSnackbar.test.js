@@ -11,7 +11,7 @@ describe('ErrorSnackbar', () => {
     </>
   );
 
-  it('should not render given null is passed', () => {
+  it('should not render given error is not passed', () => {
     // arrange
     const tree = <TestHarness />;
 

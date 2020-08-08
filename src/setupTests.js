@@ -7,4 +7,10 @@ import '@testing-library/jest-dom/extend-expect';
 import MutationObserver from '@sheerun/mutationobserver-shim';
 window.MutationObserver = MutationObserver;
 
-global.scrollTo = jest.fn();
+window.scrollTo = (x) => x
+
+global.matchMedia = media => ({
+    addListener: () => {},
+    removeListener: () => {},
+    matches: media === '(min-width: 1200px)',
+});
