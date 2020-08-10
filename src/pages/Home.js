@@ -55,17 +55,16 @@ export default function Home() {
           <Grid item xs={12} md={4} align="left">
             <Typography variant="h4" align="left">
               <SearchIcon className={classes.sectionIcon} />
-              Find
+              Search
             </Typography>
             <Typography variant="h6" gutterBottom>
               The Industry&apos;s Directory
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              The right speaker can energize and engage an audience in ways that can spell the
+              difference between a successful conference and a forgettable one. Whether you&apos;re
+              in search of a full-time professional speaker or a specific subject-matter expert,
+              SpeakerMeet can help make your event a success.
             </Typography>
           </Grid>
 
@@ -78,28 +77,25 @@ export default function Home() {
               Easy Interaction
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              Our goal is to streamline the scheduling process from end-to-end. Rather than
+              searching for an appropriate speaker, tracking down contact information, requesting
+              availability, and then hoping that someone sees your message, we have consolidated
+              everything you need into one convenient location. Your only concerns are who and when.
             </Typography>
           </Grid>
 
           <Grid item xs={12} md={4} align="left">
             <Typography variant="h4" align="left">
               <RecordVoiceOverIcon className={classes.sectionIcon} />
-              Book
+              Schedule
             </Typography>
             <Typography variant="h6" gutterBottom>
               Speakers and Conferences
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              Once you find the perfect speaker, you can schedule and then manage every aspect of
+              your event from SpeakerMeet. No more searching emails, checking multiple calendars, or
+              tracking down contact information at the last minute. It’s all here, at a glance.
             </Typography>
           </Grid>
         </Grid>
