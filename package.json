@@ -35,6 +35,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-testing-library": "^3.3.2",
+    "jest-junit": "^11.1.0",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1"
   },
@@ -42,6 +43,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:cover": "npm test -- --coverage --reporters=default --reporters=jest-junit --watchAll=true",
+    "test:cover:open": "open coverage/lcov-report/index.html",
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.js\" -f table"
   },
