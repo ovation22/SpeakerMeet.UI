@@ -55,7 +55,7 @@ describe('telemetry.service', () => {
       }
     });
 
-    it('should not throw an error', () => {
+    it('should initialize without throwing an error', () => {
       // arrange
       const instrumentationKey = 'instrumentationKey';
       const history = { listen: jest.fn() };
@@ -63,9 +63,8 @@ describe('telemetry.service', () => {
       jest.spyOn(ApplicationInsightsReact, 'ReactPlugin');
 
       // act
-      telemetryService.applicationInsights.initialize(instrumentationKey, history);
-
       // assert
+      telemetryService.applicationInsights.initialize(instrumentationKey, history);
     });
   });
 
