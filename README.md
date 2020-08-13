@@ -4,7 +4,12 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/ovation22/SpeakerMeet.UI/blob/master/LICENSE)
 
 # SpeakerMeet.UI
-React front-end for SpeakerMeet.net
+React front-end for SpeakerMeet.net.
+
+If you're looking for the back-end Api, check out the [SpeakerMeet.Api](https://github.com/ovation22/SpeakerMeet.Api) repository.
+
+## Give a Star! :star:
+If you like the project, please consider giving it a star!
 
 ## Contributing
 Any and all are welcome to contribute to this project.
