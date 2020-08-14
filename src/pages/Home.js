@@ -122,11 +122,9 @@ export default function Home() {
               The Industry&apos;s Directory
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              SpeakerMeet wasn&apos;t created for only scheduling speakers. It&apos;s also a
+              platform for speakers to manage engagements and promote their brand. As a Speaker, you
+              can share information with audiences between events or integrate your personal site.
             </Typography>
           </Grid>
 
@@ -139,11 +137,9 @@ export default function Home() {
               Easy Interaction
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              Our communities allow you to take part in larger discussions and reach your audience
+              even after the conference ends. SpeakerMeet communities are a great place to get
+              interactive feedback on your presentations or share information.
             </Typography>
           </Grid>
 
@@ -164,11 +160,11 @@ export default function Home() {
               Speakers and Conferences
             </Typography>
             <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry’s standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
+              Keeping pace with an ever-changing industry can be difficult. Want a daily update on
+              .NET events in your state? A summary of upcoming web application conferences? Select
+              your interests and manage your notifications however you like. You can receive them by
+              any of the major push platforms or keep them all here in your dashboard. We fit your
+              working style.
             </Typography>
           </Grid>
         </Grid>
