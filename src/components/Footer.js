@@ -114,7 +114,7 @@ export default function Footer(props) {
                 {'Copyright © '}
                 <Link
                   color="inherit"
-                  to="https://speakermeet.net/"
+                  to="https://www.speakermeet.net/"
                   className={classes.footerLink}
                   component={RouterLink}
                 >
