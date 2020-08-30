@@ -58,4 +58,19 @@ describe('Communities', () => {
       screen.getByText(community.description);
     });
   });
+
+  it('should render error message from failed fetch', async () => {
+    // arrange
+    const errorMock = new Error('errorMessageValue');
+    const mockFetchPromise = Promise.reject(errorMock);
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+
+    const tree = <Communities />;
+
+    // act
+    await act(async () => renderWithRouter(tree));
+
+    // assert
+    screen.getByText(/\berrorMessageValue\b/);
+  });
 });
