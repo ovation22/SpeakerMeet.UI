@@ -10,18 +10,19 @@
     "@microsoft/applicationinsights-react-js": "^3.0.1",
     "@microsoft/applicationinsights-web": "^2.5.6",
     "disqus-react": "^1.0.9",
+    "history": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-flip-toolkit": "^7.0.12",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.3"
   },
   "devDependencies": {
     "@sheerun/mutationobserver-shim": "^0.3.3",
     "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.8",
+    "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.1.1",
     "css-mediaquery": "^0.1.2",
     "eslint": "^6.8.0",
