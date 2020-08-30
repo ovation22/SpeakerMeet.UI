@@ -37,8 +37,8 @@ export default function Privacy() {
           </Typography>
 
           <Typography paragraph>
-            When you visit our website http://speakermeet.net (the &quot;Website&quot;), and more
-            generally, use any of our services (the &quot;Services&quot;, which include the
+            When you visit our website https://www.speakermeet.net (the &quot;Website&quot;), and
+            more generally, use any of our services (the &quot;Services&quot;, which include the
             Website), we appreciate that you are trusting us with your personal information. We take
             your privacy very seriously. In this privacy notice, we seek to explain to you in the
             clearest way possible what information we collect, how we use it and what rights you
@@ -726,8 +726,8 @@ export default function Privacy() {
 
           <Typography paragraph>
             You may contact us by email at privacy@speakermeet.net, by visiting
-            http://speakermeet.net, or by referring to the contact details at the bottom of this
-            document.
+            https://www.speakermeet.net, or by referring to the contact details at the bottom of
+            this document.
           </Typography>
 
           <Typography paragraph>
@@ -864,9 +864,9 @@ export default function Privacy() {
 
           <Typography paragraph>
             To exercise these rights, you can contact us by email at privacy@speakermeet.net, by
-            visiting http://speakermeet.net, or by referring to the contact details at the bottom of
-            this document. If you have a complaint about how we handle your data, we would like to
-            hear from you.
+            visiting https://www.speakermeet.net, or by referring to the contact details at the
+            bottom of this document. If you have a complaint about how we handle your data, we would
+            like to hear from you.
           </Typography>
           <Typography variant="subtitle2" paragraph>
             14. DO WE MAKE UPDATES TO THIS NOTICE?
@@ -912,7 +912,7 @@ export default function Privacy() {
             Based on the applicable laws of your country, you may have the right to request access
             to the personal information we collect from you, change that information, or delete it
             in some circumstances. To request to review, update, or delete your personal
-            information, please visit: https://speakermeet.net. We will respond to your request
+            information, please visit: https://www.speakermeet.net. We will respond to your request
             within 30 days.
           </Typography>
         </Paper>
