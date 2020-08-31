@@ -4,7 +4,12 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/ovation22/SpeakerMeet.UI/blob/master/LICENSE)
 
 # SpeakerMeet.UI
-React front-end for SpeakerMeet.net
+React front-end for SpeakerMeet.net.
+
+If you're looking for the back-end Api, check out the [SpeakerMeet.Api](https://github.com/ovation22/SpeakerMeet.Api) repository.
+
+## Give a Star! :star:
+If you like the project, please consider giving it a star!
 
 ## Contributing
 Any and all are welcome to contribute to this project.
@@ -29,6 +34,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.meetup.com/TulsaDevelopers-net/"><img src="https://avatars3.githubusercontent.com/u/2321911?v=4" width="100px;" alt=""/><br /><sub><b>Sean Whitesell</b></sub></a><br /><a href="#content-seanw122" title="Content">🖋</a></td>
     <td align="center"><a href="http://jordansrhodes.com"><img src="https://avatars1.githubusercontent.com/u/13190339?v=4" width="100px;" alt=""/><br /><sub><b>Jordan Rhodes</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=JSRhodes15" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/FreakinWard"><img src="https://avatars0.githubusercontent.com/u/2846726?v=4" width="100px;" alt=""/><br /><sub><b>FreakinWard</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=FreakinWard" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/epsidge"><img src="https://avatars1.githubusercontent.com/u/60659351?v=4" width="100px;" alt=""/><br /><sub><b>Epsidge</b></sub></a><br /><a href="#content-Epsidge" title="Content">🖋</a></td>
   </tr>
 </table>
 
