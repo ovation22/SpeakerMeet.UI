@@ -43,19 +43,15 @@ export default function CommunityDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${endpoints.communityDetail}/${slug}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            setCommunity(result);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(`${endpoints.communityDetail}/${slug}`);
+        const result = await response.json();
+        setCommunity(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, [slug]);

@@ -15,23 +15,19 @@ export default function Communities() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(endpoints.communities)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.communities.path}/${x.slug}`,
-            }));
-            setCommunities(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(endpoints.communities);
+        const json = await response.json();
+        const result = json.map(x => ({
+          ...x,
+          path: `${routes.communities.path}/${x.slug}`,
+        }));
+        setCommunities(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, []);

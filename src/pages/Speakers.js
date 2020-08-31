@@ -15,23 +15,19 @@ export default function Speakers() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(endpoints.speakers)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.speakers.path}/${x.slug}`,
-            }));
-            setSpeakers(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(endpoints.speakers);
+        const json = await response.json();
+        const result = json.map(x => ({
+          ...x,
+          path: `${routes.speakers.path}/${x.slug}`,
+        }));
+        setSpeakers(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, []);
