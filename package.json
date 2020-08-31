@@ -10,7 +10,6 @@
     "@microsoft/applicationinsights-react-js": "^3.0.2",
     "@microsoft/applicationinsights-web": "^2.5.7",
     "disqus-react": "^1.0.9",
-    "history": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -36,6 +35,7 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-testing-library": "^3.6.0",
+    "history": "^5.0.0",
     "jest-junit": "^11.1.0",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1"
