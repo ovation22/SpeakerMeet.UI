@@ -43,19 +43,15 @@ export default function ConferenceDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${endpoints.conferenceDetail}/${slug}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            setConference(result);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(`${endpoints.conferenceDetail}/${slug}`);
+        const result = await response.json();
+        setConference(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, [slug]);

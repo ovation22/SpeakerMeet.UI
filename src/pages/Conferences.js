@@ -15,23 +15,19 @@ export default function Conferences() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(endpoints.conferences)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.conferences.path}/${x.slug}`,
-            }));
-            setConferences(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(endpoints.conferences);
+        const json = await response.json();
+        const result = json.map(x => ({
+          ...x,
+          path: `${routes.conferences.path}/${x.slug}`,
+        }));
+        setConferences(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, []);

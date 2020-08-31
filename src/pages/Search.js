@@ -22,31 +22,27 @@ export default function Search() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${endpoints.search}?terms=${terms}`)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.results.map(x => ({
-              ...x.document,
-              score: x.score,
-              path: `${
-                // eslint-disable-next-line no-nested-ternary
-                x.document.type === 'Speaker'
-                  ? routes.speakers.path
-                  : x.document.type === 'Conference'
-                  ? routes.conferences.path
-                  : routes.communities.path
-              }/${x.document.slug}`,
-            }));
-            setResults(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(`${endpoints.search}?terms=${terms}`);
+        const json = await response.json();
+        const result = json.results.map(x => ({
+          ...x.document,
+          score: x.score,
+          path: `${
+            // eslint-disable-next-line no-nested-ternary
+            x.document.type === 'Speaker'
+              ? routes.speakers.path
+              : x.document.type === 'Conference'
+              ? routes.conferences.path
+              : routes.communities.path
+          }/${x.document.slug}`,
+        }));
+        setResults(result);
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
     };
     fetchData();
   }, [terms]);
