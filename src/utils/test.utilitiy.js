@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { createMemoryHistory } from 'history';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
