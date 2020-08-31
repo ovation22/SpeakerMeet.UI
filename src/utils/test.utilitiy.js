@@ -1,7 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { createMemoryHistory } from 'history';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
 import { Router } from 'react-router';
 
