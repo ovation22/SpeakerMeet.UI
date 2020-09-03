@@ -92,5 +92,11 @@ FeaturedPost.defaultProps = {
 };
 
 FeaturedPost.propTypes = {
-  post: PropTypes.shape(),
+  post: PropTypes.shape({
+    name: PropTypes.string,
+    slug: PropTypes.string,
+    location: PropTypes.string,
+    description: PropTypes.string,
+    path: PropTypes.string,
+  }),
 };
