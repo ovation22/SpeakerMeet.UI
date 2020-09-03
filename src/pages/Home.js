@@ -3,13 +3,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import Paper from '@material-ui/core/Paper/Paper';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import HomeHeroSection from '../components/HomeHeroSection';
 import FeaturedSpeakers from '../components/FeaturedSpeakers';
 import FindABanner from '../components/FindABanner';
+import MicSection from '../components/MicSection';
 
 const useStyles = makeStyles(theme => ({
   sectionTitle: {
@@ -24,13 +24,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
     verticalAlign: 'bottom',
     marginRight: 6,
-  },
-  micSection: {
-    backgroundImage: `url(${process.env.PUBLIC_URL}/images/mic.png)`,
-    minHeight: 515,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center top',
   },
 }));
 
@@ -170,7 +163,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      <Paper className={classes.micSection} />
+      <MicSection />
 
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <Grid container spacing={4}>
