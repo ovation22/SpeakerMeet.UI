@@ -21,9 +21,6 @@ const useStyles = makeStyles(theme => ({
   cardTitle: {
     textAlign: 'center',
   },
-  cardMedia: {
-    height: 280,
-  },
   cardLocation: {
     height: 20,
     verticalAlign: 'middle',
@@ -32,11 +29,6 @@ const useStyles = makeStyles(theme => ({
   cardLocationIcon: {
     height: 20,
     verticalAlign: 'middle',
-  },
-  cardDetail: {
-    height: 145,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   cardViewProfile: {
     marginLeft: 'auto',
@@ -56,7 +48,6 @@ export default function SpeakerCard({ post, ...rest }) {
       <Card className={classes.card} {...rest}>
         <CardActionArea>
           <CardMedia
-            className={classes.cardMedia}
             src={`${config.images}/${post.slug}.png`}
             component="img"
             title={post.name}
@@ -73,7 +64,7 @@ export default function SpeakerCard({ post, ...rest }) {
               <LocationOn className={classes.cardLocationIcon} />
               {post.location}
             </Typography>
-            <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
+            <Typography variant="subtitle1" paragraph>
               {post.description}
             </Typography>
             <div className={classes.container}>
@@ -86,17 +77,7 @@ export default function SpeakerCard({ post, ...rest }) {
             </div>
           </CardContent>
         </CardActionArea>
-        <CardActions disableSpacing>
-          <Button
-            component={RouterLink}
-            size="small"
-            color="primary"
-            className={classes.cardViewProfile}
-            to={post.path}
-          >
-            View Profile
-          </Button>
-        </CardActions>
+        <CardActions />
       </Card>
     </>
   );
