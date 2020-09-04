@@ -8,16 +8,16 @@ import { renderWithRouter } from '../../utils/test.utilitiy';
 describe('SpeakerDetail', () => {
   it('should show stuff', async () => {
     // arrange
-    const post1 = {
+    const speaker = {
       name: 'nameValue1',
       slug: 'slugValue1',
       location: 'locationValue1',
       description: 'descriptionValue1',
       path: 'pathValue1',
+      tags: ['tag1', 'tag2'],
     };
 
-    const communities = [post1];
-    const mockJsonPromise = Promise.resolve(communities);
+    const mockJsonPromise = Promise.resolve(speaker);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
     });
@@ -36,8 +36,10 @@ describe('SpeakerDetail', () => {
     await act(async () => renderWithRouter(tree));
 
     // assert
-    screen.getByText(post1.name);
-    screen.getByText(post1.location);
-    screen.getByText(post1.description);
+    screen.getByText(speaker.name);
+    screen.getByText(speaker.location);
+    screen.getByText(speaker.description);
+
+    speaker.tags.forEach(tag => screen.getByText(tag));
   });
 });
