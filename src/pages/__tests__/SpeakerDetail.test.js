@@ -17,11 +17,17 @@ describe('SpeakerDetail', () => {
       tags: ['tag1', 'tag2'],
     };
 
-    const mockJsonPromise = Promise.resolve(speaker);
-    const mockFetchPromise = Promise.resolve({
-      json: () => mockJsonPromise,
+    const speakerResponseMock = Promise.resolve({
+      json: () => Promise.resolve(speaker),
     });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => speakerResponseMock);
+
+    const speakersFeatured = [];
+    const speakersFeaturedResponseMock = Promise.resolve({
+      json: () => Promise.resolve(speakersFeatured),
+    });
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => speakersFeaturedResponseMock);
+
     const theme = createMuiTheme();
 
     const tree = (

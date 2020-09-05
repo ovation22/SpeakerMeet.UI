@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
 import DetailTabs from '../components/DetailTabs';
 import ErrorSnackbar from '../components/ErrorSnackbar';
-// import FeaturedSpeakers from '../components/FeaturedSpeakers';
+import FeaturedSpeakers from '../components/FeaturedSpeakers';
 import FindABanner from '../components/FindABanner';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
@@ -89,7 +89,7 @@ export default function SpeakerDetail() {
               <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
             </Grid>
 
-            {/* <FeaturedSpeakers /> */}
+            <FeaturedSpeakers />
           </>
         )}
       </Container>
