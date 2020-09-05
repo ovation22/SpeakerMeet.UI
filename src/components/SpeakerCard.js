@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography, IconButton } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Chip from '@material-ui/core/Chip';
+import { Facebook } from '@material-ui/icons';
 import config from '../constants/config';
 
 const useStyles = makeStyles(theme => ({
@@ -66,7 +67,15 @@ export default function SpeakerCard({ post, ...rest }) {
               {post.description}
             </Typography>
             <div className={classes.container}>
-              <p>social & tags</p>
+              {post &&
+                post.socialPlatforms.map(social => {
+                  return (
+                    // TODO: can name be duplicated?
+                    <IconButton key={`${social.name}`} href={social.url}>
+                      <Facebook />
+                    </IconButton>
+                  );
+                })}
             </div>
             <div className={classes.container}>
               {post &&
@@ -94,5 +103,8 @@ SpeakerCard.propTypes = {
     description: PropTypes.string,
     path: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
+    socialPlatforms: PropTypes.arrayOf(
+      PropTypes.shape({ name: PropTypes.string, url: PropTypes.string }),
+    ).isRequired,
   }),
 };

@@ -15,6 +15,7 @@ describe('SpeakerDetail', () => {
       description: 'descriptionValue1',
       path: 'pathValue1',
       tags: ['tag1', 'tag2'],
+      socialPlatforms: [{ name: 'facebook', url: 'facebookUrl' }],
     };
 
     const speakerResponseMock = Promise.resolve({
