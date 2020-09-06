@@ -15,7 +15,7 @@ describe('SpeakerDetail', () => {
       description: 'descriptionValue1',
       path: 'pathValue1',
       tags: ['tag1', 'tag2'],
-      socialPlatforms: [{ name: 'facebook', url: 'facebookUrl' }],
+      socialPlatforms: [{ name: 'platform', url: 'platformUrl' }],
     };
 
     const speakerResponseMock = Promise.resolve({
@@ -46,6 +46,8 @@ describe('SpeakerDetail', () => {
     screen.getByText(speaker.name);
     screen.getByText(speaker.location);
     screen.getByText(speaker.description);
+
+    speaker.socialPlatforms.forEach(platform => screen.getByLabelText(platform.name));
 
     speaker.tags.forEach(tag => screen.getByText(tag));
   });
