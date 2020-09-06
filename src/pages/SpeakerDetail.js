@@ -32,7 +32,7 @@ export default function SpeakerDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${endpoints.speakerDetail}/${slug}`);
+        const response = await fetch(`${endpoints.speakers}/${slug}`);
         const result = await response.json();
         setSpeaker(result);
       } catch (e) {
