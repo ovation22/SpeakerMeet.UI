@@ -44,7 +44,7 @@ export default function CommunityDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${endpoints.communityDetail}/${slug}`);
+        const response = await fetch(`${endpoints.communities}/${slug}`);
         const result = await response.json();
         setCommunity(result);
       } catch (e) {
