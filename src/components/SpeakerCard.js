@@ -8,9 +8,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import LocationOn from '@material-ui/icons/LocationOn';
-import Chip from '@material-ui/core/Chip';
 import config from '../constants/config';
 import SocialLinks from './SocialLinks';
+import Tags from './Tags';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -70,10 +70,7 @@ export default function SpeakerCard({ post, ...rest }) {
               <SocialLinks socialPlatforms={post.socialPlatforms} />
             </div>
             <div className={classes.container}>
-              {post &&
-                post.tags.map(tag => {
-                  return <Chip key={tag} size="small" label={tag} />;
-                })}
+              <Tags tags={post.tags} />
             </div>
           </CardContent>
         </CardActionArea>
