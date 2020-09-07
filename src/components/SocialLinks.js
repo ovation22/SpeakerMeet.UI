@@ -1,24 +1,16 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
-import { Facebook, Link, Twitter, LinkedIn, GitHub, Reddit } from '@material-ui/icons';
+import { Facebook, Link, Twitter, GitHub } from '@material-ui/icons';
 
 function SocialLinks({ socialPlatforms }) {
+  const platformIcons = {
+    facebook: Facebook,
+    twitter: Twitter,
+    github: GitHub,
+  };
   const getPlatformIcon = name => {
-    switch (name.toLowerCase()) {
-      case 'facebook':
-        return Facebook;
-      case 'twitter':
-        return Twitter;
-      case 'linkedin':
-        return LinkedIn;
-      case 'github':
-        return GitHub;
-      case 'reddit':
-        return Reddit;
-      default:
-        return Link;
-    }
+    return platformIcons[name.toLowerCase()] || Link;
   };
   return socialPlatforms.map(social => {
     const PlatformIcon = getPlatformIcon(social.name);
