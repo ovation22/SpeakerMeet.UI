@@ -1,4 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
+import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -49,6 +50,10 @@ export default function Search() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Search Results</title>
+      </Helmet>
+
       <FindABanner text="Speaker, Conference, or Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>

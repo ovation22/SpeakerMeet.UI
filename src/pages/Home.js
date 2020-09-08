@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
@@ -38,6 +39,10 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet</title>
+      </Helmet>
+
       <HomeHeroSection post={mainFeaturedPost} />
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <Typography variant="h2" gutterBottom className={classes.sectionTitle}>

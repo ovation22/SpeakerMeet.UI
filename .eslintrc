@@ -36,6 +36,7 @@
         "custom": "ignore"
       }
     ],
+    "react/jsx-one-expression-per-line": "off",
     "react/prefer-stateless-function": [0],
     "operator-linebreak": "off",
     "jest/no-disabled-tests": "warn",

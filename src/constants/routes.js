@@ -25,6 +25,6 @@ export default {
   },
   terms: {
     path: '/terms',
-    name: 'Terms of Service',
+    name: 'Terms of Use',
   },
 };

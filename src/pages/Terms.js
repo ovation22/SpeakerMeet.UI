@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,10 @@ export default function Terms() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Terms of Use</title>
+      </Helmet>
+
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <BreadCrumbs />
         <Paper className={classes.root} align="left">
