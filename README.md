@@ -19,6 +19,14 @@ Please read our [Contributing Guidelines](/.github/CONTRIBUTING.md)
 Any and all are welcome to contribute to this project.
 Please read our [Code of Conduct](/.github/CODE_OF_CONDUCT.md)
 
+## Getting Started
+
+### Environment Configuration
+Create `.env.development.local` with the following content
+```
+REACT_APP_API="https://speakermeetapi.azurewebsites.net"
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
