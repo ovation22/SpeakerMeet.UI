@@ -47,7 +47,6 @@ describe('SpeakerDetail', () => {
     screen.getByText(speaker.location);
     screen.getByText(speaker.description);
 
-    screen.debug();
     speaker.socialPlatforms.forEach(platform => {
       expect(screen.getByLabelText(platform.name)).toHaveAttribute('href', platform.name.url);
     });

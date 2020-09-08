@@ -19,15 +19,18 @@ const useStyles = makeStyles(theme => ({
 
 function Tags({ tags }) {
   const classes = useStyles();
-  const tagList = tags.map(tag => {
-    return (
-      <li key={tag}>
-        <Chip size="small" className={classes.chip} label={tag} />
-      </li>
-    );
-  });
 
-  return <ul className={classes.root}>{tagList}</ul>;
+  return (
+    <ul className={classes.root}>
+      {tags.map(tag => {
+        return (
+          <li key={tag}>
+            <Chip size="small" className={classes.chip} label={tag} />
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
 
 Tags.propTypes = {
