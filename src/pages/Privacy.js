@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +18,10 @@ export default function Privacy() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Privacy Policy</title>
+      </Helmet>
+
       <Container maxWidth="lg" style={{ padding: 24 }}>
         <BreadCrumbs />
         <Paper className={classes.root} align="left">

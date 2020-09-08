@@ -1,5 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import { Helmet } from 'react-helmet-async';
 import React, { useEffect, useState } from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
@@ -34,6 +35,10 @@ export default function Communities() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Communities</title>
+      </Helmet>
+
       <FindABanner text="Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>

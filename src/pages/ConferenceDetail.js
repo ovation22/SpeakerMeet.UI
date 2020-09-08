@@ -1,4 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
+import { Helmet } from 'react-helmet-async';
 import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -58,6 +59,10 @@ export default function ConferenceDetail() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Conferences</title>
+      </Helmet>
+
       <FindABanner text="Conference" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
@@ -65,6 +70,9 @@ export default function ConferenceDetail() {
           <CircularProgress />
         ) : (
           <>
+            <Helmet>
+              <title>SpeakerMeet | {conference.name}</title>
+            </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
               <Grid item xs={12} style={{ marginBottom: 48 }}>
