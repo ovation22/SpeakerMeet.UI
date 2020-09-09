@@ -6,7 +6,7 @@ import SpeakerDetail from '../SpeakerDetail';
 import { render } from '../../utils/test.utilitiy';
 
 describe('SpeakerDetail', () => {
-  it('should show stuff', async () => {
+  it('should render the expected Speaker fields', async () => {
     // arrange
     const speaker = {
       id: 'idValue',

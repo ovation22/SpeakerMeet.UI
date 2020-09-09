@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import FeaturedPost from '../FeaturedPost';
 
 describe('FeaturedPost', () => {
-  it('should expected post fields', () => {
+  it('should render expected post fields', () => {
     // arrange
     const post = {
       name: 'nameValue',
