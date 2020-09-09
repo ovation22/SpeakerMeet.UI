@@ -3,7 +3,7 @@ import { act, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import SpeakerDetail from '../SpeakerDetail';
-import { renderWithRouter } from '../../utils/test.utilitiy';
+import { render } from '../../utils/test.utilitiy';
 
 describe('SpeakerDetail', () => {
   it('should show stuff', async () => {
@@ -41,7 +41,7 @@ describe('SpeakerDetail', () => {
     );
 
     // act
-    await act(async () => renderWithRouter(tree));
+    await act(async () => render(tree));
 
     // assert
     screen.getByText(speaker.name);
