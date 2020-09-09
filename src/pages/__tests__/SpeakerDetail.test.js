@@ -9,6 +9,7 @@ describe('SpeakerDetail', () => {
   it('should show stuff', async () => {
     // arrange
     const speaker = {
+      id: 'idValue',
       name: 'nameValue1',
       slug: 'slugValue1',
       location: 'locationValue1',
