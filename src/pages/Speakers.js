@@ -1,5 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import { Helmet } from 'react-helmet-async';
 import React, { useEffect, useState } from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
@@ -34,10 +35,16 @@ export default function Speakers() {
 
   return (
     <>
+      <Helmet>
+        <title>SpeakerMeet | Speakers</title>
+      </Helmet>
+
       <FindABanner text="Speaker" />
+
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
         {!isLoaded ? <CircularProgress /> : <ResultList data={speakers} />}
       </Container>
+
       <ErrorSnackbar error={error} />
     </>
   );

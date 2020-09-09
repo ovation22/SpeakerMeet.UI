@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
@@ -84,18 +85,23 @@ const disableTelemetry =
 
 function App() {
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <TelemetryProvider
-            disabled={disableTelemetry}
-            instrumentationKey={config.applicationInsightsTelemetryKey}
-          >
-            <Main />
-          </TelemetryProvider>
-        </BrowserRouter>
-      </ThemeProvider>
-    </div>
+    <HelmetProvider>
+      <div className="App">
+        <Helmet>
+          <title>SpeakerMeet</title>
+        </Helmet>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <TelemetryProvider
+              disabled={disableTelemetry}
+              instrumentationKey={config.applicationInsightsTelemetryKey}
+            >
+              <Main />
+            </TelemetryProvider>
+          </BrowserRouter>
+        </ThemeProvider>
+      </div>
+    </HelmetProvider>
   );
 }
 
