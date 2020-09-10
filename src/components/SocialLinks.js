@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
-import { Facebook, Link, Twitter, GitHub } from '@material-ui/icons';
+import * as Icons from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -21,13 +21,13 @@ const useStyles = makeStyles(theme => ({
 function SocialLinks({ socialPlatforms }) {
   const classes = useStyles();
 
-  const platformIcons = {
-    facebook: Facebook,
-    twitter: Twitter,
-    github: GitHub,
-  };
+  // const platformIcons = {
+  //   facebook: Facebook,
+  //   twitter: Twitter,
+  //   github: GitHub,
+  // };
   const getPlatformIcon = name => {
-    return platformIcons[name.toLowerCase()] || Link;
+    return Icons[name] || Icons.Link; // platformIcons[name.toLowerCase()] || Link;
   };
 
   return (
