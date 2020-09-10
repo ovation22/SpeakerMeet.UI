@@ -21,23 +21,14 @@ const useStyles = makeStyles(theme => ({
 function SocialLinks({ socialPlatforms }) {
   const classes = useStyles();
 
-  // const platformIcons = {
-  //   facebook: Facebook,
-  //   twitter: Twitter,
-  //   github: GitHub,
-  // };
-  const getPlatformIcon = name => {
-    return Icons[name] || Icons.Link; // platformIcons[name.toLowerCase()] || Link;
-  };
-
   return (
     <ul className={classes.root}>
       {socialPlatforms.map(social => {
-        const PlatformIcon = getPlatformIcon(social.name);
+        const key = `${social.name}${social.url}`;
+        const PlatformIcon = Icons[social.name] || Icons.Link;
 
         return (
-          // TODO: can name be duplicated?
-          <IconButton key={`${social.name}`} href={social.url} aria-label={social.name}>
+          <IconButton key={key} href={social.url} aria-label={social.name}>
             <PlatformIcon />
           </IconButton>
         );
