@@ -1,16 +1,16 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 import LocationOn from '@material-ui/icons/LocationOn';
 import config from '../constants/config';
+import SocialLinks from './SocialLinks';
+import Tags from './Tags';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -19,9 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
   cardTitle: {
     textAlign: 'center',
-  },
-  cardMedia: {
-    height: 280,
   },
   cardLocation: {
     height: 20,
@@ -32,17 +29,16 @@ const useStyles = makeStyles(theme => ({
     height: 20,
     verticalAlign: 'middle',
   },
-  cardDetail: {
-    height: 145,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
   cardViewProfile: {
     marginLeft: 'auto',
   },
+  container: {
+    float: 'left',
+    width: '100%',
+  },
 }));
 
-export default function FeaturedPost({ post, ...rest }) {
+export default function SpeakerCard({ post, ...rest }) {
   const classes = useStyles();
   const altImage = `${process.env.PUBLIC_URL}/images/placeholder.png`;
 
@@ -50,7 +46,6 @@ export default function FeaturedPost({ post, ...rest }) {
     <Card className={classes.card} {...rest}>
       <CardActionArea>
         <CardMedia
-          className={classes.cardMedia}
           src={`${config.images}/${post.slug}.png`}
           component="img"
           title={post.name}
@@ -67,36 +62,36 @@ export default function FeaturedPost({ post, ...rest }) {
             <LocationOn className={classes.cardLocationIcon} />
             {post.location}
           </Typography>
-          <Typography variant="subtitle1" paragraph className={classes.cardDetail}>
+          <Typography variant="subtitle1" paragraph>
             {post.description}
           </Typography>
+          <div className={classes.container}>
+            <SocialLinks socialPlatforms={post.socialPlatforms} />
+          </div>
+          <div className={classes.container}>
+            <Tags tags={post.tags} />
+          </div>
         </CardContent>
       </CardActionArea>
-      <CardActions disableSpacing>
-        <Button
-          component={RouterLink}
-          size="small"
-          color="primary"
-          className={classes.cardViewProfile}
-          to={post.path}
-        >
-          View Profile
-        </Button>
-      </CardActions>
+      <CardActions />
     </Card>
   );
 }
 
-FeaturedPost.defaultProps = {
+SpeakerCard.defaultProps = {
   post: null,
 };
 
-FeaturedPost.propTypes = {
+SpeakerCard.propTypes = {
   post: PropTypes.shape({
     name: PropTypes.string,
     slug: PropTypes.string,
     location: PropTypes.string,
     description: PropTypes.string,
     path: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    socialPlatforms: PropTypes.arrayOf(
+      PropTypes.shape({ name: PropTypes.string, url: PropTypes.string }),
+    ),
   }),
 };

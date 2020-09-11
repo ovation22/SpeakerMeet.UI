@@ -1,7 +1,7 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { act, screen } from '@testing-library/react';
-import { renderWithRouter } from '../../utils/test.utilitiy';
+import { render } from '../../utils/test.utilitiy';
 import Communities from '../Communities';
 
 describe('Communities', () => {
@@ -52,7 +52,7 @@ describe('Communities', () => {
     );
 
     // act
-    await act(async () => renderWithRouter(tree));
+    await act(async () => render(tree));
 
     // assert
     screen.getByText('Find a Community');
@@ -77,7 +77,7 @@ describe('Communities', () => {
     );
 
     // act
-    await act(async () => renderWithRouter(tree));
+    await act(async () => render(tree));
 
     // assert
     screen.getByText(/\berrorMessageValue\b/);
