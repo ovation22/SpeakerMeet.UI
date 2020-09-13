@@ -23,7 +23,6 @@ describe('Communities', () => {
           slug: 'slug-value-1',
           location: 'locationValue1',
           description: 'descriptionValue1',
-          
         },
         {
           id: 'idValue2',
@@ -31,17 +30,9 @@ describe('Communities', () => {
           slug: 'slug-value-2',
           location: 'locationValue2',
           description: 'descriptionValue2',
-          paginationInfo: {
-            totalItems: 9,
-            itemsPerPage: 9,
-            actualPage: 0,
-            totalPages: 1,
-            previous: 'is-disabled',
-            next: 'is-disabled',
-          },
         },
-      ]
-    }
+      ],
+    };
     const mockJsonPromise = Promise.resolve(result);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
