@@ -19,7 +19,7 @@ export default function Conferences() {
       try {
         const response = await fetch(endpoints.conferences);
         const json = await response.json();
-        const result = json.map(x => ({
+        const result = json.conferences.map(x => ({
           ...x,
           path: `${routes.conferences.path}/${x.slug}`,
         }));
