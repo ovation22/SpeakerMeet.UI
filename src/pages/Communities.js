@@ -19,7 +19,7 @@ export default function Communities() {
       try {
         const response = await fetch(endpoints.communities);
         const json = await response.json();
-        const result = json.map(x => ({
+        const result = json.communities.map(x => ({
           ...x,
           path: `${routes.communities.path}/${x.slug}`,
         }));

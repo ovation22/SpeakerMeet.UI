@@ -19,7 +19,7 @@ export default function Speakers() {
       try {
         const response = await fetch(endpoints.speakers);
         const json = await response.json();
-        const result = json.map(x => ({
+        const result = json.speakers.map(x => ({
           ...x,
           path: `${routes.speakers.path}/${x.slug}`,
         }));
