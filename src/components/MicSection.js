@@ -49,46 +49,54 @@ export default function Home() {
   }, []);
 
   return (
-    <Paper className={classes.micSection}>
+    <Paper className={classes.micSection} square>
       {!isLoaded ? (
         <CircularProgress />
       ) : (
         <Container maxWidth="lg" style={{ padding: 24 }}>
-          <Grid container spacing={4} alignItems="center" justify="center" style={{ height: 515 }}>
-            <Grid item xs={12} md={4} align="center">
-              <CountUp start={0} end={stats.speakerCount} delay={0}>
-                {({ countUpRef }) => (
-                  <div>
-                    <span ref={countUpRef} className={classes.count} />
-                    <br />
-                    <span className={classes.text}>Speakers Worldwide</span>
-                  </div>
-                )}
-              </CountUp>
+          {stats && (
+            <Grid
+              container
+              spacing={4}
+              alignItems="center"
+              justify="center"
+              style={{ height: 515 }}
+            >
+              <Grid item xs={12} md={4} align="center">
+                <CountUp start={0} end={stats.speakerCount} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Speakers Worldwide</span>
+                    </div>
+                  )}
+                </CountUp>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <CountUp start={0} end={stats.communityCount} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Communities listed</span>
+                    </div>
+                  )}
+                </CountUp>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <CountUp start={0} end={stats.conferenceCount} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Conferences listed</span>
+                    </div>
+                  )}
+                </CountUp>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <CountUp start={0} end={stats.communityCount} delay={0}>
-                {({ countUpRef }) => (
-                  <div>
-                    <span ref={countUpRef} className={classes.count} />
-                    <br />
-                    <span className={classes.text}>Communities listed</span>
-                  </div>
-                )}
-              </CountUp>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CountUp start={0} end={stats.conferenceCount} delay={0}>
-                {({ countUpRef }) => (
-                  <div>
-                    <span ref={countUpRef} className={classes.count} />
-                    <br />
-                    <span className={classes.text}>Conferences listed</span>
-                  </div>
-                )}
-              </CountUp>
-            </Grid>
-          </Grid>
+          )}
         </Container>
       )}
       <ErrorSnackbar error={error} />
