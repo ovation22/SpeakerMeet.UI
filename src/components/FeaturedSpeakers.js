@@ -1,40 +1,13 @@
 import { CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from 'react';
-import endpoints from '../constants/endpoints';
-import routes from '../constants/routes';
-import { trackException } from '../services/telemetry.service';
+import React from 'react';
 import ErrorSnackbar from './ErrorSnackbar';
 import FeaturedPost from './FeaturedPost';
+import useSpeakers from '../hooks/useSpeakers';
 
 export default function FeaturedSpeakers() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [speakers, setSpeakers] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetch(endpoints.speakersFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.speakers.path}/${x.slug}`,
-            }));
-            setSpeakers(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
-    };
-    fetchData();
-  }, []);
+  const { speakers, error, isLoaded } = useSpeakers();
 
   return (
     <>
