@@ -14,7 +14,7 @@ const ErrorSnackbar = ({ error }) => {
 
   return error ? (
     <Snackbar open={alertOpen} autoHideDuration={6000} onClose={() => setAlertOpen(false)}>
-      <Alert severity="error">
+      <Alert severity="error" data-testid="snackError">
         Error:
         {error.message}
       </Alert>

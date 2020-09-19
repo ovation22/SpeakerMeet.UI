@@ -5,7 +5,7 @@ import React from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
-import useSpeakers from '../hooks/useSpeakers';
+import { useSpeakers } from '../hooks/useSpeakers';
 
 export default function Speakers() {
   const { speakers, error, isLoaded } = useSpeakers();
@@ -19,7 +19,7 @@ export default function Speakers() {
       <FindABanner text="Speaker" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
-        {!isLoaded ? <CircularProgress /> : <ResultList data={speakers} />}
+        {!isLoaded ? <CircularProgress data-testid="loading" /> : <ResultList data={speakers} />}
       </Container>
 
       <ErrorSnackbar error={error} />

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useSpeakers from '../useSpeakers';
+import { useSpeakers } from '../useSpeakers';
 import routes from '../../constants/routes';
 
 describe('useSpeakers', () => {

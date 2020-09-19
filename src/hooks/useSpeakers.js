@@ -3,15 +3,8 @@ import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 
-// function useSpeakers() {
-//   return useQuery('speakers', () => fetch(endpoints.speakersFeatured).then(res => res.json()));
-// }
-
-// const refetch = useQuery('speakers', () =>
-//   fetch(endpoints.speakersFeatured).then(res => res.json()),
-// ).then(data => setSpeakers(data));
-
-function useSpeakers() {
+// eslint-disable-next-line import/prefer-default-export
+export function useSpeakers() {
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
   const [speakers, setSpeakers] = useState([]);
@@ -46,5 +39,3 @@ function useSpeakers() {
     isLoaded,
   };
 }
-
-export default useSpeakers;
