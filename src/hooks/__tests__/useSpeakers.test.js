@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useSpeakers } from '../useSpeakers';
 import routes from '../../constants/routes';
+import * as telemetryService from '../../services/telemetry.service';
 
 describe('useSpeakers', () => {
   it('should behave correctly given request succeeds', async () => {
@@ -39,7 +40,9 @@ describe('useSpeakers', () => {
 
   it('should behave correctly given request fails', async () => {
     // arrange
-    jest.spyOn(global, 'fetch').mockRejectedValue();
+    const error = new Error('Error Mock');
+    jest.spyOn(global, 'fetch').mockRejectedValueOnce(error);
+    jest.spyOn(telemetryService, 'trackException');
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
@@ -52,5 +55,8 @@ describe('useSpeakers', () => {
 
     expect(result.current.speakers).toEqual([]);
     expect(result.current.isLoaded).toBe(true);
+    expect(result.current.error).toEqual(error);
+
+    expect(telemetryService.trackException).toHaveBeenCalledWith(error);
   });
 });
