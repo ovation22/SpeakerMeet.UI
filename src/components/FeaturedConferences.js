@@ -1,40 +1,13 @@
+import React from 'react';
 import { CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from 'react';
-import endpoints from '../constants/endpoints';
-import routes from '../constants/routes';
-import { trackException } from '../services/telemetry.service';
 import ErrorSnackbar from './ErrorSnackbar';
 import FeaturedPost from './FeaturedPost';
+import useConferencesFeatured from '../hooks/useConferencesFeatured';
 
 export default function FeaturedConferences() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [conferences, setConferences] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetch(endpoints.conferencesFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.conferences.path}/${x.slug}`,
-            }));
-            setConferences(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
-    };
-    fetchData();
-  }, []);
+  const { error, isLoaded, conferences } = useConferencesFeatured();
 
   return (
     <>
@@ -47,7 +20,7 @@ export default function FeaturedConferences() {
       <Grid container spacing={4}>
         {!isLoaded ? (
           <Grid item xs={12} md={12}>
-            <CircularProgress style={{ align: 'center' }} />
+            <CircularProgress data-testid="loading" style={{ align: 'center' }} />
           </Grid>
         ) : (
           conferences.map(post => (
