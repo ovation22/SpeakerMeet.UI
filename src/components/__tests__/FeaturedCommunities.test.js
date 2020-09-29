@@ -5,12 +5,24 @@ import FeaturedCommunities from '../FeaturedCommunities';
 import * as useCommunitiesFeatured from '../../hooks/useCommunitiesFeatured';
 
 describe('FeaturedCommunities', () => {
-  it('should render loading', () => {
+  it('should notify user of loading', () => {
     // arrange
-    const hook = { isLoaded: false };
-    jest.spyOn(useCommunitiesFeatured, 'default').mockImplementationOnce(() => hook);
+    const useCommunitiesFeaturedMock = () => {
+      return {
+        error: null,
+        isLoaded: false,
+        communities: [],
+      };
+    };
+    jest
+      .spyOn(useCommunitiesFeatured, 'default')
+      .mockImplementationOnce(useCommunitiesFeaturedMock);
 
-    const tree = <FeaturedCommunities />;
+    const tree = (
+      <BrowserRouter>
+        <FeaturedCommunities />
+      </BrowserRouter>
+    );
 
     // act
     const { getByTestId } = render(tree);
@@ -19,26 +31,29 @@ describe('FeaturedCommunities', () => {
     getByTestId('loading');
   });
 
-  it('should render featured communities', () => {
+  it('should render expected community fields', () => {
     // arrange
-    const hook = {
-      isLoaded: true,
-      communities: [
-        {
-          name: 'nameValue',
-          location: 'locationValue',
-          path: 'pathValue',
-          description: 'descriptionValue',
-        },
-        {
-          name: 'nameValue2',
-          location: 'locationValue2',
-          path: 'pathValue2',
-          description: 'descriptionValue2',
-        },
-      ],
+    const community = {
+      id: 'idValue',
+      name: 'nameValue',
+      description: 'descriptionValue',
+      location: 'locationValue',
+      path: 'pathValue',
+      slug: 'slugValue',
     };
-    jest.spyOn(useCommunitiesFeatured, 'default').mockImplementationOnce(() => hook);
+    const communities = [community];
+
+    const useCommunitiesFeaturedMock = () => {
+      return {
+        error: null,
+        isLoaded: true,
+        communities,
+      };
+    };
+    jest
+      .spyOn(useCommunitiesFeatured, 'default')
+      .mockImplementationOnce(useCommunitiesFeaturedMock);
+
     const tree = (
       <BrowserRouter>
         <FeaturedCommunities />
@@ -46,16 +61,37 @@ describe('FeaturedCommunities', () => {
     );
 
     // act
-    const { getByText, getByTestId } = render(tree);
+    const { getByText } = render(tree);
 
     // assert
-    hook.communities.forEach(community => {
-      getByText(community.name);
-      getByText(community.location);
-      getByText(community.description);
+    getByText(community.name);
+  });
 
-      const expectedPath = `/${community.path}`;
-      expect(getByTestId(`profile-${community.name}`)).toHaveAttribute('href', expectedPath);
-    });
+  it('should alert of error', () => {
+    // arrange
+    const error = new Error('error message');
+
+    const useCommunitiesFeaturedMock = () => {
+      return {
+        error,
+        isLoaded: true,
+        communities: [],
+      };
+    };
+    jest
+      .spyOn(useCommunitiesFeatured, 'default')
+      .mockImplementationOnce(useCommunitiesFeaturedMock);
+
+    const tree = (
+      <BrowserRouter>
+        <FeaturedCommunities />
+      </BrowserRouter>
+    );
+
+    // act
+    const { getByTestId } = render(tree);
+
+    // assert
+    expect(getByTestId('snackError')).toContainHTML(error.message);
   });
 });
