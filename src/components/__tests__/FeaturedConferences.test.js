@@ -8,9 +8,7 @@ describe('FeaturedConferences', () => {
   it('should render loading', () => {
     // arrange
     const hook = { isLoaded: false };
-    jest.spyOn(useConferencesFeatured, 'default').mockImplementationOnce(() => {
-      return hook;
-    });
+    jest.spyOn(useConferencesFeatured, 'default').mockImplementationOnce(() => hook);
 
     const tree = <FeaturedConferences />;
     // act

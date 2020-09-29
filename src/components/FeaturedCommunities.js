@@ -20,7 +20,7 @@ export default function FeaturedCommunities() {
       <Grid container spacing={4}>
         {!isLoaded ? (
           <Grid item xs={12} md={12}>
-            <CircularProgress style={{ align: 'center' }} />
+            <CircularProgress data-testid="loading" style={{ align: 'center' }} />
           </Grid>
         ) : (
           communities.map(post => (
