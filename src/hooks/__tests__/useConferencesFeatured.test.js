@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useConferencesFeatured from '../../hooks/useConferencesFeatured';
+import useConferencesFeatured from '../useConferencesFeatured';
 import routes from '../../constants/routes';
 
 describe('useConferencesFeatured', () => {
