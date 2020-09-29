@@ -79,6 +79,7 @@ export default function FeaturedPost({ post, ...rest }) {
           color="primary"
           className={classes.cardViewProfile}
           to={post.path}
+          data-testid={`profile-${post.name}`}
         >
           View Profile
         </Button>
