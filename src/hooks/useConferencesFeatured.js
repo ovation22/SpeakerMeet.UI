@@ -3,22 +3,22 @@ import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 
-export default function useCommunitiesFeatured() {
+export default function useConferencesFeatured() {
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
-  const [communities, setCommunities] = useState([]);
+  const [conferences, setConferences] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(endpoints.communitiesFeatured)
+      await fetch(endpoints.conferencesFeatured)
         .then(res => res.json())
         .then(
           result => {
             const s = result.map(x => ({
               ...x,
-              path: `${routes.communities.path}/${x.slug}`,
+              path: `${routes.conferences.path}/${x.slug}`,
             }));
-            setCommunities(s);
+            setConferences(s);
             setLoaded(true);
           },
           e => {
@@ -34,6 +34,6 @@ export default function useCommunitiesFeatured() {
   return {
     error,
     isLoaded,
-    communities,
+    conferences,
   };
 }

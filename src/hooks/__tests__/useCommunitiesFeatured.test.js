@@ -6,14 +6,7 @@ import * as telemetryService from '../../services/telemetry.service';
 describe('useCommunitiesFeatured', () => {
   it('should load featured communities given request success', async () => {
     // arrange
-    const community = {
-      id: 'idValue',
-      name: 'nameValue',
-      description: 'descriptionValue',
-      location: 'locationValue',
-      path: 'pathValue',
-      slug: 'slugValue',
-    };
+    const community = { path: 'pathValue' };
     const expectedCommunities = [
       { ...community, path: `${routes.communities.path}/${community.slug}` },
     ];
