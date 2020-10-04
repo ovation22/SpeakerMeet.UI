@@ -14,7 +14,7 @@ export function useSpeakers() {
       .then(res => res.json())
       .then(
         result => {
-          const s = result.map(x => ({
+          const s = result.speakers.map(x => ({
             ...x,
             path: `${routes.speakers.path}/${x.slug}`,
           }));
