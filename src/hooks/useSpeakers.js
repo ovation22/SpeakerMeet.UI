@@ -13,16 +13,17 @@ export function useSpeakers() {
     try {
       const response = await fetch(endpoints.speakers);
       const data = await response.json();
-      const result = data.map(x => ({
+      const result = data.speakers.map(x => ({
         ...x,
         path: `${routes.speakers.path}/${x.slug}`,
       }));
       setSpeakers(result);
+      setLoaded(true);
     } catch (e) {
       setError(e);
+      setLoaded(true);
       trackException(e);
     }
-    setLoaded(true);
   };
 
   useEffect(() => {
