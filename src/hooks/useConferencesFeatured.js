@@ -10,7 +10,7 @@ export default function useConferencesFeatured() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(endpoints.communitiesFeatured);
+      const response = await fetch(endpoints.conferencesFeatured);
       const data = await response.json();
       const result = data.map(x => ({
         ...x,
