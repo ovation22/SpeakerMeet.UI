@@ -10,23 +10,20 @@ export default function useCommunitiesFeatured() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(endpoints.communitiesFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.communities.path}/${x.slug}`,
-            }));
-            setCommunities(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
+      try {
+        const response = await fetch(endpoints.communitiesFeatured);
+        const data = await response.json();
+        const result = data.map(x => ({
+          ...x,
+          path: `${routes.communities.path}/${x.slug}`,
+        }));
+        setCommunities(result);
+        setLoaded(true);
+      } catch (e) {
+        setError(e);
+        setLoaded(true);
+        trackException(e);
+      }
     };
     fetchData();
   }, []);
