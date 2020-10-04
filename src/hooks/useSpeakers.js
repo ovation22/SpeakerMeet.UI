@@ -10,7 +10,7 @@ export function useSpeakers() {
   const [speakers, setSpeakers] = useState([]);
 
   const fetchData = async () => {
-    await fetch(endpoints.speakersFeatured)
+    await fetch(endpoints.speakers)
       .then(res => res.json())
       .then(
         result => {
