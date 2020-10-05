@@ -17,12 +17,11 @@ export default function useCommunitiesFeatured() {
         path: `${routes.communities.path}/${x.slug}`,
       }));
       setCommunities(result);
-      setLoaded(true);
     } catch (e) {
       setError(e);
-      setLoaded(true);
       trackException(e);
     }
+    setLoaded(true);
   };
 
   useEffect(() => {
