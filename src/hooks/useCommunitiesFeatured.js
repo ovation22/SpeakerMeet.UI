@@ -8,26 +8,24 @@ export default function useCommunitiesFeatured() {
   const [isLoaded, setLoaded] = useState(false);
   const [communities, setCommunities] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(endpoints.communitiesFeatured);
+      const data = await response.json();
+      const result = data.map(x => ({
+        ...x,
+        path: `${routes.communities.path}/${x.slug}`,
+      }));
+      setCommunities(result);
+      setLoaded(true);
+    } catch (e) {
+      setError(e);
+      setLoaded(true);
+      trackException(e);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch(endpoints.communitiesFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.communities.path}/${x.slug}`,
-            }));
-            setCommunities(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
-    };
     fetchData();
   }, []);
 

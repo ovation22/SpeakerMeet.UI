@@ -10,23 +10,20 @@ export function useSpeakers() {
   const [speakers, setSpeakers] = useState([]);
 
   const fetchData = async () => {
-    await fetch(endpoints.speakers)
-      .then(res => res.json())
-      .then(
-        result => {
-          const s = result.speakers.map(x => ({
-            ...x,
-            path: `${routes.speakers.path}/${x.slug}`,
-          }));
-          setSpeakers(s);
-          setLoaded(true);
-        },
-        e => {
-          setError(e);
-          setLoaded(true);
-          trackException(e);
-        },
-      );
+    try {
+      const response = await fetch(endpoints.speakers);
+      const data = await response.json();
+      const result = data.speakers.map(x => ({
+        ...x,
+        path: `${routes.speakers.path}/${x.slug}`,
+      }));
+      setSpeakers(result);
+      setLoaded(true);
+    } catch (e) {
+      setError(e);
+      setLoaded(true);
+      trackException(e);
+    }
   };
 
   useEffect(() => {
