@@ -5,7 +5,7 @@ import React from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
-import { useSpeakers } from '../hooks/useSpeakers';
+import useSpeakers from '../hooks/useSpeakers';
 
 export default function Speakers() {
   const { speakers, error, isLoaded } = useSpeakers();

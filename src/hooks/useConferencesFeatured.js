@@ -8,26 +8,23 @@ export default function useConferencesFeatured() {
   const [isLoaded, setLoaded] = useState(false);
   const [conferences, setConferences] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(endpoints.conferencesFeatured);
+      const data = await response.json();
+      const result = data.map(x => ({
+        ...x,
+        path: `${routes.conferences.path}/${x.slug}`,
+      }));
+      setConferences(result);
+    } catch (e) {
+      setError(e);
+      trackException(e);
+    }
+    setLoaded(true);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch(endpoints.conferencesFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.conferences.path}/${x.slug}`,
-            }));
-            setConferences(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
-    };
     fetchData();
   }, []);
 

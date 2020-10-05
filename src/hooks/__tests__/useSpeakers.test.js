@@ -1,20 +1,22 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useSpeakers } from '../useSpeakers';
+import useSpeakers from '../useSpeakers';
 import routes from '../../constants/routes';
 import * as telemetryService from '../../services/telemetry.service';
 
 describe('useSpeakers', () => {
   it('should behave correctly given request succeeds', async () => {
     // arrange
-    const speakerResult = [
-      {
-        id: 'idValue1',
-        description: 'descriptionValue1',
-        location: 'locationValue1',
-        name: 'nameValue1',
-        slug: 'slugValue1',
-      },
-    ];
+    const speakerResult = {
+      speakers: [
+        {
+          id: 'idValue1',
+          description: 'descriptionValue1',
+          location: 'locationValue1',
+          name: 'nameValue1',
+          slug: 'slugValue1',
+        },
+      ],
+    };
     const mockJsonPromise = Promise.resolve(speakerResult);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
@@ -22,7 +24,10 @@ describe('useSpeakers', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
 
     const expectedSpeakers = [
-      { ...speakerResult[0], path: `${routes.speakers.path}/${speakerResult[0].slug}` },
+      {
+        ...speakerResult.speakers[0],
+        path: `${routes.speakers.path}/${speakerResult.speakers[0].slug}`,
+      },
     ];
 
     // act
