@@ -17,12 +17,11 @@ export default function useConferencesFeatured() {
         path: `${routes.conferences.path}/${x.slug}`,
       }));
       setConferences(result);
-      setLoaded(true);
     } catch (e) {
       setError(e);
-      setLoaded(true);
       trackException(e);
     }
+    setLoaded(true);
   };
 
   useEffect(() => {

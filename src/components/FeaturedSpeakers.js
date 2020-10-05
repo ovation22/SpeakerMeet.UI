@@ -13,26 +13,23 @@ export default function FeaturedSpeakers() {
   const [isLoaded, setLoaded] = useState(false);
   const [speakers, setSpeakers] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(endpoints.speakersFeatured);
+      const data = await response.json();
+      const result = data.map(x => ({
+        ...x,
+        path: `${routes.speakers.path}/${x.slug}`,
+      }));
+      setSpeakers(result);
+    } catch (e) {
+      setError(e);
+      trackException(e);
+    }
+    setLoaded(true);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch(endpoints.speakersFeatured)
-        .then(res => res.json())
-        .then(
-          result => {
-            const s = result.map(x => ({
-              ...x,
-              path: `${routes.speakers.path}/${x.slug}`,
-            }));
-            setSpeakers(s);
-            setLoaded(true);
-          },
-          e => {
-            setError(e);
-            setLoaded(true);
-            trackException(e);
-          },
-        );
-    };
     fetchData();
   }, []);
 

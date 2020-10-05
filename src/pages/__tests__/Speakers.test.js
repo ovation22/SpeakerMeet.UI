@@ -7,7 +7,7 @@ describe('Speakers', () => {
   it('should render loading', () => {
     // arrange
     const hook = { isLoaded: false };
-    jest.spyOn(useSpeakersHook, 'useSpeakers').mockImplementationOnce(() => hook);
+    jest.spyOn(useSpeakersHook, 'default').mockImplementationOnce(() => hook);
 
     // act
     const { getByTestId } = render(<Speakers />);
@@ -31,7 +31,7 @@ describe('Speakers', () => {
       ],
       isLoaded: true,
     };
-    jest.spyOn(useSpeakersHook, 'useSpeakers').mockImplementationOnce(() => hook);
+    jest.spyOn(useSpeakersHook, 'default').mockImplementationOnce(() => hook);
 
     // act
     const { getByText } = render(<Speakers />);
@@ -49,7 +49,7 @@ describe('Speakers', () => {
       },
       isLoaded: true,
     };
-    jest.spyOn(useSpeakersHook, 'useSpeakers').mockImplementationOnce(() => hook);
+    jest.spyOn(useSpeakersHook, 'default').mockImplementationOnce(() => hook);
 
     // act
     const { getByTestId } = render(<Speakers />);
