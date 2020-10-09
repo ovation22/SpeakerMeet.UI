@@ -1,5 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import { Helmet } from 'react-helmet-async';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,8 +17,19 @@ import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 import SpeakerCard from '../components/SpeakerCard';
+import TwitterContainer from '../components/TwitterContainer';
+
+const useStyles = makeStyles(theme => ({
+  twitter: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+    overflow: 'hidden',
+  },
+}));
 
 export default function SpeakerDetail() {
+  const classes = useStyles();
   const { slug } = useParams();
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
@@ -62,7 +74,7 @@ export default function SpeakerDetail() {
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
-              <Grid item xs={12} style={{ marginBottom: 48 }}>
+              <Grid item xs={8} style={{ marginBottom: 48 }}>
                 <SpeakerCard
                   key={speaker.name}
                   post={{
@@ -70,6 +82,13 @@ export default function SpeakerDetail() {
                     path: `${routes.speakers.path}/${speaker.slug}`,
                   }}
                 />
+              </Grid>
+              <Grid item xs={4} className={classes.twitter}>
+                {speaker.socialPlatforms.find(x => x.name === 'Twitter') && (
+                  <TwitterContainer
+                    url={speaker.socialPlatforms.find(x => x.name === 'Twitter').url}
+                  />
+                )}
               </Grid>
             </Grid>
 
