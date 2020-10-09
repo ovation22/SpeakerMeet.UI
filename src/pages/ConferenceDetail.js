@@ -1,6 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
 import { Helmet } from 'react-helmet-async';
-import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -8,27 +7,15 @@ import Disqus from 'disqus-react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
-import DetailTabs from '../components/DetailTabs';
+import ConferenceDetailTabs from '../components/ConferenceDetailTabs';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FeaturedConferences from '../components/FeaturedConferences';
-import FeaturedPost from '../components/FeaturedPost';
 import FindABanner from '../components/FindABanner';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import ConferenceCard from '../components/ConferenceCard';
 
 export default function ConferenceDetail() {
   const { slug } = useParams();
@@ -60,7 +47,7 @@ export default function ConferenceDetail() {
   return (
     <>
       <Helmet>
-        <title>SpeakerMeet | Conferences</title>
+        <title>ConferenceMeet | Conferences</title>
       </Helmet>
 
       <FindABanner text="Conference" />
@@ -71,26 +58,23 @@ export default function ConferenceDetail() {
         ) : (
           <>
             <Helmet>
-              <title>SpeakerMeet | {conference.name}</title>
+              <title>ConferenceMeet | {conference.name}</title>
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
               <Grid item xs={12} style={{ marginBottom: 48 }}>
-                <FeaturedPost
+                <ConferenceCard
                   key={conference.name}
                   post={{
                     ...conference,
                     path: `${routes.conferences.path}/${conference.slug}`,
                   }}
                 />
-                <Chip size="small" label=".net" />
-                <Chip size="small" label="tdd" />
-                <Chip size="small" label="agile" />
               </Grid>
             </Grid>
 
             <Grid item xs={12} style={{ marginBottom: 48 }}>
-              <DetailTabs rows={rows} />
+              <ConferenceDetailTabs id={conference.id} />
             </Grid>
 
             <Grid item xs={12} style={{ marginBottom: 64 }}>
