@@ -1,6 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
 import { Helmet } from 'react-helmet-async';
-import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -8,27 +7,15 @@ import Disqus from 'disqus-react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
-import DetailTabs from '../components/DetailTabs';
+import CommunityDetailTabs from '../components/CommunityDetailTabs';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FeaturedCommunities from '../components/FeaturedCommunities';
-import FeaturedPost from '../components/FeaturedPost';
 import FindABanner from '../components/FindABanner';
 import config from '../constants/config';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import CommunityCard from '../components/CommunityCard';
 
 export default function CommunityDetail() {
   const { slug } = useParams();
@@ -60,7 +47,7 @@ export default function CommunityDetail() {
   return (
     <>
       <Helmet>
-        <title>SpeakerMeet | Communities</title>
+        <title>CommunityMeet | Communities</title>
       </Helmet>
 
       <FindABanner text="Community" />
@@ -71,26 +58,23 @@ export default function CommunityDetail() {
         ) : (
           <>
             <Helmet>
-              <title>SpeakerMeet | {community.name}</title>
+              <title>CommunityMeet | {community.name}</title>
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
               <Grid item xs={12} style={{ marginBottom: 48 }}>
-                <FeaturedPost
+                <CommunityCard
                   key={community.name}
                   post={{
                     ...community,
                     path: `${routes.communities.path}/${community.slug}`,
                   }}
                 />
-                <Chip size="small" label=".net" />
-                <Chip size="small" label="tdd" />
-                <Chip size="small" label="agile" />
               </Grid>
             </Grid>
 
             <Grid item xs={12} style={{ marginBottom: 48 }}>
-              <DetailTabs rows={rows} />
+              <CommunityDetailTabs id={community.id} />
             </Grid>
 
             <Grid item xs={12} style={{ marginBottom: 64 }}>
