@@ -1,37 +1,13 @@
+import React from 'react';
 import { CircularProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from 'react';
-import endpoints from '../constants/endpoints';
-import routes from '../constants/routes';
-import { trackException } from '../services/telemetry.service';
 import ErrorSnackbar from './ErrorSnackbar';
 import FeaturedPost from './FeaturedPost';
+import useSpeakersFeatured from '../hooks/useSpeakersFeatured';
 
 export default function FeaturedSpeakers() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [speakers, setSpeakers] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(endpoints.speakersFeatured);
-      const data = await response.json();
-      const result = data.map(x => ({
-        ...x,
-        path: `${routes.speakers.path}/${x.slug}`,
-      }));
-      setSpeakers(result);
-    } catch (e) {
-      setError(e);
-      trackException(e);
-    }
-    setLoaded(true);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { error, isLoaded, speakers } = useSpeakersFeatured();
 
   return (
     <>
@@ -44,7 +20,7 @@ export default function FeaturedSpeakers() {
       <Grid container spacing={4}>
         {!isLoaded ? (
           <Grid item xs={12} md={12}>
-            <CircularProgress style={{ align: 'center' }} />
+            <CircularProgress data-testid="loading" style={{ align: 'center' }} />
           </Grid>
         ) : (
           speakers.map(post => (

@@ -24,7 +24,6 @@ describe('ErrorSnackbar', () => {
 
   it('should render error message and allow for dismiss', async () => {
     // arrange
-    // arrange
     const error = new Error('errorMessageValue');
     const tree = <TestHarness error={error} />;
 
