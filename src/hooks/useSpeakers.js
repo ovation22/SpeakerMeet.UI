@@ -9,7 +9,7 @@ export default function useSpeakers() {
   const [speakers, setSpeakers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState();
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(2); // TODO: how is page size set?
+  const [pageSize] = useState(4); // TODO: how is page size set?
 
   const fetchData = useCallback(async () => {
     try {

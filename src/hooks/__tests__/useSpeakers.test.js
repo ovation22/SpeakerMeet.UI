@@ -5,6 +5,7 @@ import * as telemetryService from '../../services/telemetry.service';
 import endpoints from '../../constants/endpoints';
 
 describe('useSpeakers', () => {
+  const itemsPage = 4;
   beforeEach(() => jest.resetAllMocks());
 
   it('should behave correctly given request succeeds', async () => {
@@ -35,6 +36,7 @@ describe('useSpeakers', () => {
         path: `${routes.speakers.path}/${speakerResult.speakers[0].slug}`,
       },
     ];
+    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}`;
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
@@ -47,7 +49,7 @@ describe('useSpeakers', () => {
 
     expect(result.current.speakers).toEqual(expectedSpeakers);
     expect(result.current.isLoaded).toBe(true);
-    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=0&itemsPage=2`);
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
   });
 
   it('should behave correctly given request fails', async () => {
@@ -86,6 +88,8 @@ describe('useSpeakers', () => {
     const paginationInfo = 'paginationInfoValue';
     const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
+    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}`;
+    const expectedEndpointNext = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
@@ -95,12 +99,12 @@ describe('useSpeakers', () => {
     await waitForNextUpdate();
 
     // assert
-    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=0&itemsPage=2`);
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
 
     // act
     act(() => result.current.loadPage(2));
     await waitForNextUpdate();
 
-    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=1&itemsPage=2`);
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpointNext);
   });
 });
