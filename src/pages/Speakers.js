@@ -30,7 +30,7 @@ export default function Speakers() {
               color="primary"
               showFirstButton
               showLastButton
-              onChange={(e, v) => loadPage(v)}
+              onChange={(e, value) => loadPage(value)}
             />
           </>
         )}
