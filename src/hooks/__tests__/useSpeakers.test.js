@@ -1,12 +1,18 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import useSpeakers from '../useSpeakers';
 import routes from '../../constants/routes';
 import * as telemetryService from '../../services/telemetry.service';
+import endpoints from '../../constants/endpoints';
 
 describe('useSpeakers', () => {
+  beforeEach(() => jest.resetAllMocks());
+
   it('should behave correctly given request succeeds', async () => {
     // arrange
     const speakerResult = {
+      paginationInfo: {
+        totalPages: 100,
+      },
       speakers: [
         {
           id: 'idValue1',
@@ -41,6 +47,7 @@ describe('useSpeakers', () => {
 
     expect(result.current.speakers).toEqual(expectedSpeakers);
     expect(result.current.isLoaded).toBe(true);
+    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=0&itemsPage=2`);
   });
 
   it('should behave correctly given request fails', async () => {
@@ -63,5 +70,37 @@ describe('useSpeakers', () => {
     expect(result.current.error).toEqual(error);
 
     expect(telemetryService.trackException).toHaveBeenCalledWith(error);
+  });
+
+  const mockFetchOnce = value => {
+    const mockJsonPromise = Promise.resolve(value);
+    const mockFetchPromise = Promise.resolve({
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => mockFetchPromise);
+  };
+
+  it('should call speakers endpoint with passed pageIndex on loadPage', async () => {
+    // arrange
+
+    const paginationInfo = 'paginationInfoValue';
+    const paginationInfo2 = 'paginationInfo2Value';
+    const speakers = [];
+
+    mockFetchOnce({ paginationInfo, speakers });
+    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
+
+    // act
+    const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+    await waitForNextUpdate();
+
+    // assert
+    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=0&itemsPage=2`);
+
+    // act
+    act(() => result.current.loadPage(2));
+    await waitForNextUpdate();
+
+    expect(global.fetch).toHaveBeenCalledWith(`${endpoints.speakers}?pageIndex=1&itemsPage=2`);
   });
 });

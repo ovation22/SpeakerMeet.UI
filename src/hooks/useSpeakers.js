@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
@@ -7,12 +7,13 @@ export default function useSpeakers() {
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
   const [speakers, setSpeakers] = useState([]);
-  const [pageIndex, setPageIndex] = useState(0);
+  const [paginationInfo, setPaginationInfo] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(2); // TODO: how is page size set?
 
   const fetchData = useCallback(async () => {
     try {
-      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}`;
+      const url = `${endpoints.speakers}?pageIndex=${pageNumber - 1}&itemsPage=${pageSize}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -21,33 +22,27 @@ export default function useSpeakers() {
         path: `${routes.speakers.path}/${x.slug}`,
       }));
       setSpeakers(result);
+      setPaginationInfo(data.paginationInfo);
     } catch (e) {
       setError(e);
       trackException(e);
     }
     setLoaded(true);
-  }, [pageIndex, pageSize]);
+  }, [pageNumber, pageSize]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, pageIndex, pageSize]);
+  }, [fetchData, pageNumber, pageSize]);
 
-  const previousPage = useCallback(() => {
-    setPageIndex(pageIndex - 1);
-  }, [pageIndex]);
-
-  const nextPage = useCallback(() => {
-    setPageIndex(pageIndex + 1);
-  }, [pageIndex]);
-
-  const isFirstPage = useMemo(() => pageIndex === 0, [pageIndex]);
+  const loadPage = useCallback(newPageNumber => {
+    setPageNumber(newPageNumber);
+  }, []);
 
   return {
     speakers,
     error,
     isLoaded,
-    previousPage,
-    nextPage,
-    isFirstPage,
+    loadPage,
+    totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }
