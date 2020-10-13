@@ -3,13 +3,22 @@ import Container from '@material-ui/core/Container';
 import { Helmet } from 'react-helmet-async';
 import React from 'react';
 import { Pagination } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/styles';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import useSpeakers from '../hooks/useSpeakers';
 
+const useStyles = makeStyles({
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+});
+
 export default function Speakers() {
   const { speakers, error, isLoaded, loadPage, totalPages } = useSpeakers();
+  const classes = useStyles();
 
   return (
     <>
@@ -26,6 +35,7 @@ export default function Speakers() {
           <>
             <ResultList data={speakers} />
             <Pagination
+              className={classes.pagination}
               count={totalPages}
               color="primary"
               showFirstButton
