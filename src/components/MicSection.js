@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CountUp from 'react-countup';
-import VisibilitySensor from 'react-visibility-sensor';
+import { useInView } from 'react-intersection-observer';
 import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import endpoints from '../constants/endpoints';
@@ -34,6 +34,11 @@ export default function Home() {
   const [isLoaded, setLoaded] = useState(false);
   const [stats, setStats] = useState(null);
 
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,7 +59,7 @@ export default function Home() {
       {!isLoaded ? (
         <CircularProgress />
       ) : (
-        <Container maxWidth="lg" style={{ padding: 24 }}>
+        <Container maxWidth="lg" style={{ padding: 24 }} ref={ref}>
           {stats && (
             <Grid
               container
@@ -64,41 +69,35 @@ export default function Home() {
               style={{ height: 515 }}
             >
               <Grid item xs={12} md={4} align="center">
-                <CountUp start={0} end={stats.speakerCount} delay={0}>
-                  {({ countUpRef, start }) => (
-                    <VisibilitySensor onChange={start} delayedCall>
-                      <div>
-                        <span ref={countUpRef} className={classes.count} />
-                        <br />
-                        <span className={classes.text}>Speakers Worldwide</span>
-                      </div>
-                    </VisibilitySensor>
+                <CountUp start={0} end={inView ? stats.speakerCount : 0} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Speakers Worldwide</span>
+                    </div>
                   )}
                 </CountUp>
               </Grid>
               <Grid item xs={12} md={4}>
-                <CountUp start={0} end={stats.communityCount} delay={0}>
-                  {({ countUpRef, start }) => (
-                    <VisibilitySensor onChange={start} delayedCall>
-                      <div>
-                        <span ref={countUpRef} className={classes.count} />
-                        <br />
-                        <span className={classes.text}>Communities added</span>
-                      </div>
-                    </VisibilitySensor>
+                <CountUp start={0} end={inView ? stats.communityCount : 0} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Communities Added</span>
+                    </div>
                   )}
                 </CountUp>
               </Grid>
               <Grid item xs={12} md={4}>
-                <CountUp start={0} end={stats.conferenceCount} delay={0}>
-                  {({ countUpRef, start }) => (
-                    <VisibilitySensor onChange={start} delayedCall>
-                      <div>
-                        <span ref={countUpRef} className={classes.count} />
-                        <br />
-                        <span className={classes.text}>Conferences listed</span>
-                      </div>
-                    </VisibilitySensor>
+                <CountUp start={0} end={inView ? stats.conferenceCount : 0} delay={0}>
+                  {({ countUpRef }) => (
+                    <div>
+                      <span ref={countUpRef} className={classes.count} />
+                      <br />
+                      <span className={classes.text}>Conferences Listed</span>
+                    </div>
                   )}
                 </CountUp>
               </Grid>
