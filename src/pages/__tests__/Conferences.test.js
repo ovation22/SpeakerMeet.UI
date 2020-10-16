@@ -13,8 +13,6 @@ describe('Conferences', () => {
         itemsPerPage: 9,
         actualPage: 0,
         totalPages: 1,
-        previous: 'is-disabled',
-        next: 'is-disabled',
       },
       conferences: [
         {
