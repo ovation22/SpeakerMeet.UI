@@ -17,8 +17,9 @@ const useStyles = makeStyles({
 });
 
 export default function Speakers() {
-  const { speakers, error, isLoaded, loadPage, totalPages } = useSpeakers();
+  const { speakers, error, isLoaded, changePage, totalPages } = useSpeakers();
   const classes = useStyles();
+  // TODO: Page number into route
 
   return (
     <>
@@ -40,8 +41,7 @@ export default function Speakers() {
               color="primary"
               showFirstButton
               showLastButton
-              onChange={(e, value) => loadPage(value)}
-              rowsPerPage={10}
+              onChange={(e, value) => changePage(value)}
             />
           </>
         )}

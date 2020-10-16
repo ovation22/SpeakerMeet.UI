@@ -5,7 +5,7 @@ import * as telemetryService from '../../services/telemetry.service';
 import endpoints from '../../constants/endpoints';
 
 describe('useSpeakers', () => {
-  const itemsPage = 4;
+  const itemsPage = 12;
   beforeEach(() => jest.resetAllMocks());
 
   it('should behave correctly given request succeeds', async () => {
@@ -82,7 +82,7 @@ describe('useSpeakers', () => {
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => mockFetchPromise);
   };
 
-  it('should call speakers endpoint with passed pageIndex on loadPage', async () => {
+  it('should call speakers endpoint with passed pageIndex on changePage', async () => {
     // arrange
 
     const paginationInfo = 'paginationInfoValue';
@@ -102,7 +102,7 @@ describe('useSpeakers', () => {
     expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
 
     // act
-    act(() => result.current.loadPage(2));
+    act(() => result.current.changePage(2));
     await waitForNextUpdate();
 
     expect(global.fetch).toHaveBeenCalledWith(expectedEndpointNext);

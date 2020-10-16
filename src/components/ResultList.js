@@ -58,7 +58,7 @@ class ResultList extends Component {
 
         <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
           {[...data].map(d => (
-            <Grid item style={{ display: 'inline-flex' }} xs={12} md={3}>
+            <Grid key={d.id} item style={{ display: 'inline-flex' }} xs={12} md={3}>
               <FeaturedPost post={d} style={{ width: 345, margin: 12 }} />
             </Grid>
           ))}

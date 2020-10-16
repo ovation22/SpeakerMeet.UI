@@ -9,13 +9,12 @@ export default function useSpeakers() {
   const [speakers, setSpeakers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState();
   const [pageNumber, setPageNumber] = useState(1);
-  const [sortOrder, setSortOrder] = useState();
-  const [pageSize] = useState(4); // TODO: how is page size set?
+  const [pageSize] = useState(12);
 
   const fetchData = useCallback(async () => {
     try {
       const pageIndex = pageNumber - 1;
-      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&sortOrder=${sortOrder}`;
+      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -30,27 +29,23 @@ export default function useSpeakers() {
       trackException(e);
     }
     setLoaded(true);
-  }, [pageNumber, pageSize, sortOrder]);
+  }, [pageNumber, pageSize]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, pageNumber, pageSize, sortOrder]);
+  }, [fetchData, pageNumber, pageSize]);
 
-  const loadPage = useCallback(newPageNumber => {
+  // TODO: Add setSortOrder
+  // TODO: Add setItemsPerPage
+  const changePage = useCallback(newPageNumber => {
     setPageNumber(newPageNumber);
-  }, []);
-
-  const loadWith = useCallback((newPageNumber, newSortOrder = null) => {
-    setPageNumber(newPageNumber);
-    setSortOrder(newSortOrder);
   }, []);
 
   return {
     speakers,
     error,
     isLoaded,
-    loadPage,
-    loadWith,
+    changePage,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }
