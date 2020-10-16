@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
-import { Flipper, Flipped } from 'react-flip-toolkit';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import FlippedItem from './FlippedItem';
+import FeaturedPost from './FeaturedPost';
 
 const styles = theme => ({
   fieldSet: {
@@ -17,30 +16,16 @@ class ResultList extends Component {
     super(props);
 
     this.state = {
-      type: 'grid',
       sort: props.orderBy,
-      filteredIds: [],
-      stagger: 'forward',
-      spring: 'veryGentle',
     };
   }
 
   render() {
     const { classes, data } = this.props;
-    const { type, sort, stagger, filteredIds, spring } = this.state;
+    const { sort } = this.state;
 
     return (
-      <Flipper
-        flipKey={`${type}-${sort}-${JSON.stringify(filteredIds)}-${JSON.stringify(stagger)}`}
-        spring={spring}
-        staggerConfig={{
-          default: {
-            reverse: stagger !== 'forward',
-            speed: 2,
-          },
-        }}
-        decisionData={this.state}
-      >
+      <>
         <fieldset className={classes.fieldSet}>
           <legend>Sort</legend>
           <label
@@ -71,37 +56,14 @@ class ResultList extends Component {
           </label>
         </fieldset>
 
-        <Flipped flipId="list">
-          <Flipped inverseFlipId="list">
-            <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
-              {[...data]
-                .filter(d => !filteredIds.includes(d.id))
-                .sort((a, b) => {
-                  if (sort === 'score') {
-                    return a.score > b.score;
-                  }
-                  if (sort === 'asc') {
-                    return a.name.localeCompare(b.name);
-                  }
-                  if (sort === 'desc') {
-                    return b.name.localeCompare(a.name);
-                  }
-                  return 0.5 - Math.random();
-                })
-                .map(d => (
-                  <FlippedItem
-                    id={d.id}
-                    name={d.name}
-                    stagger={['forward', 'reverse'].includes(stagger)}
-                    type={type}
-                    key={d.id}
-                    post={d}
-                  />
-                ))}
+        <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
+          {[...data].map(d => (
+            <Grid item style={{ display: 'inline-flex' }} xs={12} md={3}>
+              <FeaturedPost post={d} style={{ width: 345, margin: 12 }} />
             </Grid>
-          </Flipped>
-        </Flipped>
-      </Flipper>
+          ))}
+        </Grid>
+      </>
     );
   }
 }

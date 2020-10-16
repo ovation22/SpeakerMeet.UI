@@ -9,11 +9,13 @@ export default function useSpeakers() {
   const [speakers, setSpeakers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState();
   const [pageNumber, setPageNumber] = useState(1);
+  const [sortOrder, setSortOrder] = useState();
   const [pageSize] = useState(4); // TODO: how is page size set?
 
   const fetchData = useCallback(async () => {
     try {
-      const url = `${endpoints.speakers}?pageIndex=${pageNumber - 1}&itemsPage=${pageSize}`;
+      const pageIndex = pageNumber - 1;
+      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&sortOrder=${sortOrder}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -28,14 +30,19 @@ export default function useSpeakers() {
       trackException(e);
     }
     setLoaded(true);
-  }, [pageNumber, pageSize]);
+  }, [pageNumber, pageSize, sortOrder]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, pageNumber, pageSize]);
+  }, [fetchData, pageNumber, pageSize, sortOrder]);
 
   const loadPage = useCallback(newPageNumber => {
     setPageNumber(newPageNumber);
+  }, []);
+
+  const loadWith = useCallback((newPageNumber, newSortOrder = null) => {
+    setPageNumber(newPageNumber);
+    setSortOrder(newSortOrder);
   }, []);
 
   return {
@@ -43,6 +50,7 @@ export default function useSpeakers() {
     error,
     isLoaded,
     loadPage,
+    loadWith,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }

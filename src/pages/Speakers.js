@@ -41,6 +41,7 @@ export default function Speakers() {
               showFirstButton
               showLastButton
               onChange={(e, value) => loadPage(value)}
+              rowsPerPage={10}
             />
           </>
         )}
