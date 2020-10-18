@@ -1,81 +1,86 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/styles';
+import { Pagination } from '@material-ui/lab';
 import FeaturedPost from './FeaturedPost';
 
-const styles = theme => ({
+const useStyles = makeStyles(() => ({
   fieldSet: {
-    borderColor: theme.palette.primary.light,
-    margin: theme.spacing(0, 0, 2, 0),
+    // TODO: tests are throwing an error, theme is undefined
+    // borderColor: theme.palette.primary.light,
+    // margin: theme.spacing(0, 0, 2, 0),
   },
-});
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}));
 
-class ResultList extends Component {
-  constructor(props) {
-    super(props);
+function ResultList({ data, sortOrder, changeSortOrder, changePage, totalPages }) {
+  const classes = useStyles();
 
-    this.state = {
-      sort: props.orderBy,
-    };
-  }
+  return (
+    <>
+      <fieldset className={classes.fieldSet}>
+        <legend>Sort</legend>
+        <label
+          htmlFor="asc"
+          role="presentation"
+          onClick={() => {
+            changeSortOrder('asc');
+          }}
+          onKeyUp={() => {
+            changeSortOrder('asc');
+          }}
+        >
+          <input id="asc" type="radio" name="sort" defaultChecked={sortOrder === 'asc'} />
+          asc
+        </label>
+        <label
+          htmlFor="desc"
+          role="presentation"
+          onClick={() => {
+            changeSortOrder('desc');
+          }}
+          onKeyUp={() => {
+            changeSortOrder('desc');
+          }}
+        >
+          <input id="desc" type="radio" name="sort" defaultChecked={sortOrder === 'desc'} />
+          desc
+        </label>
+      </fieldset>
 
-  render() {
-    const { classes, data } = this.props;
-    const { sort } = this.state;
-
-    return (
-      <>
-        <fieldset className={classes.fieldSet}>
-          <legend>Sort</legend>
-          <label
-            htmlFor="asc"
-            role="presentation"
-            onClick={() => {
-              this.setState({ sort: 'asc' });
-            }}
-            onKeyUp={() => {
-              this.setState({ sort: 'asc' });
-            }}
-          >
-            <input id="asc" type="radio" name="sort" defaultChecked={sort === 'asc'} />
-            asc
-          </label>
-          <label
-            htmlFor="desc"
-            role="presentation"
-            onClick={() => {
-              this.setState({ sort: 'desc' });
-            }}
-            onKeyUp={() => {
-              this.setState({ sort: 'desc' });
-            }}
-          >
-            <input id="desc" type="radio" name="sort" defaultChecked={sort === 'desc'} />
-            desc
-          </label>
-        </fieldset>
-
-        <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
-          {[...data].map(d => (
-            <Grid key={d.id} item style={{ display: 'inline-flex' }} xs={12} md={3}>
-              <FeaturedPost post={d} style={{ width: 345, margin: 12 }} />
-            </Grid>
-          ))}
-        </Grid>
-      </>
-    );
-  }
+      <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
+        {data.map(dataItem => (
+          <Grid key={dataItem.id} item style={{ display: 'inline-flex' }} xs={12} md={3}>
+            <FeaturedPost post={dataItem} style={{ width: 345, margin: 12 }} />
+          </Grid>
+        ))}
+      </Grid>
+      <Pagination
+        className={classes.pagination}
+        count={totalPages}
+        color="primary"
+        showFirstButton
+        showLastButton
+        onChange={(e, value) => changePage(value)}
+      />
+    </>
+  );
 }
 
 ResultList.defaultProps = {
-  orderBy: 'random',
+  sortOrder: '',
 };
 
 ResultList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  classes: PropTypes.shape().isRequired,
-  orderBy: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  sortOrder: PropTypes.string,
+  changeSortOrder: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
 };
 
-export default withStyles(styles)(ResultList);
+export default ResultList;
