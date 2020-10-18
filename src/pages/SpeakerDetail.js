@@ -74,7 +74,7 @@ export default function SpeakerDetail() {
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
-              <Grid item xs={8} style={{ marginBottom: 48 }}>
+              <Grid item xs={12} sm={8} style={{ marginBottom: 48 }}>
                 <SpeakerCard
                   key={speaker.name}
                   post={{
@@ -83,7 +83,7 @@ export default function SpeakerDetail() {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.twitter}>
+              <Grid item sm={4} className={classes.twitter}>
                 {speaker.socialPlatforms.find(x => x.name === 'Twitter') && (
                   <TwitterContainer
                     url={speaker.socialPlatforms.find(x => x.name === 'Twitter').url}
