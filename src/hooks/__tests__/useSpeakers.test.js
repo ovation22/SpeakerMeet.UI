@@ -38,7 +38,7 @@ describe('useSpeakers', () => {
         path: `${routes.speakers.path}/${speakerResult.speakers[0].slug}`,
       },
     ];
-    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrder}`;
+    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
@@ -90,8 +90,8 @@ describe('useSpeakers', () => {
     const paginationInfo = 'paginationInfoValue';
     const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
-    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrder}`;
-    const expectedEndpointNext = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrder}`;
+    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
+    const expectedEndpointNext = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
@@ -119,9 +119,9 @@ describe('useSpeakers', () => {
     const sortOrderDesc = 'desc';
 
     const speakers = [];
-    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrder}`;
-    const expectedEndpointAsc = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrderAsc}`;
-    const expectedEndpointDesc = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&sortOrder=${sortOrderDesc}`;
+    const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
+    const expectedEndpointAsc = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrderAsc}`;
+    const expectedEndpointDesc = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrderDesc}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
@@ -143,6 +143,7 @@ describe('useSpeakers', () => {
     act(() => result.current.changeSortOrder('desc'));
     await waitForNextUpdate();
 
+    expect(result.current.sortOrder).toEqual('desc');
     expect(global.fetch).toHaveBeenCalledWith(expectedEndpointDesc);
   });
 });

@@ -15,7 +15,7 @@ export default function useSpeakers() {
   const fetchData = useCallback(async () => {
     try {
       const pageIndex = pageNumber - 1;
-      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&sortOrder=${sortOrder}`;
+      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&direction=${sortOrder}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -47,11 +47,12 @@ export default function useSpeakers() {
   }, []);
 
   return {
-    speakers,
     error,
     isLoaded,
+    speakers,
     changePage,
     changeSortOrder,
+    sortOrder,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }

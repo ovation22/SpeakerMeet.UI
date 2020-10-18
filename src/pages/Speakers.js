@@ -2,23 +2,21 @@ import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { Helmet } from 'react-helmet-async';
 import React from 'react';
-import { Pagination } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/styles';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import useSpeakers from '../hooks/useSpeakers';
 
-const useStyles = makeStyles({
-  pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-});
-
 export default function Speakers() {
-  const { speakers, error, isLoaded, changePage, totalPages } = useSpeakers();
-  const classes = useStyles();
+  const {
+    speakers,
+    error,
+    isLoaded,
+    changePage,
+    sortOrder,
+    changeSortOrder,
+    totalPages,
+  } = useSpeakers();
   // TODO: Page number into route
 
   return (
@@ -34,14 +32,12 @@ export default function Speakers() {
           <CircularProgress data-testid="loading" />
         ) : (
           <>
-            <ResultList data={speakers} />
-            <Pagination
-              className={classes.pagination}
-              count={totalPages}
-              color="primary"
-              showFirstButton
-              showLastButton
-              onChange={(e, value) => changePage(value)}
+            <ResultList
+              data={speakers}
+              sortOrder={sortOrder}
+              changeSortOrder={changeSortOrder}
+              changePage={changePage}
+              totalPages={totalPages}
             />
           </>
         )}
