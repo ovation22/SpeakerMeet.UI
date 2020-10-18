@@ -8,7 +8,15 @@ import ResultList from '../components/ResultList';
 import useConferences from '../hooks/useConferences';
 
 export default function Conferences() {
-  const { error, isLoaded, conferences } = useConferences();
+  const {
+    error,
+    isLoaded,
+    conferences,
+    sortOrder,
+    changeSortOrder,
+    changePage,
+    totalPages,
+  } = useConferences();
 
   return (
     <>
@@ -19,7 +27,17 @@ export default function Conferences() {
       <FindABanner text="Conference" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
-        {!isLoaded ? <CircularProgress /> : <ResultList data={conferences} />}
+        {!isLoaded ? (
+          <CircularProgress data-testid="loading" />
+        ) : (
+          <ResultList
+            data={conferences}
+            sortOrder={sortOrder}
+            changeSortOrder={changeSortOrder}
+            changePage={changePage}
+            totalPages={totalPages}
+          />
+        )}
       </Container>
 
       <ErrorSnackbar error={error} />
