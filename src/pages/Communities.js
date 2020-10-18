@@ -8,7 +8,15 @@ import ResultList from '../components/ResultList';
 import useCommunities from '../hooks/useCommunities';
 
 export default function Communities() {
-  const { error, isLoaded, communities } = useCommunities();
+  const {
+    error,
+    isLoaded,
+    communities,
+    sortOrder,
+    changeSortOrder,
+    changePage,
+    totalPages,
+  } = useCommunities();
 
   return (
     <>
@@ -19,7 +27,17 @@ export default function Communities() {
       <FindABanner text="Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
-        {!isLoaded ? <CircularProgress /> : <ResultList data={communities} />}
+        {!isLoaded ? (
+          <CircularProgress data-testid="loading" />
+        ) : (
+          <ResultList
+            data={communities}
+            sortOrder={sortOrder}
+            changeSortOrder={changeSortOrder}
+            changePage={changePage}
+            totalPages={totalPages}
+          />
+        )}
       </Container>
 
       <ErrorSnackbar error={error} />
