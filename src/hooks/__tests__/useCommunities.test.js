@@ -91,7 +91,7 @@ describe('useCommunities', () => {
     const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
     const expectedEndpoint = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
-    const expectedEndpointNext = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
+    const expectedEndpointNext = `${endpoints.communities}?pageIndex=1&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
@@ -100,14 +100,13 @@ describe('useCommunities', () => {
     const { result, waitForNextUpdate } = renderHook(() => useCommunities());
     await waitForNextUpdate();
 
-    // assert
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
-
     // act
     act(() => result.current.changePage(2));
     await waitForNextUpdate();
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpointNext);
+    // assert
+    expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
+    expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointNext);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
@@ -119,9 +118,11 @@ describe('useCommunities', () => {
     const sortOrderDesc = 'desc';
 
     const speakers = [];
-    const expectedEndpoint = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
-    const expectedEndpointAsc = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrderAsc}`;
-    const expectedEndpointDesc = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrderDesc}`;
+
+    const baseUrl = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}`;
+    const expectedEndpoint = `${baseUrl}&direction=${sortOrder}`;
+    const expectedEndpointAsc = `${baseUrl}&direction=${sortOrderAsc}`;
+    const expectedEndpointDesc = `${baseUrl}&direction=${sortOrderDesc}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
@@ -131,19 +132,22 @@ describe('useCommunities', () => {
     await waitForNextUpdate();
 
     // assert
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
 
     // act - asc sort
     act(() => result.current.changeSortOrder('asc'));
     await waitForNextUpdate();
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpointAsc);
+    // assert
+    expect(result.current.sortOrder).toEqual('asc');
+    expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointAsc);
 
     // act - desc sort
     act(() => result.current.changeSortOrder('desc'));
     await waitForNextUpdate();
 
+    // assert
     expect(result.current.sortOrder).toEqual('desc');
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpointDesc);
+    expect(global.fetch).toHaveBeenNthCalledWith(3, expectedEndpointDesc);
   });
 });
