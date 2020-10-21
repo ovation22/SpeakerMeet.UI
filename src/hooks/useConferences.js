@@ -3,23 +3,23 @@ import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 
-export default function useSpeakers() {
+export default function useConferences() {
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
-  const [speakers, setSpeakers] = useState([]);
+  const [conferences, setConferences] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `${endpoints.speakers}`;
+        const response = await fetch(endpoints.conferences);
+        const json = await response.json();
 
-        const response = await fetch(url);
-        const data = await response.json();
-        const result = data.speakers.map(x => ({
+        const result = json.conferences.map(x => ({
           ...x,
-          path: `${routes.speakers.path}/${x.slug}`,
+          path: `${routes.conferences.path}/${x.slug}`,
         }));
-        setSpeakers(result);
+
+        setConferences(result);
       } catch (e) {
         setError(e);
         trackException(e);
@@ -30,8 +30,8 @@ export default function useSpeakers() {
   }, []);
 
   return {
-    speakers,
     error,
     isLoaded,
+    conferences,
   };
 }
