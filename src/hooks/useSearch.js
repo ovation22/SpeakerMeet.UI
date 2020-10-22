@@ -13,6 +13,16 @@ export default function useSearch() {
   const [pageSize] = useState(4);
   const [sortOrder, setSortOrder] = useState(null);
 
+  const getPath = document => {
+    return `${
+      // eslint-disable-next-line no-nested-ternary
+      document.type === 'Speaker'
+        ? routes.speakers.path
+        : document.type === 'Conference'
+        ? routes.conferences.path
+        : routes.communities.path
+    }/${document.slug}`;
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,14 +31,7 @@ export default function useSearch() {
         const result = json.results.map(x => ({
           ...x.document,
           score: x.score,
-          path: `${
-            // eslint-disable-next-line no-nested-ternary
-            x.document.type === 'Speaker'
-              ? routes.speakers.path
-              : x.document.type === 'Conference'
-              ? routes.conferences.path
-              : routes.communities.path
-          }/${x.document.slug}`,
+          path: getPath(x.document),
         }));
 
         const sortedResults = result.sort((a, b) => (a.score < b.score ? 1 : -1));
