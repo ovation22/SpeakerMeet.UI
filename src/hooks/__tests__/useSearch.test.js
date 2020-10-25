@@ -80,6 +80,7 @@ describe('useSearch', () => {
       };
     });
     const expectedResultsFirstPage = [...expectedResults].slice(0, 4);
+    const expectedResultsSecondPage = [...expectedResults].slice(4, 8);
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSearch());
@@ -94,7 +95,16 @@ describe('useSearch', () => {
 
     await waitForNextUpdate();
 
+    // assert
     expect(result.current.results).toEqual(expectedResultsFirstPage);
+    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.totalPages).toEqual(2);
+
+    // act
+    act(() => result.current.changePage(2));
+
+    // assert
+    expect(result.current.results).toEqual(expectedResultsSecondPage);
     expect(result.current.isLoaded).toBe(true);
     expect(result.current.totalPages).toEqual(2);
   });
