@@ -3,39 +3,39 @@ import { HelmetProvider } from 'react-helmet-async';
 import { act, screen } from '@testing-library/react';
 import { render } from '../../utils/test.utilitiy';
 import Conferences from '../Conferences';
+import * as useConferences from '../../hooks/useConferences';
 
 describe('Conferences', () => {
   it('should render expected fields from list of returned conferences', async () => {
     // arrange
-    const result = {
-      paginationInfo: {
-        totalItems: 9,
-        itemsPerPage: 9,
-        actualPage: 0,
-        totalPages: 1,
+    const error = null;
+    const isLoaded = true;
+    const conferences = [
+      {
+        id: 'idValue1',
+        name: 'nameValue1',
+        slug: 'slug-value-1',
+        location: 'locationValue1',
+        description: 'descriptionValue1',
+        path: 'pathValue1',
       },
-      conferences: [
-        {
-          id: 'idValue1',
-          name: 'nameValue1',
-          slug: 'slug-value-1',
-          location: 'locationValue1',
-          description: 'descriptionValue1',
-        },
-        {
-          id: 'idValue2',
-          name: 'nameValue2',
-          slug: 'slug-value-2',
-          location: 'locationValue2',
-          description: 'descriptionValue2',
-        },
-      ],
+      {
+        id: 'idValue2',
+        name: 'nameValue2',
+        slug: 'slug-value-2',
+        location: 'locationValue2',
+        description: 'descriptionValue2',
+        path: 'pathValue2',
+      },
+    ];
+    const useConferencesHook = () => {
+      return {
+        error,
+        isLoaded,
+        conferences,
+      };
     };
-    const mockJsonPromise = Promise.resolve(result);
-    const mockFetchPromise = Promise.resolve({
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
 
     const tree = (
       <HelmetProvider>
@@ -49,7 +49,7 @@ describe('Conferences', () => {
     // assert
     screen.getByText('Find a Conference');
 
-    result.conferences.forEach(conference => {
+    conferences.forEach(conference => {
       screen.getByText(conference.name);
       screen.getByText(conference.location);
       screen.getByText(conference.description);
