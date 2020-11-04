@@ -4,6 +4,14 @@ import useCommunities from '../useCommunities';
 import * as telemetryService from '../../services/telemetry.service';
 import endpoints from '../../constants/endpoints';
 
+const mockHistoryPush = jest.fn();
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
 describe('useCommunities', () => {
   const itemsPage = 12;
   const sortOrder = null;
@@ -106,7 +114,10 @@ describe('useCommunities', () => {
 
     // assert
     expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
+
     expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointNext);
+
+    expect(mockHistoryPush).toHaveBeenCalledWith(`${routes.communities.path}?page=2`);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {

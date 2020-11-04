@@ -20,6 +20,7 @@ describe('Communities', () => {
         communities: [],
         sortOrder: null,
         changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
         pageNumber: 1,
       };
     };

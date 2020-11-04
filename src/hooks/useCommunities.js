@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
@@ -11,6 +12,7 @@ export default function useCommunities() {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(12);
   const [sortOrder, setSortOrder] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,9 +37,13 @@ export default function useCommunities() {
     fetchData();
   }, [pageNumber, pageSize, sortOrder]);
 
-  const changePage = useCallback(newPageNumber => {
-    setPageNumber(newPageNumber);
-  }, []);
+  const changePage = useCallback(
+    newPageNumber => {
+      history.push(`${routes.communities.path}?page=${newPageNumber}`);
+      setPageNumber(newPageNumber);
+    },
+    [history],
+  );
 
   const changeSortOrder = useCallback(newSortOrder => {
     setSortOrder(newSortOrder);
