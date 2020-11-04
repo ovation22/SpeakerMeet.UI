@@ -16,6 +16,7 @@ describe('Conferences', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 0,
+        pageNumber: 1,
       };
     };
     jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
@@ -62,6 +63,7 @@ describe('Conferences', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 0,
+        pageNumber: 1,
       };
     };
     jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
@@ -97,6 +99,7 @@ describe('Conferences', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 0,
+        pageNumber: 1,
       };
     };
     jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);

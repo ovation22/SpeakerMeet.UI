@@ -1,11 +1,12 @@
 import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { Helmet } from 'react-helmet-async';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import useSpeakers from '../hooks/useSpeakers';
+import useQuery from '../hooks/useQuery';
 
 export default function Speakers() {
   const {
@@ -16,8 +17,17 @@ export default function Speakers() {
     sortOrder,
     changeSortOrder,
     totalPages,
+    pageNumber,
   } = useSpeakers();
-  // TODO: Page number into route
+  const query = useQuery();
+
+  const requestedPageNumber = query.get('page');
+
+  useEffect(() => {
+    const parsed = parseInt(requestedPageNumber, 10);
+
+    changePage(parsed || 1);
+  }, [changePage, requestedPageNumber]);
 
   return (
     <>
@@ -38,6 +48,7 @@ export default function Speakers() {
               changeSortOrder={changeSortOrder}
               changePage={changePage}
               totalPages={totalPages}
+              pageNumber={pageNumber}
             />
           </>
         )}

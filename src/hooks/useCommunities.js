@@ -50,6 +50,7 @@ export default function useCommunities() {
     changePage,
     changeSortOrder,
     sortOrder,
+    pageNumber,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }

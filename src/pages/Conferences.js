@@ -16,6 +16,7 @@ export default function Conferences() {
     changeSortOrder,
     changePage,
     totalPages,
+    pageNumber,
   } = useConferences();
 
   return (
@@ -36,6 +37,7 @@ export default function Conferences() {
             changeSortOrder={changeSortOrder}
             changePage={changePage}
             totalPages={totalPages}
+            pageNumber={pageNumber}
           />
         )}
       </Container>

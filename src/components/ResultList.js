@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ResultList({ data, sortOrder, changeSortOrder, changePage, totalPages }) {
+function ResultList({ data, sortOrder, changeSortOrder, changePage, totalPages, pageNumber }) {
   const classes = useStyles();
 
   return (
@@ -66,6 +66,7 @@ function ResultList({ data, sortOrder, changeSortOrder, changePage, totalPages }
         showFirstButton
         showLastButton
         onChange={(e, value) => changePage(value)}
+        page={pageNumber}
       />
     </>
   );
@@ -81,6 +82,7 @@ ResultList.propTypes = {
   changeSortOrder: PropTypes.func.isRequired,
   changePage: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
 };
 
 export default ResultList;

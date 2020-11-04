@@ -2,18 +2,23 @@ import { CircularProgress } from '@material-ui/core';
 import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
 import useSearch from '../hooks/useSearch';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import useQuery from '../hooks/useQuery';
 
 export default function Search() {
-  const { isLoaded, error, results, search, changePage, changeSortOrder, totalPages } = useSearch();
+  const {
+    isLoaded,
+    error,
+    results,
+    search,
+    changePage,
+    changeSortOrder,
+    totalPages,
+    pageNumber,
+  } = useSearch();
 
   const query = useQuery();
   const terms = query.get('terms');
@@ -40,6 +45,7 @@ export default function Search() {
             changePage={changePage}
             changeSortOrder={changeSortOrder}
             totalPages={totalPages}
+            pageNumber={pageNumber}
           />
         )}
       </Container>

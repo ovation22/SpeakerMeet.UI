@@ -15,6 +15,7 @@ describe('Speakers', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 10,
+        pageNumber: 1,
       };
     };
     jest.spyOn(useSpeakers, 'default').mockImplementationOnce(useSpeakersHook);
@@ -48,6 +49,7 @@ describe('Speakers', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 10,
+        pageNumber: 1,
       };
     };
 
@@ -72,6 +74,7 @@ describe('Speakers', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 10,
+        pageNumber: 1,
       };
     };
 

@@ -52,6 +52,7 @@ export default function useConferences() {
     sortOrder,
     changePage,
     changeSortOrder,
+    pageNumber,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }

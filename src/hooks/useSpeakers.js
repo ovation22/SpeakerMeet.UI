@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+// import { useHistory } from 'react-router';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
@@ -8,7 +9,7 @@ export default function useSpeakers() {
   const [isLoaded, setLoaded] = useState(false);
   const [speakers, setSpeakers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState();
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(null);
   const [pageSize] = useState(12);
   const [sortOrder, setSortOrder] = useState(null);
 
@@ -33,18 +34,13 @@ export default function useSpeakers() {
   }, [pageNumber, pageSize, sortOrder]);
 
   useEffect(() => {
+    if (!pageNumber) return;
     fetchData();
   }, [fetchData, pageNumber, pageSize]);
 
-  // TODO: Add setSortOrder
-  // TODO: Add setItemsPerPage
-  const changePage = useCallback(newPageNumber => {
-    setPageNumber(newPageNumber);
-  }, []);
+  const changePage = useCallback(newPageNumber => setPageNumber(newPageNumber), []);
 
-  const changeSortOrder = useCallback(newSortOrder => {
-    setSortOrder(newSortOrder);
-  }, []);
+  const changeSortOrder = useCallback(newSortOrder => setSortOrder(newSortOrder), []);
 
   return {
     error,
@@ -53,6 +49,7 @@ export default function useSpeakers() {
     changePage,
     changeSortOrder,
     sortOrder,
+    pageNumber,
     totalPages: paginationInfo ? paginationInfo.totalPages : 0,
   };
 }

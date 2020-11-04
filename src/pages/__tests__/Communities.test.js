@@ -13,16 +13,17 @@ describe('Communities', () => {
 
   it('should render loading', () => {
     // arrange
-    const useCommunitiesMock = () => {
+    const useCommunitiesHook = () => {
       return {
         error: null,
         isLoaded: false,
         communities: [],
         sortOrder: null,
         changeSortOrder: jest.fn(),
+        pageNumber: 1,
       };
     };
-    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
 
     // act
     const { getByTestId } = render(<Communities />);
@@ -51,7 +52,7 @@ describe('Communities', () => {
         path: 'pathValue2',
       },
     ];
-    const useCommunitiesMock = () => {
+    const useCommunitiesHook = () => {
       return {
         error: null,
         isLoaded: true,
@@ -60,9 +61,10 @@ describe('Communities', () => {
         changeSortOrder: jest.fn(),
         changePage: jest.fn(),
         totalPages: 10,
+        pageNumber: 1,
       };
     };
-    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
 
     const tree = (
       <HelmetProvider>
@@ -86,18 +88,19 @@ describe('Communities', () => {
   it('should render error message from failed fetch', async () => {
     // arrange
     const errorMock = new Error('errorMessageValue');
-    const useCommunitiesMock = () => {
+    const useCommunitiesHook = () => {
       return {
         error: errorMock,
         isLoaded: true,
         communities: [],
-        sortOrder: null,
-        changeSortOrder: jest.fn(),
         changePage: jest.fn(),
+        changeSortOrder: jest.fn(),
+        sortOrder: null,
         totalPages: 10,
+        pageNumber: 1,
       };
     };
-    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
 
     const theme = createMuiTheme({ palette: { primary: { main: '#fff', light: '#fff' } } });
 

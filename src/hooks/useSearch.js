@@ -98,6 +98,7 @@ export default function useSearch() {
     search,
     changePage,
     changeSortOrder,
+    pageNumber,
     totalPages,
   };
 }

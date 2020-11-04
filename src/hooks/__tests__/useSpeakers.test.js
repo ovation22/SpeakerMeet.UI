@@ -4,13 +4,21 @@ import routes from '../../constants/routes';
 import * as telemetryService from '../../services/telemetry.service';
 import endpoints from '../../constants/endpoints';
 
+const mockHistoryPush = jest.fn();
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
 describe('useSpeakers', () => {
   const itemsPage = 12;
   const sortOrder = null;
 
   beforeEach(() => jest.resetAllMocks());
 
-  it('should behave correctly given request succeeds', async () => {
+  it('should behave correctly given changePage is called with page 1', async () => {
     // arrange
     const speakerResult = {
       paginationInfo: {
@@ -47,11 +55,15 @@ describe('useSpeakers', () => {
     expect(result.current.speakers).toEqual([]);
     expect(result.current.isLoaded).toBe(false);
 
+    act(() => result.current.changePage(1));
     await waitForNextUpdate();
 
+    // assert
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+
+    expect(result.current.pageNumber).toEqual(1);
     expect(result.current.speakers).toEqual(expectedSpeakers);
     expect(result.current.isLoaded).toBe(true);
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
   });
 
   it('should behave correctly given request fails', async () => {
@@ -62,6 +74,8 @@ describe('useSpeakers', () => {
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+
+    act(() => result.current.changePage(1));
 
     // assert
     expect(result.current.speakers).toEqual([]);
@@ -91,22 +105,19 @@ describe('useSpeakers', () => {
     const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
     const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
-    const expectedEndpointNext = `${endpoints.speakers}?pageIndex=1&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
     mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
-    await waitForNextUpdate();
 
     // act
-    act(() => result.current.changePage(2));
+    act(() => result.current.changePage(1));
     await waitForNextUpdate();
 
     // assert
-    expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
-    expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointNext);
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
@@ -129,6 +140,9 @@ describe('useSpeakers', () => {
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+
+    act(() => result.current.changePage(1));
+
     await waitForNextUpdate();
 
     // assert
@@ -149,5 +163,38 @@ describe('useSpeakers', () => {
     // assert
     expect(result.current.sortOrder).toEqual('desc');
     expect(global.fetch).toHaveBeenNthCalledWith(3, expectedEndpointDesc);
+  });
+
+  it('return totalPages as 0 given paginationInfo is null', async () => {
+    // arrange
+    const paginationInfo = null;
+    const speakers = null;
+    mockFetchOnce({ paginationInfo, speakers });
+
+    // act
+    const { result } = renderHook(() => useSpeakers());
+
+    // assert
+    expect(result.current.totalPages).toEqual(0);
+  });
+
+  it('return pagination.totalPages given paginationInfo is not null', async () => {
+    // arrange
+    const paginationInfo = { totalPages: 'totalPagesValue' };
+    const speakers = [];
+    mockFetchOnce({ paginationInfo, speakers });
+
+    // act
+    const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+
+    // assert
+    expect(result.current.totalPages).toEqual(0);
+
+    act(() => result.current.changePage(1));
+
+    await waitForNextUpdate();
+
+    // act - pagination.totalPages
+    expect(result.current.totalPages).toEqual(paginationInfo.totalPages);
   });
 });

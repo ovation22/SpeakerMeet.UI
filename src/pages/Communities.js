@@ -16,6 +16,7 @@ export default function Communities() {
     changeSortOrder,
     changePage,
     totalPages,
+    pageNumber,
   } = useCommunities();
 
   return (
@@ -36,6 +37,7 @@ export default function Communities() {
             changeSortOrder={changeSortOrder}
             changePage={changePage}
             totalPages={totalPages}
+            pageNumber={pageNumber}
           />
         )}
       </Container>
