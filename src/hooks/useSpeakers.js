@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 // import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
@@ -12,6 +13,7 @@ export default function useSpeakers() {
   const [pageNumber, setPageNumber] = useState(null);
   const [pageSize] = useState(12);
   const [sortOrder, setSortOrder] = useState(null);
+  const history = useHistory();
 
   const fetchData = useCallback(async () => {
     try {
@@ -38,7 +40,13 @@ export default function useSpeakers() {
     fetchData();
   }, [fetchData, pageNumber, pageSize]);
 
-  const changePage = useCallback(newPageNumber => setPageNumber(newPageNumber), []);
+  const changePage = useCallback(
+    newPageNumber => {
+      history.push(`${routes.speakers.path}?page=${newPageNumber}`);
+      setPageNumber(newPageNumber);
+    },
+    [history],
+  );
 
   const changeSortOrder = useCallback(newSortOrder => setSortOrder(newSortOrder), []);
 

@@ -118,6 +118,7 @@ describe('useSpeakers', () => {
 
     // assert
     expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect(mockHistoryPush).toHaveBeenCalledWith(`${routes.speakers.path}?page=1`);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
