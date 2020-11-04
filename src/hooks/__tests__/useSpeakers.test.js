@@ -100,14 +100,11 @@ describe('useSpeakers', () => {
 
   it('should call speakers endpoint with passed pageIndex on changePage', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
-    const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
     const expectedEndpoint = `${endpoints.speakers}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
-    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
@@ -123,7 +120,6 @@ describe('useSpeakers', () => {
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
     const paginationInfo2 = 'paginationInfo2Value';
     const sortOrderAsc = 'asc';

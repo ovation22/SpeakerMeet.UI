@@ -94,15 +94,11 @@ describe('useCommunities', () => {
 
   it('should call communities endpoint with passed pageIndex on changePage', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
-    const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
     const expectedEndpoint = `${endpoints.communities}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
-    const expectedEndpointNext = `${endpoints.communities}?pageIndex=1&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
-    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useCommunities());
@@ -113,16 +109,13 @@ describe('useCommunities', () => {
     await waitForNextUpdate();
 
     // assert
-    expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
-
-    expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointNext);
+    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
 
     expect(mockHistoryPush).toHaveBeenCalledWith(`${routes.communities.path}?page=2`);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
     const paginationInfo2 = 'paginationInfo2Value';
     const sortOrderAsc = 'asc';
