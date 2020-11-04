@@ -4,6 +4,14 @@ import useConferences from '../useConferences';
 import * as telemetryService from '../../services/telemetry.service';
 import endpoints from '../../constants/endpoints';
 
+const mockHistoryPush = jest.fn();
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
 describe('useConferences', () => {
   const itemsPage = 12;
   const sortOrder = null;
@@ -86,32 +94,26 @@ describe('useConferences', () => {
 
   it('should call speakers endpoint with passed pageIndex on changePage', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
-    const paginationInfo2 = 'paginationInfo2Value';
     const speakers = [];
     const expectedEndpoint = `${endpoints.conferences}?pageIndex=0&itemsPage=${itemsPage}&direction=${sortOrder}`;
-    const expectedEndpointNext = `${endpoints.conferences}?pageIndex=1&itemsPage=${itemsPage}&direction=${sortOrder}`;
 
     mockFetchOnce({ paginationInfo, speakers });
-    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useConferences());
-    await waitForNextUpdate();
 
     // act
-    act(() => result.current.changePage(2));
+    act(() => result.current.changePage(1));
     await waitForNextUpdate();
 
     // assert
     expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
-    expect(global.fetch).toHaveBeenNthCalledWith(2, expectedEndpointNext);
+    expect(mockHistoryPush).toHaveBeenCalledWith(`${routes.conferences.path}?page=1`);
   });
 
   it('should call speakers endpoint with passed sortOrder on changeSortOrder', async () => {
     // arrange
-
     const paginationInfo = 'paginationInfoValue';
     const paginationInfo2 = 'paginationInfo2Value';
     const sortOrderAsc = 'asc';
