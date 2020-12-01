@@ -34,6 +34,6 @@ describe('ErrorSnackbar', () => {
     const alert = getByRole('alert');
     expect(alert).toHaveTextContent(error.message);
     fireEvent.click(getByText('body'));
-    await waitForElementToBeRemoved(alert);
+    await waitForElementToBeRemoved(alert, { timeout: 5000 });
   });
 });
