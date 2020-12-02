@@ -20,12 +20,16 @@ describe('CommunityDetail', () => {
     };
 
     const communityResponseMock = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => Promise.resolve(community),
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => communityResponseMock);
 
     const communitiesFeatured = [];
     const communitiesFeaturedResponseMock = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => Promise.resolve(communitiesFeatured),
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => communitiesFeaturedResponseMock);

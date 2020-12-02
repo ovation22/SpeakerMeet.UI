@@ -46,8 +46,18 @@ export default function SpeakerDetail() {
       try {
         const response = await fetch(`${endpoints.speakers}/${slug}`);
         const result = await response.json();
-        setSpeaker(result);
+        if (response.ok) {
+          setSpeaker(result);
+        } else {
+          throw new Error(result);
+        }
       } catch (e) {
+        setSpeaker({
+          id: '00000000-0000-0000-0000-000000000000',
+          name: 'Not Found',
+          socialPlatforms: [],
+          tags: [],
+        });
         setError(e);
         trackException(e);
       }
@@ -79,7 +89,7 @@ export default function SpeakerDetail() {
                   key={speaker.name}
                   post={{
                     ...speaker,
-                    path: `${routes.speakers.path}/${speaker.slug}`,
+                    path: `${routes.speakers.path}/${slug}`,
                   }}
                 />
               </Grid>

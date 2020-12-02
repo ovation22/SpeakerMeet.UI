@@ -20,12 +20,16 @@ describe('ConferenceDetail', () => {
     };
 
     const conferenceResponseMock = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => Promise.resolve(conference),
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => conferenceResponseMock);
 
     const conferencesFeatured = [];
     const conferencesFeaturedResponseMock = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => Promise.resolve(conferencesFeatured),
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => conferencesFeaturedResponseMock);

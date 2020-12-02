@@ -11,15 +11,17 @@ export default function useSpeakers() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `${endpoints.speakers}`;
-
-        const response = await fetch(url);
+        const response = await fetch(endpoints.speakers);
         const data = await response.json();
-        const result = data.speakers.map(x => ({
-          ...x,
-          path: `${routes.speakers.path}/${x.slug}`,
-        }));
-        setSpeakers(result);
+        if (response.ok) {
+          const result = data.speakers.map(x => ({
+            ...x,
+            path: `${routes.speakers.path}/${x.slug}`,
+          }));
+          setSpeakers(result);
+        } else {
+          throw new Error(data);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

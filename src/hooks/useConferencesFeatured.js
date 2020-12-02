@@ -12,11 +12,15 @@ export default function useConferencesFeatured() {
     try {
       const response = await fetch(endpoints.conferencesFeatured);
       const data = await response.json();
-      const result = data.map(x => ({
-        ...x,
-        path: `${routes.conferences.path}/${x.slug}`,
-      }));
-      setConferences(result);
+      if (response.ok) {
+        const result = data.map(x => ({
+          ...x,
+          path: `${routes.conferences.path}/${x.slug}`,
+        }));
+        setConferences(result);
+      } else {
+        throw new Error(data);
+      }
     } catch (e) {
       setError(e);
       trackException(e);
