@@ -12,12 +12,16 @@ export default function useCommunities() {
     const fetchData = async () => {
       try {
         const response = await fetch(endpoints.communities);
-        const json = await response.json();
-        const result = json.communities.map(x => ({
-          ...x,
-          path: `${routes.communities.path}/${x.slug}`,
-        }));
-        setCommunities(result);
+        const data = await response.json();
+        if (response.ok) {
+          const result = data.communities.map(x => ({
+            ...x,
+            path: `${routes.communities.path}/${x.slug}`,
+          }));
+          setCommunities(result);
+        } else {
+          throw new Error(data);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

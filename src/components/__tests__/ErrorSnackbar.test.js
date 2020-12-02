@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ErrorSnackbar from '../ErrorSnackbar';
 
 describe('ErrorSnackbar', () => {
@@ -22,18 +22,16 @@ describe('ErrorSnackbar', () => {
     expect(queryByText('Error')).toBeNull();
   });
 
-  it('should render error message and allow for dismiss', async () => {
+  it('should render error message', async () => {
     // arrange
     const error = new Error('errorMessageValue');
     const tree = <TestHarness error={error} />;
 
     // act
-    const { getByRole, getByText } = render(tree);
+    const { getByRole } = render(tree);
 
     // assert
     const alert = getByRole('alert');
     expect(alert).toHaveTextContent(error.message);
-    fireEvent.click(getByText('body'));
-    await waitForElementToBeRemoved(alert, { timeout: 5000 });
   });
 });

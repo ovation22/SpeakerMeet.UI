@@ -12,11 +12,15 @@ export default function useCommunitiesFeatured() {
     try {
       const response = await fetch(endpoints.communitiesFeatured);
       const data = await response.json();
-      const result = data.map(x => ({
-        ...x,
-        path: `${routes.communities.path}/${x.slug}`,
-      }));
-      setCommunities(result);
+      if (response.ok) {
+        const result = data.map(x => ({
+          ...x,
+          path: `${routes.communities.path}/${x.slug}`,
+        }));
+        setCommunities(result);
+      } else {
+        throw new Error(data);
+      }
     } catch (e) {
       setError(e);
       trackException(e);

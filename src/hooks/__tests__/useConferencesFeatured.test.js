@@ -8,6 +8,8 @@ describe('useConferencesFeatured', () => {
     const conferencesResult = [{ path: 'pathValue' }];
     const mockJsonPromise = Promise.resolve(conferencesResult);
     const mockFetchPromise = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);

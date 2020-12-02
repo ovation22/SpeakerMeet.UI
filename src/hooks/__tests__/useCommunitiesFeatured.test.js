@@ -12,6 +12,8 @@ describe('useCommunitiesFeatured', () => {
     ];
     const mockJsonPromise = Promise.resolve([community]);
     const mockFetchPromise = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
