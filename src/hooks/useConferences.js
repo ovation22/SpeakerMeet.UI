@@ -22,14 +22,16 @@ export default function useConferences() {
 
         const response = await fetch(url);
         const data = await response.json();
-
-        const result = data.conferences.map(x => ({
-          ...x,
-          path: `${routes.conferences.path}/${x.slug}`,
-        }));
-
-        setConferences(result);
-        setPaginationInfo(data.paginationInfo);
+        if (response.ok) {
+          const result = data.conferences.map(x => ({
+            ...x,
+            path: `${routes.conferences.path}/${x.slug}`,
+          }));
+          setConferences(result);
+          setPaginationInfo(data.paginationInfo);
+        } else {
+          throw new Error(data);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

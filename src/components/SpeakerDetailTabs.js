@@ -50,7 +50,11 @@ export default function SpeakerDetailTabs(props) {
       try {
         const response = await fetch(`${endpoints.speakers}/${id}/Presentations`);
         const result = await response.json();
-        setPresentations(result);
+        if (response.ok) {
+          setPresentations(result);
+        } else {
+          throw new Error(result);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

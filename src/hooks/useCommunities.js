@@ -22,12 +22,16 @@ export default function useCommunities() {
 
         const response = await fetch(url);
         const data = await response.json();
-        const result = data.communities.map(x => ({
-          ...x,
-          path: `${routes.communities.path}/${x.slug}`,
-        }));
-        setCommunities(result);
-        setPaginationInfo(data.paginationInfo);
+        if (response.ok) {
+          const result = data.communities.map(x => ({
+            ...x,
+            path: `${routes.communities.path}/${x.slug}`,
+          }));
+          setCommunities(result);
+          setPaginationInfo(data.paginationInfo);
+        } else {
+          throw new Error(data);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

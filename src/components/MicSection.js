@@ -44,7 +44,11 @@ export default function Home() {
       try {
         const response = await fetch(endpoints.stats);
         const result = await response.json();
-        setStats(result);
+        if (response.ok) {
+          setStats(result);
+        } else {
+          throw new Error(result);
+        }
       } catch (e) {
         setError(e);
         trackException(e);

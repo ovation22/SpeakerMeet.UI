@@ -34,8 +34,18 @@ export default function ConferenceDetail() {
       try {
         const response = await fetch(`${endpoints.conferences}/${slug}`);
         const result = await response.json();
-        setConference(result);
+        if (response.ok) {
+          setConference(result);
+        } else {
+          throw new Error(result);
+        }
       } catch (e) {
+        setConference({
+          id: '00000000-0000-0000-0000-000000000000',
+          name: 'Not Found',
+          socialPlatforms: [],
+          tags: [],
+        });
         setError(e);
         trackException(e);
       }
@@ -47,7 +57,7 @@ export default function ConferenceDetail() {
   return (
     <>
       <Helmet>
-        <title>ConferenceMeet | Conferences</title>
+        <title>SpeakerMeet | Conferences</title>
       </Helmet>
 
       <FindABanner text="Conference" />
@@ -58,7 +68,7 @@ export default function ConferenceDetail() {
         ) : (
           <>
             <Helmet>
-              <title>ConferenceMeet | {conference.name}</title>
+              <title>SpeakerMeet | {conference.name}</title>
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
@@ -67,7 +77,7 @@ export default function ConferenceDetail() {
                   key={conference.name}
                   post={{
                     ...conference,
-                    path: `${routes.conferences.path}/${conference.slug}`,
+                    path: `${routes.conferences.path}/${slug}`,
                   }}
                 />
               </Grid>

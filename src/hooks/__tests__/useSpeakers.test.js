@@ -36,6 +36,8 @@ describe('useSpeakers', () => {
     };
     const mockJsonPromise = Promise.resolve(speakerResult);
     const mockFetchPromise = Promise.resolve({
+      ok: true,
+      status: 200,
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);

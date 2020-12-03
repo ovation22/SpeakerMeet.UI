@@ -15,30 +15,32 @@ export default function useSpeakers() {
   const [sortOrder, setSortOrder] = useState(null);
   const history = useHistory();
 
-  const fetchData = useCallback(async () => {
-    try {
-      const pageIndex = pageNumber - 1;
-      const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&direction=${sortOrder}`;
-
-      const response = await fetch(url);
-      const data = await response.json();
-      const result = data.speakers.map(x => ({
-        ...x,
-        path: `${routes.speakers.path}/${x.slug}`,
-      }));
-      setSpeakers(result);
-      setPaginationInfo(data.paginationInfo);
-    } catch (e) {
-      setError(e);
-      trackException(e);
-    }
-    setLoaded(true);
-  }, [pageNumber, pageSize, sortOrder]);
-
   useEffect(() => {
-    if (!pageNumber) return;
+    const fetchData = async () => {
+      try {
+        const pageIndex = pageNumber - 1;
+        const url = `${endpoints.speakers}?pageIndex=${pageIndex}&itemsPage=${pageSize}&direction=${sortOrder}`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+        if (response.ok) {
+          const result = data.speakers.map(x => ({
+            ...x,
+            path: `${routes.speakers.path}/${x.slug}`,
+          }));
+          setSpeakers(result);
+          setPaginationInfo(data.paginationInfo);
+        } else {
+          throw new Error(data);
+        }
+      } catch (e) {
+        setError(e);
+        trackException(e);
+      }
+      setLoaded(true);
+    };
     fetchData();
-  }, [fetchData, pageNumber, pageSize]);
+  }, [pageNumber, pageSize, sortOrder]);
 
   const changePage = useCallback(
     newPageNumber => {

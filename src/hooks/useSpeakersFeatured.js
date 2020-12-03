@@ -12,11 +12,15 @@ export default function useSpeakersFeatured() {
     try {
       const response = await fetch(endpoints.speakersFeatured);
       const data = await response.json();
-      const result = data.map(x => ({
-        ...x,
-        path: `${routes.speakers.path}/${x.slug}`,
-      }));
-      setSpeakers(result);
+      if (response.ok) {
+        const result = data.map(x => ({
+          ...x,
+          path: `${routes.speakers.path}/${x.slug}`,
+        }));
+        setSpeakers(result);
+      } else {
+        throw new Error(data);
+      }
     } catch (e) {
       setError(e);
       trackException(e);

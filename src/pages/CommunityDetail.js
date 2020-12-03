@@ -34,8 +34,18 @@ export default function CommunityDetail() {
       try {
         const response = await fetch(`${endpoints.communities}/${slug}`);
         const result = await response.json();
-        setCommunity(result);
+        if (response.ok) {
+          setCommunity(result);
+        } else {
+          throw new Error(result);
+        }
       } catch (e) {
+        setCommunity({
+          id: '00000000-0000-0000-0000-000000000000',
+          name: 'Not Found',
+          socialPlatforms: [],
+          tags: [],
+        });
         setError(e);
         trackException(e);
       }
@@ -47,7 +57,7 @@ export default function CommunityDetail() {
   return (
     <>
       <Helmet>
-        <title>CommunityMeet | Communities</title>
+        <title>SpeakerMeet | Communities</title>
       </Helmet>
 
       <FindABanner text="Community" />
@@ -58,7 +68,7 @@ export default function CommunityDetail() {
         ) : (
           <>
             <Helmet>
-              <title>CommunityMeet | {community.name}</title>
+              <title>SpeakerMeet | {community.name}</title>
             </Helmet>
             <BreadCrumbs />
             <Grid container spacing={4}>
@@ -67,7 +77,7 @@ export default function CommunityDetail() {
                   key={community.name}
                   post={{
                     ...community,
-                    path: `${routes.communities.path}/${community.slug}`,
+                    path: `${routes.communities.path}/${slug}`,
                   }}
                 />
               </Grid>
