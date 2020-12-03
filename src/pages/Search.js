@@ -22,10 +22,12 @@ export default function Search() {
 
   const query = useQuery();
   const terms = query.get('terms');
+  const page = query.get('page');
 
   useEffect(() => {
-    search(terms);
-  }, [search, terms]);
+    const intPage = parseInt(page, 10);
+    search(terms, intPage);
+  }, [page, search, terms]);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router';
 import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
@@ -12,6 +13,7 @@ export default function useSearch() {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(4);
   const [sortOrder, setSortOrder] = useState(null);
+  const history = useHistory();
 
   const getPath = document => {
     return `${
@@ -55,13 +57,18 @@ export default function useSearch() {
 
   useEffect(() => {}, [sortOrder]);
 
-  const search = useCallback(newSearchTerm => {
+  const search = useCallback((newSearchTerm, newPageNumber) => {
     setTerms(newSearchTerm);
-  }, []);
-
-  const changePage = useCallback(newPageNumber => {
     setPageNumber(newPageNumber);
   }, []);
+
+  const changePage = useCallback(
+    newPageNumber => {
+      setPageNumber(newPageNumber);
+      history.push(`${routes.search.path}?terms=${terms}&page=${newPageNumber}`);
+    },
+    [history, terms],
+  );
 
   const changeSortOrder = useCallback(
     newSortOrder => {

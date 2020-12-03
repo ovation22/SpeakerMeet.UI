@@ -89,8 +89,13 @@ export default function Header(props) {
   const altSpeakerImage = `${process.env.PUBLIC_URL}/images/speaker.png`;
   const handleSubmit = e => {
     e.preventDefault();
-    if (e.target.terms.value.length > 1) {
-      history.push({ pathname: routes.search.path, search: `?terms=${e.target.terms.value}` });
+
+    const searchTerm = e.target.terms.value;
+    if (searchTerm.length > 1) {
+      history.push({
+        pathname: routes.search.path,
+        search: `?terms=${searchTerm}&page=1`,
+      });
     }
   };
 
