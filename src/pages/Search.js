@@ -25,8 +25,7 @@ export default function Search() {
   const page = query.get('page');
 
   useEffect(() => {
-    const intPage = parseInt(page, 10);
-    search(terms, intPage);
+    search(terms, Number(page));
   }, [page, search, terms]);
 
   return (
