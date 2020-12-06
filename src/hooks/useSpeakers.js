@@ -10,7 +10,7 @@ export default function useSpeakers() {
   const [isLoaded, setLoaded] = useState(false);
   const [speakers, setSpeakers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState();
-  const [pageNumber, setPageNumber] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(12);
   const [sortOrder, setSortOrder] = useState(null);
   const history = useHistory();

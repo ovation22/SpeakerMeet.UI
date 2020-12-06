@@ -92,10 +92,11 @@ describe('useSpeakers', () => {
     expect(telemetryService.trackException).toHaveBeenCalledWith(error);
   });
 
-  const mockFetchOnce = value => {
+  const mockFetchOnce = (value, ok = true) => {
     const mockJsonPromise = Promise.resolve(value);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
+      ok,
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => mockFetchPromise);
   };
@@ -135,7 +136,6 @@ describe('useSpeakers', () => {
     const expectedEndpointDesc = `${baseUrl}&direction=${sortOrderDesc}`;
 
     mockFetchOnce({ paginationInfo, speakers });
-    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
@@ -146,6 +146,9 @@ describe('useSpeakers', () => {
 
     // assert
     expect(global.fetch).toHaveBeenNthCalledWith(1, expectedEndpoint);
+
+    // arrange
+    mockFetchOnce({ paginationInfo: paginationInfo2, speakers });
 
     // act - asc sort
     act(() => result.current.changeSortOrder('asc'));
@@ -171,7 +174,9 @@ describe('useSpeakers', () => {
     mockFetchOnce({ paginationInfo, speakers });
 
     // act
-    const { result } = renderHook(() => useSpeakers());
+    const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+
+    await waitForNextUpdate();
 
     // assert
     expect(result.current.totalPages).toEqual(0);
@@ -181,7 +186,7 @@ describe('useSpeakers', () => {
     // arrange
     const paginationInfo = { totalPages: 'totalPagesValue' };
     const speakers = [];
-    mockFetchOnce({ paginationInfo, speakers });
+    mockFetchOnce({ paginationInfo, speakers, ok: true });
 
     // act
     const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
