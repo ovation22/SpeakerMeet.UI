@@ -3,8 +3,16 @@ import useSearch from '../useSearch';
 import routes from '../../constants/routes';
 import * as telemetryService from '../../services/telemetry.service';
 
+const mockHistoryPush = jest.fn();
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
 describe('useSearch', () => {
-  it('should behave correctly given request succeeds', async () => {
+  it('should request search results then request page 2', async () => {
     // arrange
     const searchResults = {
       results: [
@@ -55,6 +63,7 @@ describe('useSearch', () => {
     const mockJsonPromise = Promise.resolve(searchResults);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
+      ok: true,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
 
@@ -107,6 +116,7 @@ describe('useSearch', () => {
     expect(result.current.results).toEqual(expectedResultsSecondPage);
     expect(result.current.isLoaded).toBe(true);
     expect(result.current.totalPages).toEqual(2);
+    expect(mockHistoryPush).toHaveBeenCalled();
   });
 
   it('should behave correctly given request fails', async () => {

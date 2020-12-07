@@ -57,7 +57,7 @@ export default function useSearch() {
 
   useEffect(() => {}, [sortOrder]);
 
-  const search = useCallback((newSearchTerm, newPageNumber) => {
+  const search = useCallback((newSearchTerm, newPageNumber = 1) => {
     setTerms(newSearchTerm);
     setPageNumber(newPageNumber);
   }, []);
@@ -101,6 +101,7 @@ export default function useSearch() {
     error,
     isLoaded,
     results: pagedResults,
+    pagedResults,
     sortOrder,
     search,
     changePage,
