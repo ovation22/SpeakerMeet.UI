@@ -10,16 +10,22 @@ export default function TwitterContent({ url }) {
     anchor.setAttribute('data-cards', 'hidden');
     anchor.setAttribute('data-conversation', 'none');
     anchor.setAttribute('href', url);
-    document.getElementsByClassName('twitter-embed')[0].appendChild(anchor);
+
+    const twitterEmbed = document.getElementById('twitter-embed');
+    if (twitterEmbed.hasChildNodes()) {
+      twitterEmbed.innerHTML = '';
+    }
+
+    twitterEmbed.appendChild(anchor);
 
     const script = document.createElement('script');
     script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-    document.getElementsByClassName('twitter-embed')[0].appendChild(script);
+    twitterEmbed.appendChild(script);
   }, [url]);
 
   return (
     <section className="twitterContainer">
-      <div className="twitter-embed" />
+      <div id="twitter-embed" className="twitter-embed" />
     </section>
   );
 }
