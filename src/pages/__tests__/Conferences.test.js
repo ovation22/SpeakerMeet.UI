@@ -1,15 +1,41 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { act, screen } from '@testing-library/react';
 import { render } from '../../utils/test.utilitiy';
 import Conferences from '../Conferences';
 import * as useConferences from '../../hooks/useConferences';
 
 describe('Conferences', () => {
-  it('should render expected fields from list of returned conferences', async () => {
+  it('should render loading', () => {
     // arrange
-    const error = null;
-    const isLoaded = true;
+    const useConferencesHook = () => {
+      return {
+        error: null,
+        isLoaded: false,
+        conferences: [],
+        sortOrder: null,
+        changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
+        totalPages: 0,
+        pageNumber: 1,
+      };
+    };
+    jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
+
+    const tree = (
+      <HelmetProvider>
+        <Conferences />
+      </HelmetProvider>
+    );
+
+    // act
+    const { getByTestId } = render(tree);
+
+    // assert
+    getByTestId('loading');
+  });
+
+  it('should render expected fields from list of returned conferences', () => {
+    // arrange
     const conferences = [
       {
         id: 'idValue1',
@@ -30,9 +56,14 @@ describe('Conferences', () => {
     ];
     const useConferencesHook = () => {
       return {
-        error,
-        isLoaded,
+        error: null,
+        isLoaded: true,
         conferences,
+        sortOrder: null,
+        changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
+        totalPages: 0,
+        pageNumber: 1,
       };
     };
     jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
@@ -44,23 +75,34 @@ describe('Conferences', () => {
     );
 
     // act
-    await act(async () => render(tree));
+    const { getByText } = render(tree);
 
     // assert
-    screen.getByText('Find a Conference');
+    getByText('Find a Conference');
 
     conferences.forEach(conference => {
-      screen.getByText(conference.name);
-      screen.getByText(conference.location);
-      screen.getByText(conference.description);
+      getByText(conference.name);
+      getByText(conference.location);
+      getByText(conference.description);
     });
   });
 
   it('should render error message from failed fetch', async () => {
     // arrange
     const errorMock = new Error('errorMessageValue');
-    const mockFetchPromise = Promise.reject(errorMock);
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    const useConferencesHook = () => {
+      return {
+        error: errorMock,
+        isLoaded: true,
+        conferences: [],
+        sortOrder: null,
+        changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
+        totalPages: 0,
+        pageNumber: 1,
+      };
+    };
+    jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
 
     const tree = (
       <HelmetProvider>
@@ -69,9 +111,9 @@ describe('Conferences', () => {
     );
 
     // act
-    await act(async () => render(tree));
+    const { getByTestId } = render(tree);
 
     // assert
-    screen.getByText(/\berrorMessageValue\b/);
+    expect(getByTestId('snackError')).toContainHTML(errorMock.message);
   });
 });

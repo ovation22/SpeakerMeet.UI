@@ -1,12 +1,39 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { act, screen } from '@testing-library/react';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { render } from '../../utils/test.utilitiy';
 import Communities from '../Communities';
 import * as useCommunities from '../../hooks/useCommunities';
 
 describe('Communities', () => {
-  it('should render expected fields from list of returned communities', async () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should render loading', () => {
+    // arrange
+    const useCommunitiesHook = () => {
+      return {
+        error: null,
+        isLoaded: false,
+        communities: [],
+        sortOrder: null,
+        changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
+        pageNumber: 1,
+      };
+    };
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
+
+    // act
+    const { getByTestId } = render(<Communities />);
+
+    // assert
+    getByTestId('loading');
+  });
+
+  it('should render expected fields from list of returned communities', () => {
     // arrange
     const communities = [
       {
@@ -26,14 +53,19 @@ describe('Communities', () => {
         path: 'pathValue2',
       },
     ];
-    const useCommunitiesMock = () => {
+    const useCommunitiesHook = () => {
       return {
         error: null,
         isLoaded: true,
         communities,
+        sortOrder: null,
+        changeSortOrder: jest.fn(),
+        changePage: jest.fn(),
+        totalPages: 10,
+        pageNumber: 1,
       };
     };
-    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
 
     const tree = (
       <HelmetProvider>
@@ -42,40 +74,50 @@ describe('Communities', () => {
     );
 
     // act
-    await act(async () => render(tree));
+    const { getByText } = render(tree);
 
     // assert
-    screen.getByText('Find a Community');
+    getByText('Find a Community');
 
     communities.forEach(community => {
-      screen.getByText(community.name);
-      screen.getByText(community.location);
-      screen.getByText(community.description);
+      getByText(community.name);
+      getByText(community.location);
+      getByText(community.description);
     });
   });
 
   it('should render error message from failed fetch', async () => {
     // arrange
     const errorMock = new Error('errorMessageValue');
-    const useCommunitiesMock = () => {
+    const useCommunitiesHook = () => {
       return {
         error: errorMock,
         isLoaded: true,
         communities: [],
+        changePage: jest.fn(),
+        changeSortOrder: jest.fn(),
+        sortOrder: null,
+        totalPages: 10,
+        pageNumber: 1,
       };
     };
-    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
+    jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesHook);
+
+    const theme = createMuiTheme({ palette: { primary: { main: '#fff', light: '#fff' } } });
 
     const tree = (
-      <HelmetProvider>
-        <Communities />
-      </HelmetProvider>
+      <ThemeProvider theme={theme}>
+        <HelmetProvider>
+          <Communities />
+        </HelmetProvider>
+      </ThemeProvider>
     );
 
     // act
-    await act(async () => render(tree));
+    const { getByTestId } = render(tree);
 
     // assert
-    screen.getByText(/\berrorMessageValue\b/);
+    // getByText(/\berrorMessageValue\b/);
+    expect(getByTestId('snackError')).toContainHTML(errorMock.message);
   });
 });

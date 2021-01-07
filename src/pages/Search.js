@@ -1,52 +1,32 @@
 import { CircularProgress } from '@material-ui/core';
 import { Helmet } from 'react-helmet-async';
 import Container from '@material-ui/core/Container';
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import ErrorSnackbar from '../components/ErrorSnackbar';
 import FindABanner from '../components/FindABanner';
 import ResultList from '../components/ResultList';
-import endpoints from '../constants/endpoints';
-import routes from '../constants/routes';
-import { trackException } from '../services/telemetry.service';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import useSearch from '../hooks/useSearch';
+import useQuery from '../hooks/useQuery';
 
 export default function Search() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [results, setResults] = useState([]);
+  const {
+    isLoaded,
+    error,
+    results,
+    search,
+    changePage,
+    changeSortOrder,
+    totalPages,
+    pageNumber,
+  } = useSearch();
+
   const query = useQuery();
   const terms = query.get('terms');
+  const page = query.get('page');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${endpoints.search}?terms=${terms}`);
-        const json = await response.json();
-        const result = json.results.map(x => ({
-          ...x.document,
-          score: x.score,
-          path: `${
-            // eslint-disable-next-line no-nested-ternary
-            x.document.type === 'Speaker'
-              ? routes.speakers.path
-              : x.document.type === 'Conference'
-              ? routes.conferences.path
-              : routes.communities.path
-          }/${x.document.slug}`,
-        }));
-        setResults(result);
-      } catch (e) {
-        setError(e);
-        trackException(e);
-      }
-      setLoaded(true);
-    };
-    fetchData();
-  }, [terms]);
+    search(terms, Number(page));
+  }, [page, search, terms]);
 
   return (
     <>
@@ -57,7 +37,18 @@ export default function Search() {
       <FindABanner text="Speaker, Conference, or Community" />
 
       <Container maxWidth="lg" style={{ padding: 24, minHeight: '100vh' }}>
-        {!isLoaded ? <CircularProgress /> : <ResultList data={results} orderBy="score" />}
+        {!isLoaded ? (
+          <CircularProgress />
+        ) : (
+          <ResultList
+            data={results}
+            orderBy="score"
+            changePage={changePage}
+            changeSortOrder={changeSortOrder}
+            totalPages={totalPages}
+            pageNumber={pageNumber}
+          />
+        )}
       </Container>
 
       <ErrorSnackbar error={error} />

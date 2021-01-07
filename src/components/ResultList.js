@@ -1,119 +1,88 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as PropTypes from 'prop-types';
-import { Flipper, Flipped } from 'react-flip-toolkit';
-import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import FlippedItem from './FlippedItem';
+import { makeStyles } from '@material-ui/styles';
+import { Pagination } from '@material-ui/lab';
+import FeaturedPost from './FeaturedPost';
 
-const styles = theme => ({
+const useStyles = makeStyles(() => ({
   fieldSet: {
-    borderColor: theme.palette.primary.light,
-    margin: theme.spacing(0, 0, 2, 0),
+    // TODO: tests are throwing an error, theme is undefined
+    // borderColor: theme.palette.primary.light,
+    // margin: theme.spacing(0, 0, 2, 0),
   },
-});
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}));
 
-class ResultList extends Component {
-  constructor(props) {
-    super(props);
+function ResultList({ data, sortOrder, changeSortOrder, changePage, totalPages, pageNumber }) {
+  const classes = useStyles();
 
-    this.state = {
-      type: 'grid',
-      sort: props.orderBy,
-      filteredIds: [],
-      stagger: 'forward',
-      spring: 'veryGentle',
-    };
-  }
+  return (
+    <>
+      <fieldset className={classes.fieldSet}>
+        <legend>Sort</legend>
+        <label
+          htmlFor="asc"
+          role="presentation"
+          onClick={() => {
+            changeSortOrder('asc');
+          }}
+          onKeyUp={() => {
+            changeSortOrder('asc');
+          }}
+        >
+          <input id="asc" type="radio" name="sort" defaultChecked={sortOrder === 'asc'} />
+          asc
+        </label>
+        <label
+          htmlFor="desc"
+          role="presentation"
+          onClick={() => {
+            changeSortOrder('desc');
+          }}
+          onKeyUp={() => {
+            changeSortOrder('desc');
+          }}
+        >
+          <input id="desc" type="radio" name="sort" defaultChecked={sortOrder === 'desc'} />
+          desc
+        </label>
+      </fieldset>
 
-  render() {
-    const { classes, data } = this.props;
-    const { type, sort, stagger, filteredIds, spring } = this.state;
-
-    return (
-      <Flipper
-        flipKey={`${type}-${sort}-${JSON.stringify(filteredIds)}-${JSON.stringify(stagger)}`}
-        spring={spring}
-        staggerConfig={{
-          default: {
-            reverse: stagger !== 'forward',
-            speed: 2,
-          },
-        }}
-        decisionData={this.state}
-      >
-        <fieldset className={classes.fieldSet}>
-          <legend>Sort</legend>
-          <label
-            htmlFor="asc"
-            role="presentation"
-            onClick={() => {
-              this.setState({ sort: 'asc' });
-            }}
-            onKeyUp={() => {
-              this.setState({ sort: 'asc' });
-            }}
-          >
-            <input id="asc" type="radio" name="sort" defaultChecked={sort === 'asc'} />
-            asc
-          </label>
-          <label
-            htmlFor="desc"
-            role="presentation"
-            onClick={() => {
-              this.setState({ sort: 'desc' });
-            }}
-            onKeyUp={() => {
-              this.setState({ sort: 'desc' });
-            }}
-          >
-            <input id="desc" type="radio" name="sort" defaultChecked={sort === 'desc'} />
-            desc
-          </label>
-        </fieldset>
-
-        <Flipped flipId="list">
-          <Flipped inverseFlipId="list">
-            <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
-              {[...data]
-                .filter(d => !filteredIds.includes(d.id))
-                .sort((a, b) => {
-                  if (sort === 'score') {
-                    return a.score > b.score;
-                  }
-                  if (sort === 'asc') {
-                    return a.name.localeCompare(b.name);
-                  }
-                  if (sort === 'desc') {
-                    return b.name.localeCompare(a.name);
-                  }
-                  return 0.5 - Math.random();
-                })
-                .map(d => (
-                  <FlippedItem
-                    id={d.id}
-                    name={d.name}
-                    stagger={['forward', 'reverse'].includes(stagger)}
-                    type={type}
-                    key={d.id}
-                    post={d}
-                  />
-                ))}
-            </Grid>
-          </Flipped>
-        </Flipped>
-      </Flipper>
-    );
-  }
+      <Grid className="list-contents" style={{ listStyleType: 'none', display: 'inline' }}>
+        {data.map(dataItem => (
+          <Grid key={dataItem.id} item style={{ display: 'inline-flex' }} xs={12} md={3}>
+            <FeaturedPost post={dataItem} style={{ width: 345, margin: 12 }} />
+          </Grid>
+        ))}
+      </Grid>
+      <Pagination
+        className={classes.pagination}
+        count={totalPages}
+        color="primary"
+        showFirstButton
+        showLastButton
+        onChange={(e, value) => changePage(value)}
+        page={pageNumber}
+      />
+    </>
+  );
 }
 
 ResultList.defaultProps = {
-  orderBy: 'random',
+  sortOrder: '',
 };
 
 ResultList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  classes: PropTypes.shape().isRequired,
-  orderBy: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  sortOrder: PropTypes.string,
+  changeSortOrder: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
 };
 
-export default withStyles(styles)(ResultList);
+export default ResultList;
