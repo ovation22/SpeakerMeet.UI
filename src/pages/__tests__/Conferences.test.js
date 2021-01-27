@@ -6,35 +6,34 @@ import Conferences from '../Conferences';
 import * as useConferences from '../../hooks/useConferences';
 
 describe('Conferences', () => {
+  const isLoaded = true;
+  const conferences = [
+    {
+      id: 'idValue1',
+      name: 'nameValue1',
+      slug: 'slug-value-1',
+      location: 'locationValue1',
+      description: 'descriptionValue1',
+      path: 'pathValue1',
+    },
+    {
+      id: 'idValue2',
+      name: 'nameValue2',
+      slug: 'slug-value-2',
+      location: 'locationValue2',
+      description: 'descriptionValue2',
+      path: 'pathValue2',
+    },
+  ];
+
   it('should render expected fields from list of returned conferences', async () => {
     // arrange
     const error = null;
-    const isLoaded = true;
-    const conferences = [
-      {
-        id: 'idValue1',
-        name: 'nameValue1',
-        slug: 'slug-value-1',
-        location: 'locationValue1',
-        description: 'descriptionValue1',
-        path: 'pathValue1',
-      },
-      {
-        id: 'idValue2',
-        name: 'nameValue2',
-        slug: 'slug-value-2',
-        location: 'locationValue2',
-        description: 'descriptionValue2',
-        path: 'pathValue2',
-      },
-    ];
-    const useConferencesHook = () => {
-      return {
-        error,
-        isLoaded,
-        conferences,
-      };
-    };
+    const useConferencesHook = () => ({
+      error,
+      isLoaded,
+      conferences,
+    });
     jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
 
     const tree = (
@@ -58,9 +57,13 @@ describe('Conferences', () => {
 
   it('should render error message from failed fetch', async () => {
     // arrange
-    const errorMock = new Error('errorMessageValue');
-    const mockFetchPromise = Promise.reject(errorMock);
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    const error = new Error('errorMessageValue');
+    const useConferencesHook = () => ({
+      error,
+      isLoaded,
+      conferences,
+    });
+    jest.spyOn(useConferences, 'default').mockImplementationOnce(useConferencesHook);
 
     const tree = (
       <HelmetProvider>
