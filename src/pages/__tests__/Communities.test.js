@@ -26,13 +26,11 @@ describe('Communities', () => {
         path: 'pathValue2',
       },
     ];
-    const useCommunitiesMock = () => {
-      return {
-        error: null,
-        isLoaded: true,
-        communities,
-      };
-    };
+    const useCommunitiesMock = () => ({
+      error: null,
+      isLoaded: true,
+      communities,
+    });
     jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
 
     const tree = (
@@ -57,13 +55,11 @@ describe('Communities', () => {
   it('should render error message from failed fetch', async () => {
     // arrange
     const errorMock = new Error('errorMessageValue');
-    const useCommunitiesMock = () => {
-      return {
-        error: errorMock,
-        isLoaded: true,
-        communities: [],
-      };
-    };
+    const useCommunitiesMock = () => ({
+      error: errorMock,
+      isLoaded: true,
+      communities: [],
+    });
     jest.spyOn(useCommunities, 'default').mockImplementationOnce(useCommunitiesMock);
 
     const tree = (

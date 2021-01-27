@@ -29,9 +29,7 @@ const onExit = type => (el, index, removeElement) => {
 };
 
 const onGridExit = onExit('grid');
-const shouldFlip = (prev, current) => {
-  return prev.type !== current.type;
-};
+const shouldFlip = (prev, current) => prev.type !== current.type;
 
 export default function FlippedItem(props) {
   const { id, stagger, post } = props;

@@ -46,20 +46,18 @@ export default function Footer(props) {
     <footer className={classes.footer}>
       <div className={classes.footerMain}>
         <Container maxWidth="lg">
-          {sections.map(section => {
-            return (
-              <Typography key={section.title}>
-                <Link
-                  color="inherit"
-                  to={section.url}
-                  className={classes.footerLink}
-                  component={RouterLink}
-                >
-                  {section.title}
-                </Link>
-              </Typography>
-            );
-          })}
+          {sections.map(section => (
+            <Typography key={section.title}>
+              <Link
+                color="inherit"
+                to={section.url}
+                className={classes.footerLink}
+                component={RouterLink}
+              >
+                {section.title}
+              </Link>
+            </Typography>
+          ))}
         </Container>
       </div>
 

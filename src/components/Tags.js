@@ -22,13 +22,11 @@ function Tags({ tags }) {
 
   return (
     <ul className={classes.root}>
-      {tags.map(tag => {
-        return (
-          <li key={tag}>
-            <Chip size="small" className={classes.chip} label={tag} />
-          </li>
-        );
-      })}
+      {tags.map(tag => (
+        <li key={tag}>
+          <Chip size="small" className={classes.chip} label={tag} />
+        </li>
+      ))}
     </ul>
   );
 }

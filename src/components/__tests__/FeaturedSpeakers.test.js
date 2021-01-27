@@ -7,13 +7,11 @@ import * as useSpeakersFeatured from '../../hooks/useSpeakersFeatured';
 describe('FeaturedSpeakers', () => {
   it('should notify user of loading', () => {
     // arrange
-    const useSpeakersFeaturedMock = () => {
-      return {
-        error: null,
-        isLoaded: false,
-        speakers: [],
-      };
-    };
+    const useSpeakersFeaturedMock = () => ({
+      error: null,
+      isLoaded: false,
+      speakers: [],
+    });
     jest.spyOn(useSpeakersFeatured, 'default').mockImplementationOnce(useSpeakersFeaturedMock);
 
     const tree = (
@@ -41,13 +39,11 @@ describe('FeaturedSpeakers', () => {
     };
     const speakers = [speaker];
 
-    const useSpeakersFeaturedMock = () => {
-      return {
-        error: null,
-        isLoaded: true,
-        speakers,
-      };
-    };
+    const useSpeakersFeaturedMock = () => ({
+      error: null,
+      isLoaded: true,
+      speakers,
+    });
     jest.spyOn(useSpeakersFeatured, 'default').mockImplementationOnce(useSpeakersFeaturedMock);
 
     const tree = (
@@ -67,13 +63,11 @@ describe('FeaturedSpeakers', () => {
     // arrange
     const error = new Error('error message');
 
-    const useSpeakersFeaturedMock = () => {
-      return {
-        error,
-        isLoaded: true,
-        speakers: [],
-      };
-    };
+    const useSpeakersFeaturedMock = () => ({
+      error,
+      isLoaded: true,
+      speakers: [],
+    });
     jest.spyOn(useSpeakersFeatured, 'default').mockImplementationOnce(useSpeakersFeaturedMock);
 
     const tree = (

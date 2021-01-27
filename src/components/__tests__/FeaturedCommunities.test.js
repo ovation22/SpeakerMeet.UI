@@ -7,13 +7,11 @@ import * as useCommunitiesFeatured from '../../hooks/useCommunitiesFeatured';
 describe('FeaturedCommunities', () => {
   it('should notify user of loading', () => {
     // arrange
-    const useCommunitiesFeaturedMock = () => {
-      return {
-        error: null,
-        isLoaded: false,
-        communities: [],
-      };
-    };
+    const useCommunitiesFeaturedMock = () => ({
+      error: null,
+      isLoaded: false,
+      communities: [],
+    });
     jest
       .spyOn(useCommunitiesFeatured, 'default')
       .mockImplementationOnce(useCommunitiesFeaturedMock);
@@ -43,13 +41,11 @@ describe('FeaturedCommunities', () => {
     };
     const communities = [community];
 
-    const useCommunitiesFeaturedMock = () => {
-      return {
-        error: null,
-        isLoaded: true,
-        communities,
-      };
-    };
+    const useCommunitiesFeaturedMock = () => ({
+      error: null,
+      isLoaded: true,
+      communities,
+    });
     jest
       .spyOn(useCommunitiesFeatured, 'default')
       .mockImplementationOnce(useCommunitiesFeaturedMock);
@@ -71,13 +67,11 @@ describe('FeaturedCommunities', () => {
     // arrange
     const error = new Error('error message');
 
-    const useCommunitiesFeaturedMock = () => {
-      return {
-        error,
-        isLoaded: true,
-        communities: [],
-      };
-    };
+    const useCommunitiesFeaturedMock = () => ({
+      error,
+      isLoaded: true,
+      communities: [],
+    });
     jest
       .spyOn(useCommunitiesFeatured, 'default')
       .mockImplementationOnce(useCommunitiesFeaturedMock);
