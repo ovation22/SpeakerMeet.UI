@@ -1,69 +1,56 @@
 import { renderHook } from '@testing-library/react-hooks';
 import routes from '../../constants/routes';
 import useCommunities from '../useCommunities';
-import * as telemetryService from '../../services/telemetry.service';
+import * as useRequest from '../useRequest';
 
 describe('useCommunities', () => {
-  it('should behave correctly given request succeeds', async () => {
+  it('should return expected from useRequest', async () => {
     // arrange
-    const communitiesResult = {
-      communities: [
-        {
-          id: 'idValue',
-          name: 'nameValue',
-          slug: 'slugValue',
-          location: 'locationValue',
-          description: 'descriptionValue',
-        },
-      ],
+    const community = { slug: 'slugValue' };
+    const data = {
+      communities: [community],
     };
-    const mockJsonPromise = Promise.resolve(communitiesResult);
-    const mockFetchPromise = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-
-    const expectedSpeakers = [
+    const expectedCommunities = [
       {
-        ...communitiesResult.communities[0],
-        path: `${routes.communities.path}/${communitiesResult.communities[0].slug}`,
+        slug: 'slugValue',
+        path: `${routes.communities.path}/${community.slug}`,
       },
     ];
 
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
+
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useCommunities());
+    const { result } = renderHook(() => useCommunities());
 
     // assert
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.communities).toEqual(expectedSpeakers);
-    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.communities).toEqual(expectedCommunities);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 
-  it('should behave correctly given request fails', async () => {
+  it('should return expected from useRequest given data is null', async () => {
     // arrange
-    const error = new Error('Error Mock');
-    jest.spyOn(global, 'fetch').mockRejectedValueOnce(error);
-    jest.spyOn(telemetryService, 'trackException');
+    const data = null;
+    const expectedCommunities = [];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useCommunities());
+    const { result } = renderHook(() => useCommunities());
 
     // assert
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(true);
-    expect(result.current.error).toEqual(error);
-
-    expect(telemetryService.trackException).toHaveBeenCalledWith(error);
+    expect(result.current.communities).toEqual(expectedCommunities);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 });
