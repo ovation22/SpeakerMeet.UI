@@ -5,12 +5,13 @@ import routes from '../constants/routes';
 export default function useCommunities() {
   const { data, isLoaded, error } = useRequest(endpoints.communities);
 
-  const communities = !data
-    ? []
-    : data.communities.map(x => ({
-        ...x,
-        path: `${routes.communities.path}/${x.slug}`,
-      }));
+  const addPath = (arr, path) =>
+    arr.map(x => ({
+      ...x,
+      path: `${path}/${x.slug}`,
+    }));
+
+  const communities = data ? addPath(data.communities, routes.communities.path) : [];
 
   return {
     error,
