@@ -1,55 +1,54 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useCommunitiesFeatured from '../useCommunitiesFeatured';
 import routes from '../../constants/routes';
-import * as telemetryService from '../../services/telemetry.service';
+import * as useRequest from '../useRequest';
 
 describe('useCommunitiesFeatured', () => {
-  it('should load featured communities given request success', async () => {
+  it('should return expected from useRequest', async () => {
     // arrange
-    const community = { path: 'pathValue' };
+    const community = { slug: 'slugValue' };
+    const data = [community];
     const expectedCommunities = [
-      { ...community, path: `${routes.communities.path}/${community.slug}` },
+      {
+        slug: 'slugValue',
+        path: `${routes.communities.path}/${community.slug}`,
+      },
     ];
-    const mockJsonPromise = Promise.resolve([community]);
-    const mockFetchPromise = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useCommunitiesFeatured());
+    const { result } = renderHook(() => useCommunitiesFeatured());
 
     // assert
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
     expect(result.current.communities).toEqual(expectedCommunities);
-    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 
-  it('should return error given request failed', async () => {
+  it('should return expected from useRequest given data is null', async () => {
     // arrange
-    const error = new Error('Error Mock');
-    jest.spyOn(global, 'fetch').mockRejectedValueOnce(error);
-    jest.spyOn(telemetryService, 'trackException');
+    const data = null;
+    const expectedCommunities = [];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useCommunitiesFeatured());
+    const { result } = renderHook(() => useCommunitiesFeatured());
 
     // assert
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.communities).toEqual([]);
-    expect(result.current.isLoaded).toBe(true);
-    expect(result.current.error).toEqual(error);
-
-    expect(telemetryService.trackException).toHaveBeenCalledWith(error);
+    expect(result.current.communities).toEqual(expectedCommunities);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 });
