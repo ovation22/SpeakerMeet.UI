@@ -2,15 +2,25 @@ import { renderHook } from '@testing-library/react-hooks';
 import * as useRequest from '../useRequest';
 import useSearch from '../useSearch';
 import routes from '../../constants/routes';
+import documentTypes from '../../constants/documentTypes';
 
 describe('useSearch', () => {
   const speakerId = 'speakerIdValue';
 
   it('should return expected from useRequest', async () => {
     // arrange
-    const speaker = { score: 'scoreValue', document: { type: 'Speaker', slug: 'slugValue' } };
-    const conference = { score: 'scoreValue', document: { type: 'Conference', slug: 'slugValue' } };
-    const community = { score: 'scoreValue', document: { type: 'Community', slug: 'slugValue' } };
+    const speaker = {
+      score: 'scoreValue',
+      document: { type: documentTypes.speaker, slug: 'slugValue' },
+    };
+    const conference = {
+      score: 'scoreValue',
+      document: { type: documentTypes.conference, slug: 'slugValue' },
+    };
+    const community = {
+      score: 'scoreValue',
+      document: { type: documentTypes.community, slug: 'slugValue' },
+    };
     const data = {
       results: [speaker, conference, community],
     };

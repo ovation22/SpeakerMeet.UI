@@ -1,22 +1,22 @@
 import endpoints from '../constants/endpoints';
 import useRequest from './useRequest';
 import routes from '../constants/routes';
+import documentTypes from '../constants/documentTypes';
 
 export default function useSearch(searchTerm) {
   const { data, isLoaded, error } = useRequest(`${endpoints.search}?terms=${searchTerm}`);
+
+  const typePathMap = {
+    [documentTypes.speaker]: routes.speakers.path,
+    [documentTypes.conference]: routes.conferences.path,
+    [documentTypes.community]: routes.communities.path,
+  };
   const results = !data
     ? null
     : data.results.map(x => ({
         ...x.document,
         score: x.score,
-        path: `${
-          // eslint-disable-next-line no-nested-ternary
-          x.document.type === 'Speaker'
-            ? routes.speakers.path
-            : x.document.type === 'Conference'
-            ? routes.conferences.path
-            : routes.communities.path
-        }/${x.document.slug}`,
+        path: `${typePathMap[x.document.type]}/${x.document.slug}`,
       }));
 
   return {
