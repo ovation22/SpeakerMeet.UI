@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Disqus from 'disqus-react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
 import SpeakerDetailTabs from '../components/SpeakerDetailTabs';
@@ -13,11 +13,10 @@ import ErrorSnackbar from '../components/ErrorSnackbar';
 import FeaturedSpeakers from '../components/FeaturedSpeakers';
 import FindABanner from '../components/FindABanner';
 import config from '../constants/config';
-import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
-import { trackException } from '../services/telemetry.service';
 import SpeakerCard from '../components/SpeakerCard';
 import TwitterContainer from '../components/TwitterContainer';
+import useSpeaker from '../hooks/useSpeaker';
 
 const useStyles = makeStyles(theme => ({
   twitter: {
@@ -31,40 +30,13 @@ const useStyles = makeStyles(theme => ({
 export default function SpeakerDetail() {
   const classes = useStyles();
   const { slug } = useParams();
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [speaker, setSpeaker] = useState(null);
+  const { error, isLoaded, speaker } = useSpeaker(slug);
   const disqusShortname = config.disqusShortName;
   const disqusConfig = {
     url: config.url,
     identifier: slug,
     title: slug,
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${endpoints.speakers}/${slug}`);
-        const result = await response.json();
-        if (response.ok) {
-          setSpeaker(result);
-        } else {
-          throw new Error(result);
-        }
-      } catch (e) {
-        setSpeaker({
-          id: '00000000-0000-0000-0000-000000000000',
-          name: 'Not Found',
-          socialPlatforms: [],
-          tags: [],
-        });
-        setError(e);
-        trackException(e);
-      }
-      setLoaded(true);
-    };
-    fetchData();
-  }, [slug]);
 
   return (
     <>
