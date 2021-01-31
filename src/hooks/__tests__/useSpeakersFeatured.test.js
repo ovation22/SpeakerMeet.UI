@@ -6,12 +6,12 @@ import useSpeakersFeatured from '../useSpeakersFeatured';
 describe('useSpeakersFeatured', () => {
   it('should return expected from useRequest', async () => {
     // arrange
-    const conference = { slug: 'slugValue' };
-    const data = [conference];
+    const speaker = { slug: 'slugValue' };
+    const data = [speaker];
     const expectedSpeakers = [
       {
         slug: 'slugValue',
-        path: `${routes.speakers.path}/${conference.slug}`,
+        path: `${routes.speakers.path}/${speaker.slug}`,
       },
     ];
 
