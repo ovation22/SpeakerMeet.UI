@@ -1,69 +1,56 @@
 import { renderHook } from '@testing-library/react-hooks';
 import routes from '../../constants/routes';
+import * as useRequest from '../useRequest';
 import useConferences from '../useConferences';
-import * as telemetryService from '../../services/telemetry.service';
 
 describe('useConferences', () => {
-  it('should behave correctly given request succeeds', async () => {
+  it('should return expected from useRequest', async () => {
     // arrange
-    const conferencesResult = {
-      conferences: [
-        {
-          id: 'idValue',
-          name: 'nameValue',
-          slug: 'slugValue',
-          location: 'locationValue',
-          description: 'descriptionValue',
-        },
-      ],
+    const conference = { slug: 'slugValue' };
+    const data = {
+      conferences: [conference],
     };
-    const mockJsonPromise = Promise.resolve(conferencesResult);
-    const mockFetchPromise = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-
-    const expectedSpeakers = [
+    const expectedConferences = [
       {
-        ...conferencesResult.conferences[0],
-        path: `${routes.conferences.path}/${conferencesResult.conferences[0].slug}`,
+        slug: 'slugValue',
+        path: `${routes.conferences.path}/${conference.slug}`,
       },
     ];
 
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
+
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useConferences());
+    const { result } = renderHook(() => useConferences());
 
     // assert
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.conferences).toEqual(expectedSpeakers);
-    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.conferences).toEqual(expectedConferences);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 
-  it('should behave correctly given request fails', async () => {
+  it('should return expected from useRequest given data is null', async () => {
     // arrange
-    const error = new Error('Error Mock');
-    jest.spyOn(global, 'fetch').mockRejectedValueOnce(error);
-    jest.spyOn(telemetryService, 'trackException');
+    const data = null;
+    const expectedConferences = [];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useConferences());
+    const { result } = renderHook(() => useConferences());
 
     // assert
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(true);
-    expect(result.current.error).toEqual(error);
-
-    expect(telemetryService.trackException).toHaveBeenCalledWith(error);
+    expect(result.current.conferences).toEqual(expectedConferences);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 });
