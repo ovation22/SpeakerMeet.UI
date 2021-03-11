@@ -36,18 +36,22 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://6figuredev.com/"><img src="https://avatars0.githubusercontent.com/u/7606265?v=4" width="100px;" alt=""/><br /><sub><b>John Callaway</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=ovation22" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ClaytonHunt"><img src="https://avatars1.githubusercontent.com/u/1760277?v=4" width="100px;" alt=""/><br /><sub><b>Clayton Hunt</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=ClaytonHunt" title="Code">💻</a></td>
-    <td align="center"><a href="http://andrewboza.com"><img src="https://avatars3.githubusercontent.com/u/22282010?v=4" width="100px;" alt=""/><br /><sub><b>Andrew Boza</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=VirtuaBoza" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.meetup.com/TulsaDevelopers-net/"><img src="https://avatars3.githubusercontent.com/u/2321911?v=4" width="100px;" alt=""/><br /><sub><b>Sean Whitesell</b></sub></a><br /><a href="#content-seanw122" title="Content">🖋</a></td>
-    <td align="center"><a href="http://jordansrhodes.com"><img src="https://avatars1.githubusercontent.com/u/13190339?v=4" width="100px;" alt=""/><br /><sub><b>Jordan Rhodes</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=JSRhodes15" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/FreakinWard"><img src="https://avatars0.githubusercontent.com/u/2846726?v=4" width="100px;" alt=""/><br /><sub><b>FreakinWard</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=FreakinWard" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/epsidge"><img src="https://avatars1.githubusercontent.com/u/60659351?v=4" width="100px;" alt=""/><br /><sub><b>Epsidge</b></sub></a><br /><a href="#content-Epsidge" title="Content">🖋</a></td>
+    <td align="center"><a href="http://6figuredev.com/"><img src="https://avatars0.githubusercontent.com/u/7606265?v=4?s=100" width="100px;" alt=""/><br /><sub><b>John Callaway</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=ovation22" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ClaytonHunt"><img src="https://avatars1.githubusercontent.com/u/1760277?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Clayton Hunt</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=ClaytonHunt" title="Code">💻</a></td>
+    <td align="center"><a href="http://andrewboza.com"><img src="https://avatars3.githubusercontent.com/u/22282010?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrew Boza</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=VirtuaBoza" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.meetup.com/TulsaDevelopers-net/"><img src="https://avatars3.githubusercontent.com/u/2321911?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sean Whitesell</b></sub></a><br /><a href="#content-seanw122" title="Content">🖋</a></td>
+    <td align="center"><a href="http://jordansrhodes.com"><img src="https://avatars1.githubusercontent.com/u/13190339?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jordan Rhodes</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=JSRhodes15" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/FreakinWard"><img src="https://avatars0.githubusercontent.com/u/2846726?v=4?s=100" width="100px;" alt=""/><br /><sub><b>FreakinWard</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=FreakinWard" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/epsidge"><img src="https://avatars1.githubusercontent.com/u/60659351?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Epsidge</b></sub></a><br /><a href="#content-Epsidge" title="Content">🖋</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/ashjonm"><img src="https://avatars.githubusercontent.com/u/9940007?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Ash</b></sub></a><br /><a href="https://github.com/ovation22/SpeakerMeet.UI/commits?author=ashjonm" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
