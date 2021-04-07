@@ -1,51 +1,54 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useConferencesFeatured from '../useConferencesFeatured';
 import routes from '../../constants/routes';
+import * as useRequest from '../useRequest';
+import useConferencesFeatured from '../useConferencesFeatured';
 
 describe('useConferencesFeatured', () => {
-  it('should should behave correctly given request succeeds', async () => {
+  it('should return expected from useRequest', async () => {
     // arrange
-    const conferencesResult = [{ path: 'pathValue' }];
-    const mockJsonPromise = Promise.resolve(conferencesResult);
-    const mockFetchPromise = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    const conference = { slug: 'slugValue' };
+    const data = [conference];
+    const expectedConferences = [
+      {
+        slug: 'slugValue',
+        path: `${routes.conferences.path}/${conference.slug}`,
+      },
+    ];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useConferencesFeatured());
+    const { result } = renderHook(() => useConferencesFeatured());
 
-    const expectedConferences = [
-      { ...conferencesResult[0], path: `${routes.conferences.path}/${conferencesResult[0].slug}` },
-    ];
     // assert
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
     expect(result.current.conferences).toEqual(expectedConferences);
-    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 
-  it('should behave correctly given request fails', async () => {
+  it('should return expected from useRequest given data is null', async () => {
     // arrange
-    const error = 'errorValue';
-    jest.spyOn(global, 'fetch').mockRejectedValue(error);
+    const data = null;
+    const expectedConferences = [];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useConferencesFeatured());
+    const { result } = renderHook(() => useConferencesFeatured());
 
     // assert
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.conferences).toEqual([]);
-    expect(result.current.isLoaded).toBe(true);
-    expect(result.current.error).toEqual(error);
+    expect(result.current.conferences).toEqual(expectedConferences);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 });

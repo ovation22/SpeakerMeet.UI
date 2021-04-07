@@ -1,69 +1,56 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useSpeakers from '../useSpeakers';
 import routes from '../../constants/routes';
-import * as telemetryService from '../../services/telemetry.service';
+import * as useRequest from '../useRequest';
+import useSpeakers from '../useSpeakers';
 
 describe('useSpeakers', () => {
-  it('should behave correctly given request succeeds', async () => {
+  it('should return expected from useRequest', async () => {
     // arrange
-    const speakerResult = {
-      speakers: [
-        {
-          id: 'idValue1',
-          description: 'descriptionValue1',
-          location: 'locationValue1',
-          name: 'nameValue1',
-          slug: 'slugValue1',
-        },
-      ],
+    const speaker = { slug: 'slugValue' };
+    const data = {
+      speakers: [speaker],
     };
-    const mockJsonPromise = Promise.resolve(speakerResult);
-    const mockFetchPromise = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => mockJsonPromise,
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-
     const expectedSpeakers = [
       {
-        ...speakerResult.speakers[0],
-        path: `${routes.speakers.path}/${speakerResult.speakers[0].slug}`,
+        slug: 'slugValue',
+        path: `${routes.speakers.path}/${speaker.slug}`,
       },
     ];
 
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
+
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+    const { result } = renderHook(() => useSpeakers());
 
     // assert
-    expect(result.current.speakers).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
     expect(result.current.speakers).toEqual(expectedSpeakers);
-    expect(result.current.isLoaded).toBe(true);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 
-  it('should behave correctly given request fails', async () => {
+  it('should return expected from useRequest given data is null', async () => {
     // arrange
-    const error = new Error('Error Mock');
-    jest.spyOn(global, 'fetch').mockRejectedValueOnce(error);
-    jest.spyOn(telemetryService, 'trackException');
+    const data = null;
+    const expectedSpeakers = [];
+
+    const useRequestHook = {
+      data,
+      isLoaded: true,
+      error: 'errorValue',
+    };
+    jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result, waitForNextUpdate } = renderHook(() => useSpeakers());
+    const { result } = renderHook(() => useSpeakers());
 
     // assert
-    expect(result.current.speakers).toEqual([]);
-    expect(result.current.isLoaded).toBe(false);
-
-    await waitForNextUpdate();
-
-    expect(result.current.speakers).toEqual([]);
-    expect(result.current.isLoaded).toBe(true);
-    expect(result.current.error).toEqual(error);
-
-    expect(telemetryService.trackException).toHaveBeenCalledWith(error);
+    expect(result.current.speakers).toEqual(expectedSpeakers);
+    expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
+    expect(result.current.error).toEqual(useRequestHook.error);
   });
 });

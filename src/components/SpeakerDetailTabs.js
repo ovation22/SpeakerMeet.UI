@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -14,9 +14,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/styles';
 import { CircularProgress } from '@material-ui/core';
-import endpoints from '../constants/endpoints';
-import { trackException } from '../services/telemetry.service';
 import ErrorSnackbar from './ErrorSnackbar';
+import usePresentations from '../hooks/usePresentations';
 
 const useStyles = makeStyles({
   root: {
@@ -33,36 +32,14 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-export default function SpeakerDetailTabs(props) {
+export default function SpeakerDetailTabs({ id: speakerId }) {
   const classes = useStyles();
-  const { id } = props;
+  const { isLoaded, error, presentations } = usePresentations(speakerId);
   const [value, setValue] = React.useState('0');
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [presentations, setPresentations] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${endpoints.speakers}/${id}/Presentations`);
-        const result = await response.json();
-        if (response.ok) {
-          setPresentations(result);
-        } else {
-          throw new Error(result);
-        }
-      } catch (e) {
-        setError(e);
-        trackException(e);
-      }
-      setLoaded(true);
-    };
-    fetchData();
-  }, [id]);
 
   return (
     <>

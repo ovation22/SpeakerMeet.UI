@@ -1,19 +1,13 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useCommunitiesFeatured from '../useCommunitiesFeatured';
-import routes from '../../constants/routes';
 import * as useRequest from '../useRequest';
+import useConference from '../useConference';
 
-describe('useCommunitiesFeatured', () => {
+describe('useConference', () => {
+  const conferenceId = 'speakerIdValue';
+
   it('should return expected from useRequest', async () => {
     // arrange
-    const community = { slug: 'slugValue' };
-    const data = [community];
-    const expectedCommunities = [
-      {
-        slug: 'slugValue',
-        path: `${routes.communities.path}/${community.slug}`,
-      },
-    ];
+    const data = { foo: 'bar' };
 
     const useRequestHook = {
       data,
@@ -23,10 +17,10 @@ describe('useCommunitiesFeatured', () => {
     jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result } = renderHook(() => useCommunitiesFeatured());
+    const { result } = renderHook(() => useConference(conferenceId));
 
     // assert
-    expect(result.current.communities).toEqual(expectedCommunities);
+    expect(result.current.conference).toEqual(data);
     expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
     expect(result.current.error).toEqual(useRequestHook.error);
   });
@@ -34,7 +28,6 @@ describe('useCommunitiesFeatured', () => {
   it('should return expected from useRequest given data is null', async () => {
     // arrange
     const data = null;
-    const expectedCommunities = [];
 
     const useRequestHook = {
       data,
@@ -44,10 +37,10 @@ describe('useCommunitiesFeatured', () => {
     jest.spyOn(useRequest, 'default').mockImplementation(() => useRequestHook);
 
     // act
-    const { result } = renderHook(() => useCommunitiesFeatured());
+    const { result } = renderHook(() => useConference(conferenceId));
 
     // assert
-    expect(result.current.communities).toEqual(expectedCommunities);
+    expect(result.current.conference).toEqual(data);
     expect(result.current.isLoaded).toEqual(useRequestHook.isLoaded);
     expect(result.current.error).toEqual(useRequestHook.error);
   });

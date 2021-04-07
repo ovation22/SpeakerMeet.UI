@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -6,9 +6,8 @@ import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import endpoints from '../constants/endpoints';
-import { trackException } from '../services/telemetry.service';
 import ErrorSnackbar from './ErrorSnackbar';
+import useStats from '../hooks/useStats';
 
 const useStyles = makeStyles(() => ({
   micSection: {
@@ -30,33 +29,12 @@ const useStyles = makeStyles(() => ({
 
 export default function Home() {
   const classes = useStyles();
-  const [error, setError] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
-  const [stats, setStats] = useState(null);
+  const { error, isLoaded, stats } = useStats();
 
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(endpoints.stats);
-        const result = await response.json();
-        if (response.ok) {
-          setStats(result);
-        } else {
-          throw new Error(result);
-        }
-      } catch (e) {
-        setError(e);
-        trackException(e);
-      }
-      setLoaded(true);
-    };
-    fetchData();
-  }, []);
 
   return (
     <Paper className={classes.micSection} square>
