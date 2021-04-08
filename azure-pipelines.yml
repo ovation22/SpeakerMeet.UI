@@ -96,3 +96,4 @@ steps:
     inputs:
       targetPath: $(Build.SourcesDirectory)
       artifactName: 'SpeakerMeet.UI'
+
