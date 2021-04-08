@@ -54,7 +54,7 @@
     "test:cover": "npm test -- --coverage --reporters=default --reporters=jest-junit --watchAll=true",
     "test:cover:open": "open coverage/lcov-report/index.html",
     "test:ci": "react-scripts test --coverage --watchAll=false --testResultsProcessor jest-sonar-reporter",
-    "sonar": "node sonar-project.tsx",
+    "sonar": "node sonar-project.js",
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.js\" -f table"
   },
