@@ -13,10 +13,10 @@ variables:
   npm_cache_path: $(Build.SourcesDirectory)/node_modules
   npm_cache_key: npm | $(Agent.OS) | package-lock.json
   branchName: $(Build.SourceBranchName)
-  projectKey: $(SonarQubeProjectKey)
-  projectName:  $(SonarQubeProjectName)
-  sonarQubeServerUrl: $(SonarQubeServerUrl)
-  sonarQubeToken: $(SonarQubeToken)
+  projectKey: $(AzureSonarQubeProjectKey)
+  projectName:  $(AzureSonarQubeProjectName)
+  sonarQubeServerUrl: $(AzureSonarQubeServerUrl)
+  sonarQubeToken: $(AzureSonarQubeToken)
   isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 steps:
