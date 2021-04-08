@@ -10,16 +10,34 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  npm_cache: $(Build.SourcesDirectory)/node_modules
-  cypress_cache: $(Build.SourceDirectory)/cypress
+  npm_cache_path: $(Build.SourcesDirectory)/node_modules
+  npm_cache_key: npm | $(Agent.OS) | package-lock.json
+  branchName: $(Build.SourceBranchName)
+  projectKey: $(SonarQubeProjectKey)
+  projectName:  $(SonarQubeProjectName)
+  sonarQubeServerUrl: $(SonarQubeServerUrl)
+  sonarQubeToken: $(SonarQubeToken)
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 steps:
+  - task: replacetokens@3
+    inputs:
+      targetFiles: 'sonar-project.js'
+      encoding: 'auto'
+      writeBOM: true
+      actionOnMissing: 'warn'
+      keepToken: false
+      tokenPrefix: '#{'
+      tokenSuffix: '}#'
+      useLegacyPattern: false
+      enableTelemetry: true
+
   - task: Cache@2
     displayName: Cache NPM packages
     inputs:
-      key: npm | $(Agent.OS) | $(Build.SourcesDirectory)/package-lock.json
-      restoreKeys: npm | $(Agent.OS) | $(Build.SourcesDirectory)/package-lock.json
-      path: $(npm_cache)
+      key: $(npm_cache_key)
+      restoreKeys: $(npm_cache_key)
+      path: $(npm_cache_path)
       cacheHitVar: CACHE_RESTORED
 
   - script: npm install --quiet
@@ -38,34 +56,13 @@ steps:
       command: custom
       customCommand: 'run test:ci'
 
-  - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-    displayName: 'Create .env.local'
+  - task: Npm@1
+    displayName: 'Publish Quality Gate Result'
     inputs:
-      targetFiles: |
-        *.env => *.env.local
-      actionOnMissing: 'silently continue'
-
-  - script: npx cypress install
-    displayName: Install Cypress
-
-  - script: npm run cy:verify
-    displayName: Cypress verify
-
-  - script: |
-      npx print-env AGENT
-      npx print-env BUILD
-      npx print-env SYSTEM
-      npm run cy:ci
-    displayName: Run Cypress tests
-    env:
-      # avoid warnings about terminal
-      TERM: xterm
-
-  - task: DeleteFiles@1
-    displayName: 'Remove .env.local'
-    inputs:
-      contents: |
-        .env.local
+      command: 'custom'
+      workingDir: '$(Build.SourcesDirectory)'
+      customCommand: 'run sonar'
+    condition: eq(variables.isMaster, true)
 
   - task: PublishTestResults@2
     displayName: Publish test results
