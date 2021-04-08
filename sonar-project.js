@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import sonarqubeScanner from 'sonarqube-scanner';
+const sonarqubeScanner = require('sonarqube-scanner');
 
 sonarqubeScanner(
   {
