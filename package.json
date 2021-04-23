@@ -75,6 +75,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },  
+  "jest-junit": {
+    "usePathForSuiteName": true,
+    "suiteNameTemplate": "{filename}",
+    "outputName": "coverage/jest-junit/junit.xml",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " - "
   },
   "jestSonar": {
     "reportPath": "reports",
