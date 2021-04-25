@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Home() {
+export default function MicSection() {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);

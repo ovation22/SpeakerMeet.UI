@@ -24,7 +24,7 @@ export default function TwitterContent({ url }) {
   }, [url]);
 
   return (
-    <section className="twitterContainer">
+    <section className="twitterContent">
       <div id="twitter-embed" className="twitter-embed" />
     </section>
   );
