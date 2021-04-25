@@ -17,7 +17,7 @@ import endpoints from '../constants/endpoints';
 import routes from '../constants/routes';
 import { trackException } from '../services/telemetry.service';
 import SpeakerCard from '../components/SpeakerCard';
-import TwitterContainer from '../components/TwitterContainer';
+import TwitterContent from '../components/TwitterContent';
 
 const useStyles = makeStyles(theme => ({
   twitter: {
@@ -95,7 +95,7 @@ export default function SpeakerDetail() {
               </Grid>
               <Grid item sm={4} className={classes.twitter}>
                 {speaker.socialPlatforms.find(x => x.name === 'Twitter') && (
-                  <TwitterContainer
+                  <TwitterContent
                     url={speaker.socialPlatforms.find(x => x.name === 'Twitter').url}
                   />
                 )}
