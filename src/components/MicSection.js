@@ -69,7 +69,7 @@ export default function MicSection() {
               container
               spacing={4}
               alignItems="center"
-              justify="center"
+              justifyContent="center"
               style={{ height: 515 }}
             >
               <Grid item xs={12} md={4} align="center">

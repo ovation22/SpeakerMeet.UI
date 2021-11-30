@@ -2,14 +2,14 @@ import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, createTheme } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 import Main from './Main';
 import TelemetryProvider from './utils/TelemetryProvider';
 import config from './constants/config';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontSize: 12,
     fontFamily: `"Helvetica Neue", "Helvetica", "Arial", sans-serif`,

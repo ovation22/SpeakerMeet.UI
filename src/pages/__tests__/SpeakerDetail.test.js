@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core';
 import SpeakerDetail from '../SpeakerDetail';
 import { render } from '../../utils/test.utilitiy';
 
@@ -34,7 +34,7 @@ describe('SpeakerDetail', () => {
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => speakersFeaturedResponseMock);
 
-    const theme = createMuiTheme();
+    const theme = createTheme();
 
     const tree = (
       <ThemeProvider theme={theme}>
