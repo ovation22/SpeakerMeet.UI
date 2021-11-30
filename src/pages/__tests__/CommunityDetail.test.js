@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core';
 import CommunityDetail from '../CommunityDetail';
 import { render } from '../../utils/test.utilitiy';
 
@@ -34,7 +34,7 @@ describe('CommunityDetail', () => {
     });
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => communitiesFeaturedResponseMock);
 
-    const theme = createMuiTheme();
+    const theme = createTheme();
 
     const tree = (
       <ThemeProvider theme={theme}>
