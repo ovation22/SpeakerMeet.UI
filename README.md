@@ -56,3 +56,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+
+## Statistics
+
+![Alt](https://repobeats.axiom.co/api/embed/e108df3f9029f7124b95e66e9a4ade2163b12499.svg "Repobeats analytics image")
